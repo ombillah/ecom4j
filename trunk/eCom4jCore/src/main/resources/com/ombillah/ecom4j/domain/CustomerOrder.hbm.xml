@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 17, 2009 8:33:40 AM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+    <class name="com.ombillah.ecom4j.domain.CustomerOrder" table="CUSTOMERORDER">
+        <id name="orderID" type="long">
+            <column name="ORDERID" length="50" />
+        </id>
+        <many-to-one name="customer" class="com.ombillah.ecom4j.domain.Customer" fetch="select">
+            <column name="EMAIL_ADDRESS" length="100" not-null="true" />
+        </many-to-one>
+        <property name="status" type="string">
+            <column name="STATUS" length="50" not-null="true" />
+        </property>
+        <property name="totalCost" type="float">
+            <column name="TOTALCOST" precision="0" scale="0" not-null="true" />
+        </property>
+        <property name="orderDate" type="java.sql.Date">
+            <column name="ORDERDATE" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

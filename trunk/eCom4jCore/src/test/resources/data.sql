@@ -1,0 +1,7 @@
+INSERT INTO CUSTOMER VALUES('omb1986@hotmail.com','Franklin','question','answer','Oussama','Billah','4519 Karl Rd', 'apt B', 'Columbus', 'OH', '43224', '614-555-5555')
+INSERT INTO PRODUCT_CATEGORY VALUES(1,'Laptops')
+INSERT INTO PRODUCT_CATEGORY VALUES(2,'Desktops')
+INSERT INTO PRODUCT VALUES(1111, 'Apple', 'iPhone', 'Apple iPhone 3G','http://www.ombillah.com/ecom4j/images/iphone.jpg',1,'In Stock',21,399.99, 1, CURRENT_TIMESTAMP)
+INSERT INTO PRODUCT VALUES(2222, 'HP', 'DV2000','HP Pavilion DV2000T','http://ombillah.com/ecom4j/images/hp.jpg',1,'In Stock',17,19.99, 0, CURRENT_TIMESTAMP)
+INSERT INTO CUSTOMERORDER VALUES(431,'omb1986@hotmail.com','IN PROCESS',479.00,'2010-07-02')
+INSERT INTO ORDERITEM VALUES(19,1111,431, 0)
