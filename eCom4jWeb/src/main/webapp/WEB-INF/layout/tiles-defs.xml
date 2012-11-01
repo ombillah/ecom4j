@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+	
+	 <!-- Common Layout tile  --> 
+	<definition name="commonLayout" template="/WEB-INF/layout/main_layout.jsp">
+		<put-attribute name="htmlTitle" type="string" value=""/>
+		<put-attribute name="header" value="/WEB-INF/jsp/header.jsp"/>
+		<put-attribute name="categories" value="/WEB-INF/jsp/categories.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/layout/blank.jsp"/>
+		<put-attribute name="cart" value="/WEB-INF/jsp/cart.jsp"/>
+		<put-attribute name="footer" value="/WEB-INF/jsp/footer.jsp"/>
+	</definition>
+	
+	<definition name="homePage" extends="commonLayout">
+		 <put-attribute name="htmlTitle" type="string" value="ecom4j Store"/>
+		 <put-attribute name="body" value="/WEB-INF/jsp/index.jsp"/>
+	</definition>
+	
+	<definition name="productDetails" extends="commonLayout">
+		 <put-attribute name="htmlTitle" type="string" value="Product Details"/>
+		 <put-attribute name="body" value="/WEB-INF/jsp/details.jsp"/>
+	</definition>
+	
+	<definition name="shoppingCart" extends="commonLayout">
+		 <put-attribute name="htmlTitle" type="string" value="Shopping Cart"/>
+		 <put-attribute name="body" value="/WEB-INF/jsp/shoppingCart.jsp"/>
+	</definition>
+	
+	<definition name="emptyCart" extends="commonLayout">
+		 <put-attribute name="htmlTitle" type="string" value="Shopping Cart"/>
+		 <put-attribute name="body" value="/WEB-INF/jsp/emptyCart.jsp"/>
+	</definition>
+	
+	<definition name="register" extends="commonLayout">
+		 <put-attribute name="htmlTitle" type="string" value="ecom4j Account Registration"/>
+		 <put-attribute name="body" value="/WEB-INF/jsp/register.jsp"/>
+	</definition>
+	
+	<definition name="catalog" extends="commonLayout">
+		 <put-attribute name="htmlTitle" type="string" value="Product Catalog"/>
+		 <put-attribute name="body" value="/WEB-INF/jsp/catalog.jsp"/>
+	</definition>
+	
+	<definition name="login" extends="commonLayout">
+		 <put-attribute name="htmlTitle" type="string" value="ecom4j Account Login"/>
+		 <put-attribute name="body" value="/WEB-INF/jsp/login.jsp"/>
+	</definition>
+	
+	<definition name="insertProduct" extends="commonLayout">
+		 <put-attribute name="htmlTitle" type="string" value="Insert Product"/>
+		 <put-attribute name="body" value="/WEB-INF/jsp/insertProduct.jsp"/>
+	</definition>
+
+	<definition name="showCheckout" extends="commonLayout">
+		 <put-attribute name="htmlTitle" type="string" value="Checkout"/>
+		 <put-attribute name="body" value="/WEB-INF/jsp/checkout.jsp"/>
+	</definition>
+
+	<definition name="contact" extends="commonLayout">
+		 <put-attribute name="htmlTitle" type="string" value="Contact Us"/>
+		 <put-attribute name="body" value="/WEB-INF/jsp/contact.jsp"/>
+	</definition>
+	
+	<definition name="preCheckout" extends="commonLayout">
+		 <put-attribute name="htmlTitle" type="string" value="Checkout Authentication"/>
+		 <put-attribute name="body" value="/WEB-INF/jsp/authentication.jsp"/>
+	</definition>
+	
+	<definition name="checkout" extends="commonLayout">
+		 <put-attribute name="htmlTitle" type="string" value="Order Confirmation"/>
+		 <put-attribute name="body" value="/WEB-INF/jsp/history.jsp"/>
+	</definition>
+	
+	<definition name="myaccount" extends="commonLayout">
+		 <put-attribute name="htmlTitle" type="string" value="My Account"/>
+		 <put-attribute name="body" value="/WEB-INF/jsp/myaccount.jsp"/>
+	</definition>
+	
+	<definition name="emailSent" extends="commonLayout">
+		 <put-attribute name="htmlTitle" type="string" value="Email Sent"/>
+		 <put-attribute name="body" value="/WEB-INF/jsp/sent.jsp"/>
+	</definition>
+	
+	<definition name="forgetPassword" extends="commonLayout">
+		 <put-attribute name="htmlTitle" type="string" value="Forget Password"/>
+		 <put-attribute name="body" value="/WEB-INF/jsp/forgetPassword.jsp"/>
+	</definition>
+	
+	<definition name="sendPassword" extends="commonLayout">
+		 <put-attribute name="htmlTitle" type="string" value="Password Sent"/>
+		 <put-attribute name="body" value="/WEB-INF/jsp/passwordSent.jsp"/>
+	</definition>
+	
+	
+</tiles-definitions>

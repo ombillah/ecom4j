@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.ombillah.ecom4j.domain.Product" table="PRODUCT">
+    
+        <id name="productID" column="PRODUCT_ID"></id>
+        <property name="make" column="MAKE" />   
+        <property name="model" column="MODEL" />
+        <property name="description" column="DESCRIPTION" />       
+        <property name="imageUrl" column="SRC" />
+        <property name="status" column="STATUS" />
+        <property name="quantity" column="QUANTITY" />
+        <property name="unitPrice" column="UNITPRICE" />
+        <property name="featuredOrder" column="IS_FEATURED" />
+        <property name="createdDate" column="CREATED_DT" />
+        <many-to-one name="category" column="CATEGORY_ID" 
+			class="com.ombillah.ecom4j.domain.ProductCategory" />
+			
+    </class>
+</hibernate-mapping>

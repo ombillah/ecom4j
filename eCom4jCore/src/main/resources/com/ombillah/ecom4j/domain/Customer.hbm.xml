@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Feb 17, 2009 8:33:40 AM by Hibernate Tools 3.2.2.GA -->
+<hibernate-mapping>
+	<class name="com.ombillah.ecom4j.domain.Customer" table="CUSTOMER" dynamic-update="true">
+
+		<id name="emailAddress" type="string">
+			<column name="EMAIL_ADDRESS" length="50" />
+			<generator class="assigned" />
+		</id>
+
+		<property name="password" type="string">
+			<column name="PASSWORD" length="50" not-null="true" />
+		</property>
+		
+		<property name="secretQuestion" type="string">
+			<column name="SECRET_QUESTION" length="500" not-null="true" />
+		</property>
+		
+		<property name="secretAnswer" type="string">
+			<column name="SECRET_ANSWER" length="500" />
+		</property>
+		
+		<property name="firstName" type="string">
+			<column name="FIRST_NAME" length="50" />
+		</property>
+		
+		<property name="lastName" type="string">
+			<column name="LAST_NAME" length="50" />
+		</property>
+		
+		<property name="address" type="string">
+			<column name="ADDRESS" length="100" not-null="true" />
+		</property>
+
+		<property name="address2" type="string">
+			<column name="ADDRESS2" length="100" not-null="false" />
+		</property>
+		
+		<property name="city" type="string">
+			<column name="CITY" length="50" not-null="true" />
+		</property>
+		
+		<property name="state" type="string">
+			<column name="STATE" length="20" not-null="true" />
+		</property>
+		
+		<property name="zipCode" type="string">
+			<column name="ZIP_CODE" length="20" />
+		</property>
+		
+		<property name="phoneNumber" type="string">
+			<column name="PHONE_NUMBER" length="20" not-null="true" />
+		</property>
+	</class>
+</hibernate-mapping>
