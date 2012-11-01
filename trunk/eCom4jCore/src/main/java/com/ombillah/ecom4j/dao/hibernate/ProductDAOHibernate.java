@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ombillah.ecom4j.dao.ProductDAO;
 import com.ombillah.ecom4j.domain.Product;
+import com.ombillah.ecom4j.domain.ProductSpecificationMap;
 import com.ombillah.ecom4j.utils.Constants;
 
 /**
@@ -72,7 +73,12 @@ public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements Pr
 		return productList;
 	}
 
-	
-
+	@SuppressWarnings("unchecked")
+	public List<ProductSpecificationMap> getProductSpecifications(Long productId) {
+		Criteria criteria = getSession().createCriteria(ProductSpecificationMap.class);
+		criteria.add(Restrictions.eq("productId", productId));
+		List<ProductSpecificationMap> specList = criteria.list();
+		return specList;
+	}
 
 }

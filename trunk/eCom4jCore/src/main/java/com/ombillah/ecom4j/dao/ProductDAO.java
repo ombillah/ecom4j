@@ -3,6 +3,7 @@ package com.ombillah.ecom4j.dao;
 import java.util.List;
 
 import com.ombillah.ecom4j.domain.Product;
+import com.ombillah.ecom4j.domain.ProductSpecificationMap;
 
 
 /**
@@ -22,5 +23,5 @@ public interface ProductDAO extends BaseDAO<Product> {
 
 	public List<String> getProductCategories();
 	
-	
+	public List<ProductSpecificationMap> getProductSpecifications(Long productId);
 }

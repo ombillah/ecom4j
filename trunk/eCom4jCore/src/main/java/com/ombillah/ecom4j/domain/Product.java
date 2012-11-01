@@ -22,7 +22,11 @@ public class Product extends BaseDomain {
 	private String make;
 	private String model;
 	private String description;
-	private String imageUrl;
+	private String mainImageUrl;
+	private String image1Url;
+	private String image2Url;
+	private String image3Url;
+	private String image4Url;
 	private ProductCategory category;
 	private String status;
 	private long quantity;
@@ -61,13 +65,45 @@ public class Product extends BaseDomain {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	public String getImageUrl() {
-		return imageUrl;
+
+	public String getMainImageUrl() {
+		return mainImageUrl;
 	}
 
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
+	public void setMainImageUrl(String mainImageUrl) {
+		this.mainImageUrl = mainImageUrl;
+	}
+
+	public String getImage1Url() {
+		return image1Url;
+	}
+
+	public void setImage1Url(String image1Url) {
+		this.image1Url = image1Url;
+	}
+
+	public String getImage2Url() {
+		return image2Url;
+	}
+
+	public void setImage2Url(String image2Url) {
+		this.image2Url = image2Url;
+	}
+
+	public String getImage3Url() {
+		return image3Url;
+	}
+
+	public void setImage3Url(String image3Url) {
+		this.image3Url = image3Url;
+	}
+
+	public String getImage4Url() {
+		return image4Url;
+	}
+
+	public void setImage4Url(String image4Url) {
+		this.image4Url = image4Url;
 	}
 
 	public String getStatus() {
@@ -102,6 +138,14 @@ public class Product extends BaseDomain {
 		this.category = category;
 	}
 	
+	public int getFeaturedOrder() {
+		return featuredOrder;
+	}
+
+	public void setFeaturedOrder(int featuredOrder) {
+		this.featuredOrder = featuredOrder;
+	}
+	
 	public Date getCreatedDate() {
 		return createdDate;
 	}
@@ -133,13 +177,6 @@ public class Product extends BaseDomain {
 		return HashCodeBuilder.reflectionHashCode(this);
 	}
 
-	public int getFeaturedOrder() {
-		return featuredOrder;
-	}
-
-	public void setFeaturedOrder(int featuredOrder) {
-		this.featuredOrder = featuredOrder;
-	}
 
 	
 }
