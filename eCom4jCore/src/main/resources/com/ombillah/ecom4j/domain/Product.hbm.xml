@@ -9,7 +9,11 @@
         <property name="make" column="MAKE" />   
         <property name="model" column="MODEL" />
         <property name="description" column="DESCRIPTION" />       
-        <property name="imageUrl" column="SRC" />
+        <property name="mainImageUrl" column="MAIN_IMAGE_URL" />
+        <property name="image1Url" column="IMAGE1_URL" />
+        <property name="image2Url" column="IMAGE2_URL" />
+        <property name="image3Url" column="IMAGE3_URL" />
+        <property name="image4Url" column="IMAGE4_URL" />
         <property name="status" column="STATUS" />
         <property name="quantity" column="QUANTITY" />
         <property name="unitPrice" column="UNITPRICE" />

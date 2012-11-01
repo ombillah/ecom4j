@@ -11,6 +11,7 @@ import org.springframework.util.CollectionUtils;
 
 import com.ombillah.ecom4j.dao.ProductDAO;
 import com.ombillah.ecom4j.domain.Product;
+import com.ombillah.ecom4j.domain.ProductSpecificationMap;
 import com.ombillah.ecom4j.exception.ProductExistsException;
 import com.ombillah.ecom4j.exception.ProductNotFoundException;
 import com.ombillah.ecom4j.service.ProductService;
@@ -82,6 +83,11 @@ public class ProductServiceImpl implements ProductService {
 	@Transactional
 	public List<String> getProductCategories() {
 		return productDao.getProductCategories();
+	}
+	
+	@Transactional
+	public List<ProductSpecificationMap> getProductSpecifications(Long productId) {
+		return productDao.getProductSpecifications(productId);
 	}
 	
 	/**
