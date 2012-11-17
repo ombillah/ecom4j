@@ -22,7 +22,9 @@
 					 <div class="marginT"><input size="40" name="j_password" style="background:#F0F0F0" type="password"></div>
 					 <div class="marginT"><a href="/forgetPassword.do">Forgot your password?</a></div>
 					 <br/>
-					 <div class="margin center"><input class="gradient_button"  style="width:100px; padding:1px" value="Login" type="submit"></div>
+					 	<button type="submit" class="gray">
+	                    	<span><span><span ><br/>Access My Account</span></span></span>
+	                	</button>
 		         </div>
     		</div>
     		
@@ -39,7 +41,11 @@
 						<li>And much more...!</li>
 						
 					</ul>
-					 <div class="margin center"><input class="gradient_button"  style="width:150px; padding:1px" value="Create Account" type="button" onclick="window.location='register.do'"></div>
+					 <div class="margin center">
+					 	<button type="button" class="gray" onclick="window.location='register.do'">
+	                    	<span><span><span ><br/>Create My Account</span></span></span>
+	                	</button>
+					 </div>
 		         </div>
     		</div>
     	</div>         

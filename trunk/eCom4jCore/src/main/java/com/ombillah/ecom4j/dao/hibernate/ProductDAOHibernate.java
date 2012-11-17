@@ -1,6 +1,9 @@
 package com.ombillah.ecom4j.dao.hibernate;
 
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -46,23 +49,7 @@ public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements Pr
 		List<Product> productList = criteria.list();
 		return productList;
 	}
-	
-	@SuppressWarnings("unchecked")
-	public List<String> getManufacturerList() {
-		String hquery = "select distinct make from Product order by make";
-		Query query = getSession().createQuery(hquery);
-		List<String> list = query.list();
-		return list;
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<String> getProductCategories() {
-		String hquery = "select distinct categoryName from ProductCategory order by categoryName";
-		Query query = getSession().createQuery(hquery);
-		List<String> list = query.list();
-		return list;
-	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Product> getFeaturedProducts() {
 		Criteria criteria = getSession().createCriteria(Product.class);
@@ -79,6 +66,57 @@ public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements Pr
 		criteria.add(Restrictions.eq("productId", productId));
 		List<ProductSpecificationMap> specList = criteria.list();
 		return specList;
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Product> getProductsByBrand(String brand) {
+		Criteria criteria = getSession().createCriteria(Product.class);
+		criteria.add(Restrictions.eq("make", brand));
+		
+		List<Product> productList = criteria.list();
+		return productList;
+	}
+
+	@SuppressWarnings("rawtypes")
+	public Map<String, Integer> getManufacturerList() {
+		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
+		Query query = getSession().getNamedQuery("getProductBrands");
+		Iterator it = query.iterate();
+		while (it.hasNext()) {  
+			Object[] row = (Object[]) it.next();  
+			String brand = row[0].toString();  
+			Integer count = Integer.parseInt(row[1].toString()); 
+			map.put(brand, count);  
+  		}  
+		return map;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public Map<String, Integer> getProductCategories() {
+		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
+		Query query = getSession().getNamedQuery("getProductCategories");
+		Iterator it = query.iterate();
+		while (it.hasNext()) {  
+			Object[] row = (Object[]) it.next();  
+			String category = row[0].toString();  
+			Integer count = Integer.parseInt(row[1].toString()); 
+			map.put(category, count);  
+  		}  
+		return map;
+	}
+	
+	@SuppressWarnings("rawtypes")
+	public Map<String, Integer> getProductPriceRange() {
+		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
+		Query query = getSession().getNamedQuery("getProductPriceRange");
+		Iterator it = query.iterate();
+		while (it.hasNext()) {  
+			Object[] row = (Object[]) it.next();  
+			String priceRange = row[0].toString();  
+			Integer count = Integer.parseInt(row[1].toString()); 
+			map.put(priceRange, count);  
+  		}  
+		return map;
 	}
 
 }

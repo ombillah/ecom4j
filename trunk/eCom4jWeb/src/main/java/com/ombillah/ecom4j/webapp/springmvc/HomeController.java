@@ -24,12 +24,8 @@ public class HomeController {
 	@RequestMapping(value = {"/home.do", "/"})
 	public String displayHomePage(ModelMap map) {
 		
-		List<Product> featuredProductsList = productService.getFeaturedProducts();
+		List<Product> featuredProducts = productService.getFeaturedProducts();
 		
-		Product mainProduct = featuredProductsList.get(0);
-		List<Product> featuredProducts = featuredProductsList.subList(1, featuredProductsList.size());
-		
-		map.put("mainProduct", mainProduct);
 		map.put("featuredProducts", featuredProducts);
 		
 		return "homePage";

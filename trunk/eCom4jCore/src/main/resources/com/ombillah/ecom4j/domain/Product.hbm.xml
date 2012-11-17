@@ -3,24 +3,55 @@
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.ombillah.ecom4j.domain.Product" table="PRODUCT">
-    
-        <id name="productID" column="PRODUCT_ID"></id>
-        <property name="make" column="MAKE" />   
-        <property name="model" column="MODEL" />
-        <property name="description" column="DESCRIPTION" />       
-        <property name="mainImageUrl" column="MAIN_IMAGE_URL" />
-        <property name="image1Url" column="IMAGE1_URL" />
-        <property name="image2Url" column="IMAGE2_URL" />
-        <property name="image3Url" column="IMAGE3_URL" />
-        <property name="image4Url" column="IMAGE4_URL" />
-        <property name="status" column="STATUS" />
-        <property name="quantity" column="QUANTITY" />
-        <property name="unitPrice" column="UNITPRICE" />
-        <property name="featuredOrder" column="IS_FEATURED" />
-        <property name="createdDate" column="CREATED_DT" />
-        <many-to-one name="category" column="CATEGORY_ID" 
+	<class name="com.ombillah.ecom4j.domain.Product" table="PRODUCT">
+
+		<id name="productID" column="PRODUCT_ID"></id>
+		<property name="make" column="MAKE" />
+		<property name="model" column="MODEL" />
+		<property name="description" column="DESCRIPTION" />
+		<property name="mainImageUrl" column="MAIN_IMAGE_URL" />
+		<property name="image1Url" column="IMAGE1_URL" />
+		<property name="image2Url" column="IMAGE2_URL" />
+		<property name="image3Url" column="IMAGE3_URL" />
+		<property name="image4Url" column="IMAGE4_URL" />
+		<property name="status" column="STATUS" />
+		<property name="quantity" column="QUANTITY" />
+		<property name="unitPrice" column="UNITPRICE" />
+		<property name="featuredOrder" column="IS_FEATURED" />
+		<property name="createdDate" column="CREATED_DT" />
+		<many-to-one name="category" column="CATEGORY_ID"
 			class="com.ombillah.ecom4j.domain.ProductCategory" />
-			
-    </class>
+
+	</class>
+
+	<query name="getProductBrands">
+        <![CDATA[SELECT product.make, COUNT(product.productID) 
+        				FROM Product product 
+        				group by product.make 
+        				order by product.make
+        ]]>
+	</query>
+	<query name="getProductCategories">
+        <![CDATA[SELECT category.categoryName, COUNT(product.productID) 
+        				FROM Product as product
+        				right join product.category as category 
+        				group by category.categoryName 
+        				order by category.categoryName
+        ]]>
+	</query>
+	<query name="getProductPriceRange">
+        <![CDATA[SELECT 
+				    CASE 
+				        WHEN UNITPRICE <= 199.99 THEN '$0 - $199.99'
+				        WHEN UNITPRICE <= 499.99 THEN '$199.99 - $499.99'
+				        WHEN UNITPRICE <= 999.99 THEN '$499.99 - $999.99'
+				        WHEN UNITPRICE <= 1999.99 THEN '$999.99 - $1999.99'
+				        ELSE '$1999.99 and up'
+				    END AS DESCRIPTION, COUNT(product.productID)
+				FROM
+				    Product product
+				    GROUP BY col_0_0_
+				    ORDER BY col_0_0_
+        ]]>
+	</query>
 </hibernate-mapping>

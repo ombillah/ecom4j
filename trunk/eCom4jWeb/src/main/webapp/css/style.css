@@ -220,9 +220,10 @@ ul.left_menu li.even a:hover,ul.left_menu li.odd a:hover {
 }
 
 .product_title {
-	color: #ff8a00;
+	color: #262626;
 	padding: 5px 0 5px 0;
 	font-weight: bold;
+	height: 45px;
 }
 
 .product_title a {
@@ -267,7 +268,7 @@ span.price {
 	height: 33px;
 	float: left;
 	padding: 0 0 0 40px;
-	margin: 0 0 0 12px;
+	margin: 0 50px 0 12px;
 	_margin: 0 0 0 6px;
 	line-height: 33px;
 	font-size: 12px;
@@ -321,9 +322,10 @@ span.border_cart {
 /*---------prod_box----------*/
 .prod_box {
 	width: 173px;
-	height: auto;
+	height: 270px;
 	float: left;
 	padding: 10px 10px 10px 11px;
+	text-align: center;
 }
 
 .top_prod_box {
@@ -347,7 +349,6 @@ span.border_cart {
 .center_prod_box {
 	width: 173px;
 	height: auto;
-	background: url(../images/product_box_center.gif) repeat-y;
 	float: left;
 	text-align: center;
 	padding: 0px;
@@ -462,6 +463,7 @@ span.reduce {
 
 span.price {
 	color: #ea2222;
+	font-weight: bold;
 }
 
 a.addtocart {
@@ -863,12 +865,19 @@ img {
 	font-weight: bold;
 }
 
+.standout_white {
+	color: #FFFFFF;
+	font-family: Arial;
+	font-size: 14px;
+	font-weight: bold;
+}
+
 .register_benefits li {
 	margin-top: 5px;
 }
 
 .login_header {
-	background: none repeat scroll 0 0 #F0F0F0;
+	background-color: #F0F0F0;
 	float: right;
 	width: 200px;
 	text-align: center;
@@ -906,7 +915,7 @@ img {
 	z-index: 10000;
 	background-color: white;
 	opacity: 0.75;
-	filter: alpha(opacity =     75); /* for internet explorer */
+	filter: alpha(opacity =             75); /* for internet explorer */
 	opacity: 0.75; /* CSS3 standard */
 	-moz-opacity: 0.75; /* for older gecko browsers */
 	-khtml-opacity: 0.75; /* for older webkit browsers */
@@ -921,27 +930,151 @@ img {
 }
 
 .gradient_button {
-	 padding:5px 15px 5px 15px;
-	 font-weight:bold;
-	 color:#363636;
-	 border:1px solid #bfc4c4; background-color: #d9dddd;
-	 background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d9dddd), color-stop(100%, #c6c3c3));
-	 background-image: -webkit-linear-gradient(top, #d9dddd, #c6c3c3);
-	 background-image: -moz-linear-gradient(top, #d9dddd, #c6c3c3);
-	 background-image: -ms-linear-gradient(top, #d9dddd, #c6c3c3);
-	 background-image: -o-linear-gradient(top, #d9dddd, #c6c3c3);
-	 background-image: linear-gradient(top, #d9dddd, #c6c3c3);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#d9dddd, endColorstr=#c6c3c3);
+	padding: 5px 15px 5px 15px;
+	font-weight: bold;
+	color: #363636;
+	border: 1px solid #bfc4c4;
+	background-color: #d9dddd;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #d9dddd),
+		color-stop(100%, #c6c3c3) );
+	background-image: -webkit-linear-gradient(top, #d9dddd, #c6c3c3);
+	background-image: -moz-linear-gradient(top, #d9dddd, #c6c3c3);
+	background-image: -ms-linear-gradient(top, #d9dddd, #c6c3c3);
+	background-image: -o-linear-gradient(top, #d9dddd, #c6c3c3);
+	background-image: linear-gradient(top, #d9dddd, #c6c3c3);
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,
+		startColorstr=#d9dddd, endColorstr=#c6c3c3 );
 }
 
 .gradient_button:hover {
-	 padding:5px 15px 5px 15px;
-	 font-weight:bold;
-	 color:#363636;
-	 border:1px solid #a0a0a0; background-color: #bababa;
-	 background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#bababa), color-stop(100%, #575757));
-	 background-image: -webkit-linear-gradient(top, #bababa, #575757);
-	 background-image: -moz-linear-gradient(top, #bababa, #575757);
-	 background-image: -ms-linear-gradient(top, #bababa, #575757);
-	 background-image: -o-linear-gradient(top, #bababa, #575757);
-	 background-image: linear-gradient(top, #bababa, #575757);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#bababa, endColorstr=#575757);
+	padding: 5px 15px 5px 15px;
+	font-weight: bold;
+	color: #363636;
+	border: 1px solid #a0a0a0;
+	background-color: #bababa;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #bababa),
+		color-stop(100%, #575757) );
+	background-image: -webkit-linear-gradient(top, #bababa, #575757);
+	background-image: -moz-linear-gradient(top, #bababa, #575757);
+	background-image: -ms-linear-gradient(top, #bababa, #575757);
+	background-image: -o-linear-gradient(top, #bababa, #575757);
+	background-image: linear-gradient(top, #bababa, #575757);
+	filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,
+		startColorstr=#bababa, endColorstr=#575757 );
+}
+
+button,button span,button span span,button span span span {
+	color: #2E2E2E;
+	cursor: pointer;
+	float: left;
+	font-family: arial;
+	font-size: 12px;
+	font-weight: bold;
+	height: 30px;
+	margin: 0;
+	overflow: visible;
+	padding: 0;
+	text-decoration: none;
+	line-height: 1.0;
+}
+
+button {
+	background: none repeat scroll 0 center transparent;
+	border: 0 solid #000000;
+	margin-right: 6px;
+	overflow: visible;
+	padding-right: 0;
+	white-space: nowrap;
+}
+
+button span {
+	margin: 0;
+	padding: 0 0 0 8px;
+}
+
+button span span {
+	margin: 0;
+	padding: 0 8px 0 0;
+}
+
+button span span span {
+	border: 0 solid #000000;
+	margin: 0;
+	padding-bottom: 0;
+	padding-left: 0;
+	padding-right: 0;
+	vertical-align: middle
+}
+
+button.gray span {
+	background: transparent url(../images/buttons/gray_button_left.png)
+		no-repeat scroll left top;
+}
+
+button.gray span span {
+	background: transparent url(../images/buttons/gray_button_right.png)
+		no-repeat scroll right top;
+}
+
+button.gray span span span {
+	background: #cdcdcd url(../images/buttons/gray_button_1px.png) repeat-x
+		scroll 0%;
+}
+
+button.gray span {
+	background: transparent url(../images/buttons/gray_button_left.png)
+		no-repeat scroll left top;
+}
+
+button.gray span span {
+	background: transparent url(../images/buttons/gray_button_right.png)
+		no-repeat scroll right top;
+}
+
+button.gray span span span {
+	background: #cdcdcd url(../images/buttons/gray_button_1px.png) repeat-x
+		scroll 0%;
+}
+
+.round_corner {
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	-webkit-box-shadow: #666 0px 2px 3px;
+	-moz-box-shadow: #666 0px 2px 3px;
+	box-shadow: #666 0px 2px 3px;
+	behavior: url(../../css/PIE.htc);
+}
+
+.gray_box {
+	background: #F0F0F0;
+	border: 1px solid #D8D8D8;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#F0F0F0),
+		to(#D8D8D8) );
+	background: -webkit-linear-gradient(#F0F0F0, #D8D8D8);
+	background: -moz-linear-gradient(#F0F0F0, #D8D8D8);
+	background: -ms-linear-gradient(#F0F0F0, #D8D8D8);
+	background: -o-linear-gradient(#F0F0F0, #D8D8D8);
+	background: linear-gradient(#F0F0F0, #D8D8D8);
+	-pie-background: linear-gradient(#F0F0F0, #D8D8D8);
+}
+
+.catalog_filters {
+	margin: 10px 5px 10px 5px;
+	padding: 5px;
+	overflow: auto;
+	display: inline-block;
+	float: left;
+}
+
+.list_no_bullets {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+.main_product {
+	position: relative;
+	margin: 5px 5px 5px 5px;
+	width: 600px;
+	height: 250px;
 }

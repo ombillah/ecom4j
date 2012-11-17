@@ -50,9 +50,8 @@ public class HomeControllerTest extends AbstractControllerTest{
 		mockMvc.perform(get("/home.do"))
 		  .andExpect(status().isOk())
 		  .andExpect(view().name("homePage"))
-		  .andExpect(model().size(2))
-		  .andExpect(model().attribute("featuredProducts", featured.subList(1, 2)))
-		  .andExpect(model().attribute("mainProduct", featured.get(1)));
+		  .andExpect(model().size(1))
+		  .andExpect(model().attribute("featuredProducts", featured));
 		
 		verify(productServiceMock);
 

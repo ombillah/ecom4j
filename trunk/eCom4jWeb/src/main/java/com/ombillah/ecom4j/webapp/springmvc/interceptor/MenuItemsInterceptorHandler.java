@@ -1,6 +1,6 @@
 package com.ombillah.ecom4j.webapp.springmvc.interceptor;
 
-import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,8 +31,8 @@ public class MenuItemsInterceptorHandler extends HandlerInterceptorAdapter {
 			Object handler, 
 			ModelAndView modelAndView) throws Exception {
 		
-		List<String> productCategories = (List<String>) request.getSession().getAttribute("productCategories");
-		List<String> brands = (List<String>) request.getSession().getAttribute("brands");
+		Map<String, Integer> productCategories = (Map<String, Integer>) request.getSession().getAttribute("productCategories");
+		Map<String, Integer> brands = (Map<String, Integer>) request.getSession().getAttribute("brands");
 		
 		if (CollectionUtils.isEmpty(productCategories)) {
 			productCategories = productService.getProductCategories();
