@@ -43,6 +43,7 @@
 	<definition name="catalog" extends="commonLayout">
 		 <put-attribute name="htmlTitle" type="string" value="Product Catalog"/>
 		 <put-attribute name="body" value="/WEB-INF/jsp/catalog.jsp"/>
+		 <put-attribute name="categories" value="/WEB-INF/jsp/productFilter.jsp"/>
 	</definition>
 	
 	<definition name="login" extends="commonLayout">

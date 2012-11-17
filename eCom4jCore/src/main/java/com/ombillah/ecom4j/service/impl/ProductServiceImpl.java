@@ -2,18 +2,17 @@ package com.ombillah.ecom4j.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.NonUniqueObjectException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 
 import com.ombillah.ecom4j.dao.ProductDAO;
 import com.ombillah.ecom4j.domain.Product;
 import com.ombillah.ecom4j.domain.ProductSpecificationMap;
 import com.ombillah.ecom4j.exception.ProductExistsException;
-import com.ombillah.ecom4j.exception.ProductNotFoundException;
 import com.ombillah.ecom4j.service.ProductService;
 
 
@@ -31,27 +30,23 @@ public class ProductServiceImpl implements ProductService {
 	
 	
 	@Transactional
-	public Product getProductDetails(Long productId) throws Exception {
+	public Product getProductDetails(Long productId) {
 		return productDao.getObject(Product.class, productId);
 	}
 
 	@Transactional
-	public List<Product> getProducts() throws Exception {
+	public List<Product> getProducts() {
 		return productDao.getObjects(Product.class);
 	}
 
 	@Transactional
-	public List<Product> searchForProducts(String keyword) throws Exception {
+	public List<Product> searchForProducts(String keyword) {
 		List<Product> products = productDao.searchForProduct(keyword);
-		
-		if (CollectionUtils.isEmpty(products)){
-			throw new ProductNotFoundException("No result found, please use a different keyword");
-		}
 		return products;
 	}
 
 	@Transactional (readOnly = false)
-	public void updateProduct(Product product) throws Exception {
+	public void updateProduct(Product product) {
 		productDao.updateObject(product);
 	}
 	
@@ -71,23 +66,33 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Transactional
-	public List<String> getManufacturerList() {
+	public Map<String, Integer> getManufacturerList() {
 		return productDao.getManufacturerList();
 	}
-
+	
+	@Transactional
+	public Map<String, Integer> getProductCategories() {
+		return productDao.getProductCategories();
+	}
+	
 	@Transactional
 	public List<Product> getFeaturedProducts() {
 		return productDao.getFeaturedProducts();
 	}
 	
 	@Transactional
-	public List<String> getProductCategories() {
-		return productDao.getProductCategories();
+	public List<ProductSpecificationMap> getProductSpecifications(Long productId) {
+		return productDao.getProductSpecifications(productId);
+	}
+
+	@Transactional
+	public List<Product> getProductsByBrand(String brand) {
+		return productDao.getProductsByBrand(brand);
 	}
 	
 	@Transactional
-	public List<ProductSpecificationMap> getProductSpecifications(Long productId) {
-		return productDao.getProductSpecifications(productId);
+	public Map<String, Integer> getProductPriceRange() {
+		return productDao.getProductPriceRange();
 	}
 	
 	/**
@@ -97,6 +102,8 @@ public class ProductServiceImpl implements ProductService {
 	public void setProductDAO(ProductDAO productDao) {
 		this.productDao = productDao;
 	}
+
+
 
 	
 	

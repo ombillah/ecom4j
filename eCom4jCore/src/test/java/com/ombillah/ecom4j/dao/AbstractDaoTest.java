@@ -201,27 +201,6 @@ public abstract class AbstractDaoTest extends AbstractTransactionalJUnit4SpringC
 
 	}
 	
-	/**
-	 * Test for getting list of manufacturers/
-	 */
-	@Test
-	public void testgetManufacturerList() {
-		List<String> list = productDao.getManufacturerList();
-		assertEquals(2, list.size());
-		assertEquals("Apple", list.get(0));
-		assertEquals("HP", list.get(1));
-
-	}
-	
-	@Test
-	public void testgetProductCategories() {
-		List<String> list = productDao.getProductCategories();
-		assertEquals(2, list.size());
-		assertEquals("Desktops", list.get(0));
-		assertEquals("Laptops", list.get(1));
-
-	}
-	
 	@Test
 	public void testgetFeaturedPage() {
 		List<Product> list = productDao.getFeaturedProducts();
@@ -237,6 +216,30 @@ public abstract class AbstractDaoTest extends AbstractTransactionalJUnit4SpringC
 		assertEquals("Model Number", list.get(0).getSpecification().getName());
 		assertEquals("2000-425NR", list.get(0).getSpecification().getDescription());
 		assertEquals("General Information", list.get(0).getSpecification().getCategory());
+		
+	}
+	
+	@Test
+	public void testGetManufacturerList() {
+		Map<String, Integer> map = productDao.getManufacturerList();
+		assertEquals(2, map.size());
+		assertEquals(1, map.get("Apple").intValue());
+		
+	}
+	
+	@Test
+	public void testgetProductCategories() {
+		Map<String, Integer> map = productDao.getProductCategories();
+		assertEquals(2, map.size());
+		assertEquals(2, map.get("Laptops").intValue());
+		
+	}
+	
+	@Test
+	public void testgetProductPriceRange() {
+		Map<String, Integer> map = productDao.getProductPriceRange();
+		assertEquals(2, map.size());
+		assertEquals(1, map.get("$199.99 - $499.99").intValue());
 		
 	}
 }

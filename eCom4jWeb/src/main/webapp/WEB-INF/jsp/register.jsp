@@ -134,7 +134,12 @@
           		<td width="800" align="center" colspan="3">${reCaptcha}</td>
           	</tr>
           	<tr>
-          		<td width="800" align="center" colspan="3"><input type="submit" class="register_hdr_block" style="width:175px" value="Create My Account" /></td>
+          		<td width="250" align="center"></td>
+          		<td width="400" align="center" colspan="2">
+          			<button type="submit" class="gray">
+                    	<span><span><span ><br/>Create My Account</span></span></span>
+                	</button>
+          		</td>
           	</tr>
           </table>
         </div>

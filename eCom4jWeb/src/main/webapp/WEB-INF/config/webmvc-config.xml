@@ -21,8 +21,8 @@
 	<context:annotation-config />
 	
 	<context:component-scan base-package="com.ombillah.ecom4j.webapp" />
-	<context:property-placeholder location="classpath:applicationConfig.properties"/>
-	
+	<context:property-placeholder location="classpath:applicationConfig.properties,classpath:database.properties"/>
+		
 	
 	<!--  redirect login url to view directly, no need for controller. -->
 	<mvc:view-controller path="/login.do" view-name="login" />
@@ -42,11 +42,8 @@
 		</property>
 	</bean>
 	
-	<bean id="tilesviewResolver"
-		class="org.springframework.web.servlet.view.UrlBasedViewResolver">
-		<property name="viewClass"
-			value="org.springframework.web.servlet.view.tiles2.TilesView" />
-		<property name="order" value="1" />
+	<bean id="tilesViewResolver" class="org.springframework.js.ajax.AjaxUrlBasedViewResolver">
+		<property name="viewClass" value="org.springframework.webflow.mvc.view.FlowAjaxTilesView"/>
 	</bean>
 	
 	<bean name="jsr303Validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
@@ -54,8 +51,8 @@
     </bean>
     
 	<bean id="reCaptcha" class="net.tanesha.recaptcha.ReCaptchaImpl">
-        <property name="privateKey" value="6LfTpdQSAAAAAI_4ZIekq3BDz47UbwTF_-3qxlfN" />
-        <property name="publicKey" value="6LfTpdQSAAAAAFyExJoZn1vVqJUA5KlPpWFUVWwp" />
+        <property name="privateKey" value="${RECAPTCHA_PRIVATE_KEY}" />
+        <property name="publicKey" value="${RECAPTCHA_PUBLIC_KEY}" />
         <property name="includeNoscript" value="false" />
 	</bean>
 	
@@ -63,7 +60,18 @@
 	<bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">  
 		<property name="basename" value="classpath:messages" />
 	</bean>  
-      
+    
+    <!-- Maps request paths to flows in the flowRegistry; e.g. a path of /cart/checkout looks for a flow with id "/cart/checkout". -->
+	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+		<property name="order" value="-1"/>
+		<property name="flowRegistry" ref="flowRegistry" />
+	</bean>
+	
+		<!-- Dispatches requests mapped to flows to FlowHandler implementations -->
+	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+		<property name="flowExecutor" ref="flowExecutor"/>
+	</bean>
+
 	<util:list id="states" value-type="java.lang.String">
 	    <value>Alabama</value>
 	    <value>Alaska</value>

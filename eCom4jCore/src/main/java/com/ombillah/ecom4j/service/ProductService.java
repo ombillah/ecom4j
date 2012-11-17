@@ -1,6 +1,7 @@
 package com.ombillah.ecom4j.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.ombillah.ecom4j.dao.ProductDAO;
 import com.ombillah.ecom4j.domain.Product;
@@ -13,27 +14,29 @@ import com.ombillah.ecom4j.domain.ProductSpecificationMap;
  */
 public interface ProductService {
 	
-	public List<Product> getProducts() throws Exception;
+	public List<Product> getProducts();
 
-	public Product getProductDetails(Long productId) throws Exception;
+	public Product getProductDetails(Long productId);
 
-	public List<Product> searchForProducts(String keyword) throws Exception;
+	public List<Product> searchForProducts(String keyword);
 	
-	public void updateProduct(Product product) throws Exception;
+	public void updateProduct(Product product);
 	
 	public void createProduct(Product product) throws Exception;
 	
 	public List<Product> getProductsByCategory(String category);
-
-	public List<String> getManufacturerList();
 	
 	public List<Product> getFeaturedProducts();
-
-	public List<String> getProductCategories();
 	
 	public List<ProductSpecificationMap> getProductSpecifications(Long productId);
 	
 	public void setProductDAO(ProductDAO productDao);
 
+	public List<Product> getProductsByBrand(String brand);
 	
+	public Map<String, Integer> getManufacturerList();
+	
+	public Map<String, Integer> getProductCategories();
+	
+	public Map<String, Integer> getProductPriceRange();
 }

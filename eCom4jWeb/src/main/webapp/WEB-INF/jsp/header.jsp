@@ -11,7 +11,7 @@
       </form>
     </div>
     <sec:authorize access="isAnonymous()">
-		<div class="login_header">
+		<div class="login_header round_corner">
 	      <span class="marginR"><a href="login.do">Sign in</a></span> <font color="red">|</font> <span class="marginL"><a href="register.do">Create account</a></span>
 		</div>
 	</sec:authorize>

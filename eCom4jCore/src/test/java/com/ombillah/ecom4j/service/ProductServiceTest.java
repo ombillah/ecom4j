@@ -14,7 +14,6 @@ import static org.easymock.EasyMock.*;
 
 import com.ombillah.ecom4j.dao.ProductDAO;
 import com.ombillah.ecom4j.domain.Product;
-import com.ombillah.ecom4j.exception.ProductNotFoundException;
 import com.ombillah.ecom4j.service.impl.ProductServiceImpl;
 
 /**
@@ -57,7 +56,7 @@ public class ProductServiceTest {
 	}
 
 	@SuppressWarnings("unchecked")
-	@Test (expected= ProductNotFoundException.class)
+	@Test
 	public void testSearchForProducts() throws Exception {
 		// test for every description that contains the word "iphone5"
 		List<Product> product = createMock(List.class);
@@ -72,29 +71,14 @@ public class ProductServiceTest {
 		// test for no result.
 		expect(productDaoMock.searchForProduct("Invalid")).andReturn(null);
 		replay(productDaoMock);
-		try {
-			productService.searchForProducts("Invalid");
-		} finally {
-			verify(productDaoMock);
-		}
+		assertEquals(null, productService.searchForProducts("Invalid"));
+		verify(productDaoMock);
+		
 	}
+
 	
 	@Test
 	public void testUpdateProduct() throws Exception {
-		
-		List<String> list = new ArrayList<String>();
-		list.add("HP");
-		list.add("Apple");
-		
-		expect(productDaoMock.getManufacturerList()).andReturn(list);		
-		replay(productDaoMock);
-		assertEquals(list, productService.getManufacturerList());
-		verify(productDaoMock);
-
-	}
-	
-	@Test
-	public void testGetManufacturerList() throws Exception {
 		
 		Product product = createMock(Product.class);
 		productDaoMock.updateObject(product);
