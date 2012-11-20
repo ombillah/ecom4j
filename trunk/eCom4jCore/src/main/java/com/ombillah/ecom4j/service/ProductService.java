@@ -39,4 +39,6 @@ public interface ProductService {
 	public Map<String, Integer> getProductCategories();
 	
 	public Map<String, Integer> getProductPriceRange();
+
+	public List<Product> getProducts(Map<String, String[]> catalogFilters);
 }

@@ -242,4 +242,20 @@ public abstract class AbstractDaoTest extends AbstractTransactionalJUnit4SpringC
 		assertEquals(1, map.get("$199.99 - $499.99").intValue());
 		
 	}
+	
+	@Test
+	public void testgetProductsByFilter() {
+		String[] brands = {"Apple", "HP"};
+		String[] categories = {"Laptops"};
+		String[] prices = {"100-200", "300-400"};
+		Map<String, String[]> map = new HashMap<String, String[]>();
+		map.put("make", brands);
+		map.put("category", categories);
+		map.put("price", prices);
+		
+		List<Product> list = productDao.getProducts(map);
+		assertEquals(1, list.size());
+		assertEquals("Apple iPhone 3G", list.get(0).getDescription());
+		
+	}
 }

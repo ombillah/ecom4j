@@ -1,5 +1,6 @@
 package com.ombillah.ecom4j.webapp.springmvc.viewbean;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,8 +24,18 @@ public class CatalogViewBean extends BaseDomain {
 	private Map<String, Integer> brands;
 	private Map<String, Integer> categories;
 	private Map<String, Integer> priceRanges;
-	private List<CatalogFilter> catalogFilters;
-
+	private Map<String, String[]> catalogFilters;
+	
+	public CatalogViewBean() {
+		
+		Map<String, String[]> filters = new HashMap<String, String[]>();
+		String[] all = {"all"};
+		filters.put("category", all);
+		filters.put("brand", all);
+		filters.put("price", all);
+		this.catalogFilters = filters;
+		
+	}
 	public List<Product> getProducts() {
 		return products;
 	}
@@ -57,11 +68,11 @@ public class CatalogViewBean extends BaseDomain {
 		this.priceRanges = priceRanges;
 	}
 
-	public List<CatalogFilter> getCatalogFilters() {
+	public Map<String, String[]> getCatalogFilters() {
 		return catalogFilters;
 	}
 
-	public void setCatalogFilters(List<CatalogFilter> catalogFilters) {
+	public void setCatalogFilters(Map<String, String[]> catalogFilters) {
 		this.catalogFilters = catalogFilters;
 	}
 

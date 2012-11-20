@@ -94,6 +94,11 @@ public class ProductServiceImpl implements ProductService {
 	public Map<String, Integer> getProductPriceRange() {
 		return productDao.getProductPriceRange();
 	}
+
+	@Transactional
+	public List<Product> getProducts(Map<String, String[]> catalogFilters) {
+		return productDao.getProducts(catalogFilters);
+	}
 	
 	/**
 	 * setter to be used for Mocking.
@@ -102,6 +107,7 @@ public class ProductServiceImpl implements ProductService {
 	public void setProductDAO(ProductDAO productDao) {
 		this.productDao = productDao;
 	}
+
 
 
 
