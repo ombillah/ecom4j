@@ -81,7 +81,7 @@ public class CatalogController {
 		}else if(StringUtils.isNotBlank(brand)){
 			products = productService.getProductsByBrand(brand);
 		} else {
-			products = productService.getProducts();
+			products = productService.getProducts(catalogViewBean.getCatalogFilters());
 		}
 		catalogViewBean.setProducts(products);
 	}

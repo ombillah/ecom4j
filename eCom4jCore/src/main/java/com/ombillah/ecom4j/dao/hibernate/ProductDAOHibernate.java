@@ -5,8 +5,10 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
+import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -117,6 +119,35 @@ public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements Pr
 			map.put(priceRange, count);  
   		}  
 		return map;
+	}
+
+
+	@SuppressWarnings("unchecked")
+	public List<Product> getProducts(Map<String, String[]> catalogFilters) {
+		Criteria criteria = getSession().createCriteria(Product.class);
+		for(String filterName : catalogFilters.keySet()) {
+			String[] filterValues = catalogFilters.get(filterName);
+			if(StringUtils.equals(filterValues[0], "all")) {
+				continue;
+			}
+			if(StringUtils.equals(filterName, "price")) {
+				Disjunction disj = Restrictions.disjunction();
+				for(String priceRange : filterValues) {
+					String[] priceRangeArray = priceRange.split("-");
+					Float lowerLimit = Float.valueOf(priceRangeArray[0]);
+					Float upperLimit = Float.valueOf(priceRangeArray[1]);
+					disj.add(Restrictions.between("unitPrice", lowerLimit , upperLimit));
+				}
+				criteria.add(disj);
+			} else if(StringUtils.equals(filterName, "category")){
+				criteria.createAlias("category","category");
+				criteria.add(Restrictions.in("category.categoryName", filterValues));
+			} else {
+				criteria.add(Restrictions.in(filterName, filterValues));
+			}
+		}
+		List<Product> productList = criteria.list();
+		return productList;
 	}
 
 }

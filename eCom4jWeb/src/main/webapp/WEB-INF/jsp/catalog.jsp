@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <div class="center_content" style="width:780px">
     <c:forEach items="${catalogViewBean.products}" var="product">
 		<div class="prod_box">
@@ -13,7 +14,6 @@
 				</div>
 			</div>
 			<a href="catalog.do"><img alt="" src="images/addtocart.png" onmouseover="this.src='images/addtocart_hover.png'" onmouseout="this.src='images/addtocart.png'"></a>
-			
 		</div>
 	</c:forEach>
 </div>

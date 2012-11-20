@@ -17,23 +17,23 @@ import com.ombillah.ecom4j.domain.Product;
 public class CatalogFilter extends BaseDomain {
 
 	private static final long serialVersionUID = 1L;
-	private String filterName;
-	private String filterValue;
+	private String name;
+	private String[] values;
 
-	public String getFilterName() {
-		return filterName;
+	public String getName() {
+		return name;
 	}
 
-	public void setFilterName(String filterName) {
-		this.filterName = filterName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getFilterValue() {
-		return filterValue;
+	public String[] getValues() {
+		return values;
 	}
 
-	public void setFilterValue(String filterValue) {
-		this.filterValue = filterValue;
+	public void setValues(String[] values) {
+		this.values = values;
 	}
 
 	@Override
