@@ -42,10 +42,14 @@
 	
 	<definition name="catalog" extends="commonLayout">
 		 <put-attribute name="htmlTitle" type="string" value="Product Catalog"/>
-		 <put-attribute name="body" value="/WEB-INF/jsp/catalog.jsp"/>
+		 <put-attribute name="body" value="catalogContent"/>
 		 <put-attribute name="categories" value="/WEB-INF/jsp/productFilter.jsp"/>
 	</definition>
 	
+	<definition name="catalogContent" template="/WEB-INF/jsp/catalog.jsp">
+    	
+	</definition>
+
 	<definition name="login" extends="commonLayout">
 		 <put-attribute name="htmlTitle" type="string" value="ecom4j Account Login"/>
 		 <put-attribute name="body" value="/WEB-INF/jsp/login.jsp"/>

@@ -1,7 +1,6 @@
 package com.ombillah.ecom4j.webapp.springmvc.viewbean;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -10,7 +9,6 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 import com.ombillah.ecom4j.domain.BaseDomain;
-import com.ombillah.ecom4j.domain.Product;
 
 /**
  * Model object for Catalog page.
@@ -20,7 +18,7 @@ import com.ombillah.ecom4j.domain.Product;
 public class CatalogViewBean extends BaseDomain {
 
 	private static final long serialVersionUID = 1L;
-	private List<Product> products;
+	private Page currentPage;
 	private Map<String, Integer> brands;
 	private Map<String, Integer> categories;
 	private Map<String, Integer> priceRanges;
@@ -31,17 +29,18 @@ public class CatalogViewBean extends BaseDomain {
 		Map<String, String[]> filters = new HashMap<String, String[]>();
 		String[] all = {"all"};
 		filters.put("category", all);
-		filters.put("brand", all);
+		filters.put("make", all);
 		filters.put("price", all);
 		this.catalogFilters = filters;
 		
 	}
-	public List<Product> getProducts() {
-		return products;
+
+	public Page getCurrentPage() {
+		return currentPage;
 	}
 
-	public void setProducts(List<Product> products) {
-		this.products = products;
+	public void setCurrentPage(Page currentPage) {
+		this.currentPage = currentPage;
 	}
 
 	public Map<String, Integer> getBrands() {
@@ -79,7 +78,7 @@ public class CatalogViewBean extends BaseDomain {
 
 	@Override
 	public boolean equals(Object object) {
-		if (!(object instanceof Product)) {
+		if (!(object instanceof CatalogViewBean)) {
 			return false;
 		}
 

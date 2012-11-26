@@ -23,22 +23,18 @@ public interface ProductService {
 	public void updateProduct(Product product);
 	
 	public void createProduct(Product product) throws Exception;
-	
-	public List<Product> getProductsByCategory(String category);
-	
+		
 	public List<Product> getFeaturedProducts();
 	
 	public List<ProductSpecificationMap> getProductSpecifications(Long productId);
 	
 	public void setProductDAO(ProductDAO productDao);
-
-	public List<Product> getProductsByBrand(String brand);
 	
 	public Map<String, Integer> getManufacturerList();
 	
 	public Map<String, Integer> getProductCategories();
 	
 	public Map<String, Integer> getProductPriceRange();
-
-	public List<Product> getProducts(Map<String, String[]> catalogFilters);
+	
+	public List<Product> getProducts(Map<String, String[]> catalogFilters, Integer startIndex, Integer pageSize);
 }

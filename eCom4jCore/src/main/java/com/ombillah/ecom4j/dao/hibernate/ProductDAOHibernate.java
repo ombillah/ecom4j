@@ -27,17 +27,6 @@ import com.ombillah.ecom4j.utils.Constants;
 @Repository
 public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements ProductDAO {
 	
-
-	@SuppressWarnings("unchecked")
-	public List<Product> getProductsByCat(String category) {
-		Criteria criteria = getSession().createCriteria(Product.class);
-		criteria.createAlias("category","category");
-		criteria.add(Restrictions.eq("category.categoryName", category));
-		
-		List<Product> productList = criteria.list();
-		return productList;
-	}
-	
 	@SuppressWarnings("unchecked")
 	public List<Product> searchForProduct(String keyword) {
 		Criteria criteria = getSession().createCriteria(Product.class);
@@ -68,15 +57,6 @@ public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements Pr
 		criteria.add(Restrictions.eq("productId", productId));
 		List<ProductSpecificationMap> specList = criteria.list();
 		return specList;
-	}
-
-	@SuppressWarnings("unchecked")
-	public List<Product> getProductsByBrand(String brand) {
-		Criteria criteria = getSession().createCriteria(Product.class);
-		criteria.add(Restrictions.eq("make", brand));
-		
-		List<Product> productList = criteria.list();
-		return productList;
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -123,7 +103,7 @@ public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements Pr
 
 
 	@SuppressWarnings("unchecked")
-	public List<Product> getProducts(Map<String, String[]> catalogFilters) {
+	public List<Product> getProducts(Map<String, String[]> catalogFilters, Integer startIndex, Integer pageSize) {
 		Criteria criteria = getSession().createCriteria(Product.class);
 		for(String filterName : catalogFilters.keySet()) {
 			String[] filterValues = catalogFilters.get(filterName);
@@ -133,7 +113,7 @@ public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements Pr
 			if(StringUtils.equals(filterName, "price")) {
 				Disjunction disj = Restrictions.disjunction();
 				for(String priceRange : filterValues) {
-					String[] priceRangeArray = priceRange.split("-");
+					String[] priceRangeArray = priceRange.split(" - ");
 					Float lowerLimit = Float.valueOf(priceRangeArray[0]);
 					Float upperLimit = Float.valueOf(priceRangeArray[1]);
 					disj.add(Restrictions.between("unitPrice", lowerLimit , upperLimit));
@@ -146,6 +126,8 @@ public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements Pr
 				criteria.add(Restrictions.in(filterName, filterValues));
 			}
 		}
+		criteria.setMaxResults(startIndex);
+		criteria.setFirstResult(pageSize);
 		List<Product> productList = criteria.list();
 		return productList;
 	}
