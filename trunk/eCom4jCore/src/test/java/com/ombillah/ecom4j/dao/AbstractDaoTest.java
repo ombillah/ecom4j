@@ -177,16 +177,6 @@ public abstract class AbstractDaoTest extends AbstractTransactionalJUnit4SpringC
 		customerDao.updateObject(customer);
 		assertEquals("newPassword", customerDao.getObject(Customer.class, "omb1986@hotmail.com").getPassword());
 	}
-
-	/**
-	 * Test to ensure that getProductByCat() method.
-	 */
-	
-	@Test
-	public void testGetProductByCat() {
-		assertEquals(2, productDao.getProductsByCat("Laptops").size());
-		assertEquals(0, productDao.getProductsByCat("No Category").size());
-	}
 	
 	/**
 	 * Test to ensure that searchForProduct() method.
@@ -239,7 +229,7 @@ public abstract class AbstractDaoTest extends AbstractTransactionalJUnit4SpringC
 	public void testgetProductPriceRange() {
 		Map<String, Integer> map = productDao.getProductPriceRange();
 		assertEquals(2, map.size());
-		assertEquals(1, map.get("$199.99 - $499.99").intValue());
+		assertEquals(1, map.get("$199.99-$499.99").intValue());
 		
 	}
 	
@@ -253,7 +243,7 @@ public abstract class AbstractDaoTest extends AbstractTransactionalJUnit4SpringC
 		map.put("category", categories);
 		map.put("price", prices);
 		
-		List<Product> list = productDao.getProducts(map);
+		List<Product> list = productDao.getProducts(map, 0, 10);
 		assertEquals(1, list.size());
 		assertEquals("Apple iPhone 3G", list.get(0).getDescription());
 		

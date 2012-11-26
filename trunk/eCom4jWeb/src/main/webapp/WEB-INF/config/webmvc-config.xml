@@ -12,6 +12,11 @@
 	<mvc:annotation-driven validator="jsr303Validator" />
 	
 	<mvc:interceptors>
+		<bean class="org.springframework.orm.hibernate3.support.OpenSessionInViewInterceptor">
+	        <property name="sessionFactory">
+	            <ref local="sessionFactory" />
+	        </property>
+    	</bean>
 		<mvc:interceptor>
 		     <mvc:mapping path="/*" />
 		     <ref bean="menuItemsInterceptorHandler"/>
@@ -43,7 +48,7 @@
 	</bean>
 	
 	<bean id="tilesViewResolver" class="org.springframework.js.ajax.AjaxUrlBasedViewResolver">
-		<property name="viewClass" value="org.springframework.webflow.mvc.view.FlowAjaxTilesView"/>
+		<property name="viewClass"  value="org.springframework.webflow.mvc.view.FlowAjaxTilesView"/>
 	</bean>
 	
 	<bean name="jsr303Validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">

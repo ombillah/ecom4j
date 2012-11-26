@@ -59,11 +59,6 @@ public class ProductServiceImpl implements ProductService {
 			throw new ProductExistsException("product already exist");
 		}
 	}
-	
-	@Transactional
-	public List<Product> getProductsByCategory(String category){
-		return productDao.getProductsByCat(category);
-	}
 
 	@Transactional
 	public Map<String, Integer> getManufacturerList() {
@@ -86,18 +81,13 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Transactional
-	public List<Product> getProductsByBrand(String brand) {
-		return productDao.getProductsByBrand(brand);
-	}
-	
-	@Transactional
 	public Map<String, Integer> getProductPriceRange() {
 		return productDao.getProductPriceRange();
 	}
 
 	@Transactional
-	public List<Product> getProducts(Map<String, String[]> catalogFilters) {
-		return productDao.getProducts(catalogFilters);
+	public List<Product> getProducts(Map<String, String[]> catalogFilters, Integer startIndex, Integer pageSize) {
+		return productDao.getProducts(catalogFilters, startIndex, pageSize);
 	}
 	
 	/**
@@ -107,13 +97,5 @@ public class ProductServiceImpl implements ProductService {
 	public void setProductDAO(ProductDAO productDao) {
 		this.productDao = productDao;
 	}
-
-
-
-
-	
-	
-
-
 
 }

@@ -31,6 +31,9 @@ public class MenuItemsInterceptorHandler extends HandlerInterceptorAdapter {
 			Object handler, 
 			ModelAndView modelAndView) throws Exception {
 		
+		if (modelAndView == null) {
+			return;
+		}
 		Map<String, Integer> productCategories = (Map<String, Integer>) request.getSession().getAttribute("productCategories");
 		Map<String, Integer> brands = (Map<String, Integer>) request.getSession().getAttribute("brands");
 		

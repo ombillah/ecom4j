@@ -1042,7 +1042,7 @@ button.gray span span span {
 	-webkit-box-shadow: #666 0px 2px 3px;
 	-moz-box-shadow: #666 0px 2px 3px;
 	box-shadow: #666 0px 2px 3px;
-	behavior: url(../../css/PIE.htc);
+	behavior: url(css/PIE.htc);
 }
 
 .gray_box {
@@ -1056,6 +1056,7 @@ button.gray span span span {
 	background: -o-linear-gradient(#F0F0F0, #D8D8D8);
 	background: linear-gradient(#F0F0F0, #D8D8D8);
 	-pie-background: linear-gradient(#F0F0F0, #D8D8D8);
+	behavior: url(css/PIE.htc);
 }
 
 .catalog_filters {
@@ -1077,4 +1078,27 @@ button.gray span span span {
 	margin: 5px 5px 5px 5px;
 	width: 600px;
 	height: 250px;
+}
+
+
+
+.light_gray_box {
+	border: 1px solid #e8e8e8;
+	background: #ffffff;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#ffffff), to(#e8e8e8));
+	background: -webkit-linear-gradient(#ffffff, #e8e8e8);
+	background: -moz-linear-gradient(#ffffff, #e8e8e8);
+	background: -ms-linear-gradient(#ffffff, #e8e8e8);
+	background: -o-linear-gradient(#ffffff, #e8e8e8);
+	background: linear-gradient(#ffffff, #e8e8e8);
+	-pie-background: linear-gradient(#ffffff, #e8e8e8);
+	behavior: url(css/PIE.htc);
+}
+
+.pagination_box {
+	width:725px; 
+	height:25px;
+	margin-left:25px;
+	padding:5px 10px 0px 10px;
+	color:#2f2f2f;
 }

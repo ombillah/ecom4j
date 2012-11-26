@@ -14,15 +14,11 @@ import com.ombillah.ecom4j.domain.ProductSpecificationMap;
  */
 public interface ProductDAO extends BaseDAO<Product> {
 	
-	public List<Product> getProductsByCat(String category);
-	
 	public List<Product> searchForProduct(String keyword);
 		
 	public List<Product> getFeaturedProducts();
 	
 	public List<ProductSpecificationMap> getProductSpecifications(Long productId);
-
-	public List<Product> getProductsByBrand(String brand);
 	
 	public Map<String, Integer> getManufacturerList();
 	
@@ -30,5 +26,5 @@ public interface ProductDAO extends BaseDAO<Product> {
 	
 	public Map<String, Integer> getProductPriceRange();
 
-	public List<Product> getProducts(Map<String, String[]> catalogFilters);
+	public List<Product> getProducts(Map<String, String[]> catalogFilters, Integer startIndex, Integer pageSize);
 }

@@ -19,7 +19,9 @@
 		<property name="unitPrice" column="UNITPRICE" />
 		<property name="featuredOrder" column="IS_FEATURED" />
 		<property name="createdDate" column="CREATED_DT" />
-		<many-to-one name="category" column="CATEGORY_ID"
+		<many-to-one 
+			name="category" 
+			column="CATEGORY_ID"
 			class="com.ombillah.ecom4j.domain.ProductCategory" />
 
 	</class>
