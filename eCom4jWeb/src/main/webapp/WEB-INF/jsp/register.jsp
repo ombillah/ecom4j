@@ -110,7 +110,7 @@
           		<td width="350" align="left"></td>
           	</tr>
           	<tr>
-          		<td width="200" align="right">Zip Code*</td>
+          		<td width="200" align="right">Zip Code *</td>
           		<td width="250" align="left"><form:input path="zipCode" size="10"  cssStyle="background:#F0F0F0"  /></td>
           		<td width="350" align="left"></td>
           	</tr>

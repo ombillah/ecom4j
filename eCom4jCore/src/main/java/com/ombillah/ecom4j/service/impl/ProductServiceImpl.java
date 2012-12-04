@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.ombillah.ecom4j.dao.ProductDAO;
+import com.ombillah.ecom4j.domain.Page;
 import com.ombillah.ecom4j.domain.Product;
 import com.ombillah.ecom4j.domain.ProductSpecificationMap;
 import com.ombillah.ecom4j.exception.ProductExistsException;
@@ -86,10 +87,15 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Transactional
-	public List<Product> getProducts(Map<String, String[]> catalogFilters, Integer startIndex, Integer pageSize) {
-		return productDao.getProducts(catalogFilters, startIndex, pageSize);
+	public List<Product> getProducts(Page currentPage, Integer startIndex, Integer pageSize) {
+		return productDao.getProducts(currentPage, startIndex, pageSize);
 	}
 	
+	@Transactional
+	public Integer getproductsCount(Map<String, String[]> catalogFilter) {
+		return productDao.getProductsCount(catalogFilter);
+	}
+
 	/**
 	 * setter to be used for Mocking.
 	 * @param productDao
@@ -97,5 +103,6 @@ public class ProductServiceImpl implements ProductService {
 	public void setProductDAO(ProductDAO productDao) {
 		this.productDao = productDao;
 	}
+
 
 }

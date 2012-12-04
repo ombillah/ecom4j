@@ -153,6 +153,11 @@ public class Product extends BaseDomain {
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
+	
+	public String getName() {
+		String name = String.format("%s %s", make, model);
+		return name;
+	}
 
 	@Override
 	public boolean equals(Object object) {

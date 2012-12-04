@@ -13,7 +13,7 @@
 				<div class="product_img">
 					<input type="image" align="center" src="${product.mainImageUrl}" style="width:130px; height:130px;" />
 				</div>
-				<div class="product_title">${product.make} ${product.model} </div>
+				<div class="product_title">${product.name}</div>
 				
 				<div class="prod_price">
 					<span class="price">$ ${product.unitPrice}</span>

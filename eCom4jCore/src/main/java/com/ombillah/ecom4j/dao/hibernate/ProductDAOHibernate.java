@@ -1,3 +1,4 @@
+
 package com.ombillah.ecom4j.dao.hibernate;
 
 import java.util.Iterator;
@@ -10,10 +11,12 @@ import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 
 import com.ombillah.ecom4j.dao.ProductDAO;
+import com.ombillah.ecom4j.domain.Page;
 import com.ombillah.ecom4j.domain.Product;
 import com.ombillah.ecom4j.domain.ProductSpecificationMap;
 import com.ombillah.ecom4j.utils.Constants;
@@ -103,7 +106,8 @@ public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements Pr
 
 
 	@SuppressWarnings("unchecked")
-	public List<Product> getProducts(Map<String, String[]> catalogFilters, Integer startIndex, Integer pageSize) {
+	public List<Product> getProducts(Page currentPage, Integer startIndex, Integer pageSize) {
+		Map<String, String[]> catalogFilters = currentPage.getCatalogFilters();
 		Criteria criteria = getSession().createCriteria(Product.class);
 		for(String filterName : catalogFilters.keySet()) {
 			String[] filterValues = catalogFilters.get(filterName);
@@ -126,10 +130,57 @@ public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements Pr
 				criteria.add(Restrictions.in(filterName, filterValues));
 			}
 		}
-		criteria.setMaxResults(startIndex);
-		criteria.setFirstResult(pageSize);
+		criteria.setMaxResults(pageSize);
+		criteria.setFirstResult(startIndex);
+		
+		addSortingCriteria(currentPage, criteria);
 		List<Product> productList = criteria.list();
 		return productList;
+	}
+
+	private void addSortingCriteria(Page currentPage, Criteria criteria) {
+		
+		String sortField = currentPage.getSortBy();
+		
+		if(StringUtils.equals("name", sortField) && currentPage.isSortAsc()) {
+			criteria.addOrder(Order.asc("make"));
+			criteria.addOrder(Order.asc("model"));
+		} else if(StringUtils.equals("name", sortField) && !currentPage.isSortAsc()) {
+			criteria.addOrder(Order.desc("make"));
+			criteria.addOrder(Order.desc("model"));
+		} else if(currentPage.isSortAsc()) {
+			criteria.addOrder(Order.asc(sortField));
+		} else {
+			criteria.addOrder(Order.desc(sortField));
+		}
+	}
+
+	public Integer getProductsCount(Map<String, String[]> catalogFilters) {
+		Criteria criteria = getSession().createCriteria(Product.class);
+		for(String filterName : catalogFilters.keySet()) {
+			String[] filterValues = catalogFilters.get(filterName);
+			if(StringUtils.equals(filterValues[0], "all")) {
+				continue;
+			}
+			if(StringUtils.equals(filterName, "price")) {
+				Disjunction disj = Restrictions.disjunction();
+				for(String priceRange : filterValues) {
+					String[] priceRangeArray = priceRange.split(" - ");
+					Float lowerLimit = Float.valueOf(priceRangeArray[0]);
+					Float upperLimit = Float.valueOf(priceRangeArray[1]);
+					disj.add(Restrictions.between("unitPrice", lowerLimit , upperLimit));
+				}
+				criteria.add(disj);
+			} else if(StringUtils.equals(filterName, "category")){
+				criteria.createAlias("category","category");
+				criteria.add(Restrictions.in("category.categoryName", filterValues));
+			} else {
+				criteria.add(Restrictions.in(filterName, filterValues));
+			}
+		}
+
+		Integer count = (Integer) criteria.setProjection(Projections.rowCount()).uniqueResult();
+		return count;	
 	}
 
 }
