@@ -3,6 +3,7 @@ package com.ombillah.ecom4j.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.ombillah.ecom4j.domain.Page;
 import com.ombillah.ecom4j.domain.Product;
 import com.ombillah.ecom4j.domain.ProductSpecificationMap;
 
@@ -26,5 +27,7 @@ public interface ProductDAO extends BaseDAO<Product> {
 	
 	public Map<String, Integer> getProductPriceRange();
 
-	public List<Product> getProducts(Map<String, String[]> catalogFilters, Integer startIndex, Integer pageSize);
+	public List<Product> getProducts(Page currentPage, Integer startIndex, Integer pageSize);
+
+	public Integer getProductsCount(Map<String, String[]> catalogFilter);
 }

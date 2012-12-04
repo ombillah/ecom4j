@@ -24,7 +24,7 @@
 	<c:forEach items="${catalogViewBean.priceRanges}" var="range">
 		<c:if test="${ range.value gt 0 }">
 			<c:set var="value" value="${fn:replace(range.key,  '$', '')}" />
-			<c:set var="value" value="${fn:replace(value,  ' and up', '-9999999999')}" />
+			<c:set var="value" value="${fn:replace(value,  ' and up', ' - 9999999999')}" />
 			<input type="checkbox" name="price_${range.key}" value="${value}" />${range.key} (${range.value})</br>
 		</c:if>
 	</c:forEach>
@@ -55,10 +55,15 @@ function setProductFilter(filterName) {
            $('input[name=' + filterName + '_all]').attr('checked', false);
        	}
 	   var $checked = $('input[name*="' + filterName + '"]:checked');
+	   if($checked.length == 0) {
+		   $('input[name=' + filterName + '_all]').attr('checked', true);
+		   $checked = $('input[name*="' + filterName + '"]:checked');
+	   }
 	   var filterValues = []
 	   $.each($checked , function(index, field) { 
 		   filterValues.push(field.value);
 		 });
+	   
 	   var catalogFilter = new Object();
 	   catalogFilter.name = filterName;
 	   catalogFilter.values = filterValues;
@@ -77,7 +82,7 @@ function setProductFilter(filterName) {
 		setTimeout(function() {
 	    	   $("#ajax_box").hide();
 	    	   $('.center_content').replaceWith(response.responseText);
-	    	}, 1000);
+	    	}, 500);
 		
 	}
 }

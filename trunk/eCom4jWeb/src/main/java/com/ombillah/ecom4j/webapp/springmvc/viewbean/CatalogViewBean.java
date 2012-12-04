@@ -1,6 +1,5 @@
 package com.ombillah.ecom4j.webapp.springmvc.viewbean;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -9,6 +8,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 import com.ombillah.ecom4j.domain.BaseDomain;
+import com.ombillah.ecom4j.domain.Page;
 
 /**
  * Model object for Catalog page.
@@ -18,22 +18,10 @@ import com.ombillah.ecom4j.domain.BaseDomain;
 public class CatalogViewBean extends BaseDomain {
 
 	private static final long serialVersionUID = 1L;
-	private Page currentPage;
+	private Page currentPage = new Page();
 	private Map<String, Integer> brands;
 	private Map<String, Integer> categories;
 	private Map<String, Integer> priceRanges;
-	private Map<String, String[]> catalogFilters;
-	
-	public CatalogViewBean() {
-		
-		Map<String, String[]> filters = new HashMap<String, String[]>();
-		String[] all = {"all"};
-		filters.put("category", all);
-		filters.put("make", all);
-		filters.put("price", all);
-		this.catalogFilters = filters;
-		
-	}
 
 	public Page getCurrentPage() {
 		return currentPage;
@@ -65,14 +53,6 @@ public class CatalogViewBean extends BaseDomain {
 
 	public void setPriceRanges(Map<String, Integer> priceRanges) {
 		this.priceRanges = priceRanges;
-	}
-
-	public Map<String, String[]> getCatalogFilters() {
-		return catalogFilters;
-	}
-
-	public void setCatalogFilters(Map<String, String[]> catalogFilters) {
-		this.catalogFilters = catalogFilters;
 	}
 
 

@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.ombillah.ecom4j.domain.Customer;
 import com.ombillah.ecom4j.domain.CustomerOrder;
 import com.ombillah.ecom4j.domain.OrderItem;
+import com.ombillah.ecom4j.domain.Page;
 import com.ombillah.ecom4j.domain.Product;
 import com.ombillah.ecom4j.domain.ProductSpecificationMap;
 /**
@@ -229,7 +230,7 @@ public abstract class AbstractDaoTest extends AbstractTransactionalJUnit4SpringC
 	public void testgetProductPriceRange() {
 		Map<String, Integer> map = productDao.getProductPriceRange();
 		assertEquals(2, map.size());
-		assertEquals(1, map.get("$199.99-$499.99").intValue());
+		assertEquals(1, map.get("$199.99 - $499.99").intValue());
 		
 	}
 	
@@ -237,13 +238,17 @@ public abstract class AbstractDaoTest extends AbstractTransactionalJUnit4SpringC
 	public void testgetProductsByFilter() {
 		String[] brands = {"Apple", "HP"};
 		String[] categories = {"Laptops"};
-		String[] prices = {"100-200", "300-400"};
+		String[] prices = {"100 - 200", "300 - 400"};
 		Map<String, String[]> map = new HashMap<String, String[]>();
 		map.put("make", brands);
 		map.put("category", categories);
 		map.put("price", prices);
 		
-		List<Product> list = productDao.getProducts(map, 0, 10);
+		Page page = new Page();
+		page.setCatalogFilters(map);
+		page.setSortAsc(false);
+		page.setSortBy("name");
+		List<Product> list = productDao.getProducts(page, 0, 10);
 		assertEquals(1, list.size());
 		assertEquals("Apple iPhone 3G", list.get(0).getDescription());
 		
