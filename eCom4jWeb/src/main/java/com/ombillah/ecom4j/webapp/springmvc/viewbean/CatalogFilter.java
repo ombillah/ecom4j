@@ -6,7 +6,6 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
 import com.ombillah.ecom4j.domain.BaseDomain;
-import com.ombillah.ecom4j.domain.Product;
 
 /**
  * Model object for Catalog Filters.
@@ -38,7 +37,7 @@ public class CatalogFilter extends BaseDomain {
 
 	@Override
 	public boolean equals(Object object) {
-		if (!(object instanceof Product)) {
+		if (!(object instanceof CatalogFilter)) {
 			return false;
 		}
 

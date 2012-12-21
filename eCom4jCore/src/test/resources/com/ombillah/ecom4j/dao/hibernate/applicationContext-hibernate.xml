@@ -20,6 +20,7 @@
 		<value>com/ombillah/ecom4j/domain/Product.hbm.xml</value>
 		<value>com/ombillah/ecom4j/domain/ProductSpecificationMaster.hbm.xml</value>
 		<value>com/ombillah/ecom4j/domain/ProductSpecificationMap.hbm.xml</value>
+		<value>com/ombillah/ecom4j/domain/ProductRating.hbm.xml</value>
 	</util:list>
 
 	<bean id="sessionFactory"

@@ -1,6 +1,9 @@
 package com.ombillah.ecom4j.domain;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -28,6 +31,7 @@ public class Product extends BaseDomain {
 	private String image3Url;
 	private String image4Url;
 	private ProductCategory category;
+	private List<ProductRating> productRatings;
 	private String status;
 	private long quantity;
 	private float unitPrice;
@@ -138,6 +142,14 @@ public class Product extends BaseDomain {
 		this.category = category;
 	}
 	
+	public List<ProductRating> getProductRatings() {
+		return productRatings;
+	}
+
+	public void setProductRatings(List<ProductRating> productRatings) {
+		this.productRatings = productRatings;
+	}
+
 	public int getFeaturedOrder() {
 		return featuredOrder;
 	}
@@ -157,6 +169,34 @@ public class Product extends BaseDomain {
 	public String getName() {
 		String name = String.format("%s %s", make, model);
 		return name;
+	}
+	
+	public Map<Long, Long> getProductRatingGrouping() {
+		Map<Long, Long> ratingMap = new HashMap<Long, Long>();
+		for(ProductRating rating : this.productRatings) {
+			if(ratingMap.get(rating.getRatingOutOf5()) == null) {
+				ratingMap.put(rating.getRatingOutOf5(), 1L);
+			} else {
+				Long numberOfRatings = ratingMap.get(rating.getRatingOutOf5()) + 1L;
+				ratingMap.put(rating.getRatingOutOf5(), numberOfRatings);
+			}
+		}
+		return ratingMap;
+	}
+	
+	public Double getProductRatingAverage() {
+		Map<Long, Long> ratingMap = getProductRatingGrouping();
+		if (ratingMap.isEmpty()) {
+			return 1 + (5 - 1) * new java.util.Random().nextDouble();
+		}
+		Double ratingsSum = 0.0;
+		Long totalRatings = 0L;
+		for(Long rating : ratingMap.keySet()) {
+			ratingsSum += (rating * ratingMap.get(rating));
+			totalRatings += ratingMap.get(rating);
+		}
+		Double weightedAverage = ratingsSum / totalRatings;
+		return weightedAverage;
 	}
 
 	@Override

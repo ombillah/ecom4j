@@ -1091,6 +1091,7 @@ button.gray span span span {
 	background: -ms-linear-gradient(#ffffff, #e8e8e8);
 	background: -o-linear-gradient(#ffffff, #e8e8e8);
 	background: linear-gradient(#ffffff, #e8e8e8);
+	box-shadow: #666 0px 0px 2px;
 	-pie-background: linear-gradient(#ffffff, #e8e8e8);
 	behavior: url(css/PIE.htc);
 }
@@ -1100,5 +1101,20 @@ button.gray span span span {
 	height:25px;
 	margin-left:25px;
 	padding:5px 10px 0px 10px;
-	color:#2f2f2f;
+	color:#666666;
 }
+
+.pagination_box select{
+	color:#666666; 
+}
+span.stars, span.stars span {
+    display: block;
+    background: url(../images/stars.png) 0 -16px repeat-x;
+    width: 80px;
+    height: 16px;
+}
+
+span.stars span {
+    background-position: 0 0;
+}
+

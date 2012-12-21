@@ -18,6 +18,7 @@ import org.springframework.stereotype.Repository;
 import com.ombillah.ecom4j.dao.ProductDAO;
 import com.ombillah.ecom4j.domain.Page;
 import com.ombillah.ecom4j.domain.Product;
+import com.ombillah.ecom4j.domain.ProductRating;
 import com.ombillah.ecom4j.domain.ProductSpecificationMap;
 import com.ombillah.ecom4j.utils.Constants;
 
@@ -115,14 +116,7 @@ public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements Pr
 				continue;
 			}
 			if(StringUtils.equals(filterName, "price")) {
-				Disjunction disj = Restrictions.disjunction();
-				for(String priceRange : filterValues) {
-					String[] priceRangeArray = priceRange.split(" - ");
-					Float lowerLimit = Float.valueOf(priceRangeArray[0]);
-					Float upperLimit = Float.valueOf(priceRangeArray[1]);
-					disj.add(Restrictions.between("unitPrice", lowerLimit , upperLimit));
-				}
-				criteria.add(disj);
+				createPricingCriteria(criteria, filterValues);
 			} else if(StringUtils.equals(filterName, "category")){
 				criteria.createAlias("category","category");
 				criteria.add(Restrictions.in("category.categoryName", filterValues));
@@ -154,7 +148,19 @@ public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements Pr
 			criteria.addOrder(Order.desc(sortField));
 		}
 	}
+	
 
+	private void createPricingCriteria(Criteria criteria, String[] filterValues) {
+		Disjunction disj = Restrictions.disjunction();
+		for(String priceRange : filterValues) {
+			String[] priceRangeArray = priceRange.split(" - ");
+			Float lowerLimit = Float.valueOf(priceRangeArray[0]);
+			Float upperLimit = Float.valueOf(priceRangeArray[1]);
+			disj.add(Restrictions.between("unitPrice", lowerLimit , upperLimit));
+		}
+		criteria.add(disj);
+	}
+	
 	public Integer getProductsCount(Map<String, String[]> catalogFilters) {
 		Criteria criteria = getSession().createCriteria(Product.class);
 		for(String filterName : catalogFilters.keySet()) {
@@ -163,14 +169,7 @@ public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements Pr
 				continue;
 			}
 			if(StringUtils.equals(filterName, "price")) {
-				Disjunction disj = Restrictions.disjunction();
-				for(String priceRange : filterValues) {
-					String[] priceRangeArray = priceRange.split(" - ");
-					Float lowerLimit = Float.valueOf(priceRangeArray[0]);
-					Float upperLimit = Float.valueOf(priceRangeArray[1]);
-					disj.add(Restrictions.between("unitPrice", lowerLimit , upperLimit));
-				}
-				criteria.add(disj);
+				createPricingCriteria(criteria, filterValues);
 			} else if(StringUtils.equals(filterName, "category")){
 				criteria.createAlias("category","category");
 				criteria.add(Restrictions.in("category.categoryName", filterValues));
@@ -183,4 +182,8 @@ public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements Pr
 		return count;	
 	}
 
+	
+	public void createProductReview(ProductRating rating) {
+		getSession().save(rating);
+	}
 }

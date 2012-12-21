@@ -23,6 +23,17 @@
 			name="category" 
 			column="CATEGORY_ID"
 			class="com.ombillah.ecom4j.domain.ProductCategory" />
+		
+		<bag 
+        	name="productRatings"
+            table="PRODUCT_RATING"
+            cascade="all"
+            lazy="false"
+            order-by="CREATED_DT desc"
+          >
+            <key column="PRODUCT_ID"/>
+            <one-to-many class="com.ombillah.ecom4j.domain.ProductRating"/>
+      </bag >
 
 	</class>
 

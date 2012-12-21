@@ -28,7 +28,7 @@ public class PaginationHandlterImpl implements PaginationHandler {
 		currentPage.setTotalNumberOfProducts(count);
 		Float pagesCountD = count.floatValue() / currentPage.getPageSize();
 		Double pagesCount = Math.ceil(pagesCountD);
-		return pagesCount.longValue();
+		return 100L;//pagesCount.longValue();
 	}
 
 	
