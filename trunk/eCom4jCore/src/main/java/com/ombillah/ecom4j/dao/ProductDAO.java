@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.ombillah.ecom4j.domain.Page;
 import com.ombillah.ecom4j.domain.Product;
+import com.ombillah.ecom4j.domain.ProductRating;
 import com.ombillah.ecom4j.domain.ProductSpecificationMap;
 
 
@@ -30,4 +31,7 @@ public interface ProductDAO extends BaseDAO<Product> {
 	public List<Product> getProducts(Page currentPage, Integer startIndex, Integer pageSize);
 
 	public Integer getProductsCount(Map<String, String[]> catalogFilter);
+	
+	public void createProductReview(ProductRating rating);
+
 }

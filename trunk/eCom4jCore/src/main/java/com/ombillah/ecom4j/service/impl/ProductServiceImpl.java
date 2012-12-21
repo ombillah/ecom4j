@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ombillah.ecom4j.dao.ProductDAO;
 import com.ombillah.ecom4j.domain.Page;
 import com.ombillah.ecom4j.domain.Product;
+import com.ombillah.ecom4j.domain.ProductRating;
 import com.ombillah.ecom4j.domain.ProductSpecificationMap;
 import com.ombillah.ecom4j.exception.ProductExistsException;
 import com.ombillah.ecom4j.service.ProductService;
@@ -95,7 +96,12 @@ public class ProductServiceImpl implements ProductService {
 	public Integer getproductsCount(Map<String, String[]> catalogFilter) {
 		return productDao.getProductsCount(catalogFilter);
 	}
-
+	
+	@Transactional (readOnly = false)
+	public void createProductReview(ProductRating rating) {
+		productDao.createProductReview(rating);
+	}
+	
 	/**
 	 * setter to be used for Mocking.
 	 * @param productDao
@@ -103,6 +109,8 @@ public class ProductServiceImpl implements ProductService {
 	public void setProductDAO(ProductDAO productDao) {
 		this.productDao = productDao;
 	}
+
+
 
 
 }

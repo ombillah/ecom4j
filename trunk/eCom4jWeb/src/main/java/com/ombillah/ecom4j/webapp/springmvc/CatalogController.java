@@ -40,7 +40,7 @@ public class CatalogController {
 	
 	@Value("${CATALOG_PAGE_SIZE_OPTIONS}")
 	private String availablePageSizes;
-	
+
 	@Value("${DEFAULT_PAGE_SIZE}")
 	private Integer defaultPageSize;
 	
@@ -141,8 +141,8 @@ public class CatalogController {
 	}
 
 	private void retrieveFirstPage(CatalogViewBean catalogViewBean) {
-		List<Product> products = paginationHandler.getFirstPage(catalogViewBean.getCurrentPage());
 		Page page = catalogViewBean.getCurrentPage();
+		List<Product> products = paginationHandler.getFirstPage(page);
 		page.setProducts(products);
 		catalogViewBean.setCurrentPage(page);
 	}
@@ -195,5 +195,37 @@ public class CatalogController {
 		catalogViewBean.setCurrentPage(page);
 		
 		return "catalogContent";
+	}
+
+	/**
+	 * setter method for Mocking purpose.
+	 * @param productServiceMock the productServiceMock to set
+	 */
+	public void setProductService(ProductService productServiceMock) {
+		this.productService = productServiceMock;
+	}
+	
+	/**
+	 * setter method for Mocking purpose.
+	 * @param paginationHandlerMock 
+	 */
+	public void setPaginationHandler(PaginationHandler paginationHandlerMock) {
+		this.paginationHandler = paginationHandlerMock;
+	}
+	
+	/**
+	 * setter method for Mocking purpose.
+	 * @param availablePageSizesMock
+	 */
+	public void setAvailablePageSizes(String availablePageSizesMock) {
+		this.availablePageSizes = availablePageSizesMock;
+	}
+
+	/**
+	 * setter method for Mocking purpose.
+	 * the defaultPageSizeMock to set
+	 */
+	public void setDefaultPageSize(Integer defaultPageSizeMock) {
+		this.defaultPageSize = defaultPageSizeMock;
 	}
 }

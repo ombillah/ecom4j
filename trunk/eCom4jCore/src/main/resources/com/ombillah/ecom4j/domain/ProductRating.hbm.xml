@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="com.ombillah.ecom4j.domain.ProductRating" table="PRODUCT_RATING">
+    	
+    	<composite-id>
+			<key-property name="productId" column="PRODUCT_ID" />
+			<key-property name="creatorEmail" column="CREATOR_EMAIL" />
+		</composite-id>
+		
+        <property name="ratingOutOf5" column="RATING_OUT_OF_5"></property>
+        <property name="reviewSummary" column="REVIEW_SUMMARY"></property>
+        <property name="reviewDescription" column="REVIEW_DESCRIPTION"></property>
+        <property name="creatorName" column="CREATOR_NAME"></property>
+        <property name="createdDate" column="CREATED_DT"></property>
+        
+    </class>
+</hibernate-mapping>

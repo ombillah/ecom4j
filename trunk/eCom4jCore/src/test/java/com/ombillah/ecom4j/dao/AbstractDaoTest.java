@@ -253,4 +253,22 @@ public abstract class AbstractDaoTest extends AbstractTransactionalJUnit4SpringC
 		assertEquals("Apple iPhone 3G", list.get(0).getDescription());
 		
 	}
+	@Test
+	public void testgetProductsCount() {
+		String[] brands = {"Apple", "HP"};
+		String[] categories = {"Laptops"};
+		String[] prices = {"100 - 200", "300 - 400"};
+		Map<String, String[]> map = new HashMap<String, String[]>();
+		map.put("make", brands);
+		map.put("category", categories);
+		map.put("price", prices);
+		
+		Page page = new Page();
+		page.setCatalogFilters(map);
+		page.setSortAsc(false);
+		page.setSortBy("name");
+		Integer count = productDao.getProductsCount(map);
+		assertEquals(1, count.intValue());
+		
+	}
 }
