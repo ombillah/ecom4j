@@ -25,6 +25,8 @@ public interface ProductService {
 	public void updateProduct(Product product);
 	
 	public void createProduct(Product product) throws Exception;
+	
+	public void createProducts(List<Product> products);
 		
 	public List<Product> getFeaturedProducts();
 	
@@ -42,5 +44,9 @@ public interface ProductService {
 
 	public Integer getproductsCount(Map<String, String[]> catalogFilter);
 	
+	public Integer getCount();
+	
 	public void createProductReview(ProductRating rating);
+
+	
 }

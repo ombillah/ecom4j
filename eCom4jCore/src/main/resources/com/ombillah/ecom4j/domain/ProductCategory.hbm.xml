@@ -4,10 +4,15 @@
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN" 
     "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-    <class name="com.ombillah.ecom4j.domain.ProductCategory" table="PRODUCT_CATEGORY">
-    
-        <id name="categoryId" column="CATEGORY_ID"></id>
-        <property name="categoryName" column="CATEGORY_NAME"></property>
-        
-    </class>
+	<class name="com.ombillah.ecom4j.domain.ProductCategory" table="PRODUCT_CATEGORY">
+
+		<id name="categoryId" column="CATEGORY_ID"></id>
+		<property name="categoryName" column="CATEGORY_NAME"></property>
+		<many-to-one name="parentCategory" column="PARENT_CATEGORY" class="com.ombillah.ecom4j.domain.ProductCategory" />
+			
+		<set name="subCategories" table="PRODUCT_CATEGORY" inverse="true">
+			<key column="PARENT_CATEGORY" />
+			<one-to-many class="com.ombillah.ecom4j.domain.ProductCategory" />
+		</set>
+	</class>
 </hibernate-mapping>

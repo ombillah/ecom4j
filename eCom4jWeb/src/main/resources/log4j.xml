@@ -11,12 +11,8 @@
 		</layout>
 	</appender>
 
-	<logger name="org.springframework.beans">
-		<level value="warn" />
-	</logger>
-
 	<logger name="org.springframework.binding">
-		<level value="debug" />
+		<level value="error" />
 	</logger>
 	
 	<logger name="org.hibernate.SQL">
@@ -28,7 +24,7 @@
 	</logger>
 	
 	<logger name="org">
-		<level value="debug" />
+		<level value="ERROR" />
 	</logger>
 	<!-- Root Logger -->
 	<root>

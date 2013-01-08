@@ -27,10 +27,10 @@ public class ProductExistsException extends Exception {
 	/**
 	 * Constructor that sets the error message.
 	 * 
-	 * @param productID the name of the duplicate product
+	 * @param productId the name of the duplicate product
 	 */
-	public ProductExistsException(String productID) {
-		super("Product already in system: " + productID);
+	public ProductExistsException(String productId) {
+		super("Product already in system: " + productId);
 	}
 	
 

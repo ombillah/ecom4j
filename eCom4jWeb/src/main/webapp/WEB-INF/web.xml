@@ -59,6 +59,7 @@
 			classpath*:com/ombillah/ecom4j/dao/applicationContext-dao.xml
 			classpath*:com/ombillah/ecom4j/dao/hibernate/applicationContext-hibernate.xml
 	 		classpath*:com/ombillah/ecom4j/service/applicationContext-service.xml
+	 		classpath*:com/ombillah/ecom4j/service/applicationContext-webservice.xml
 	 		/WEB-INF/config/webmvc-config.xml
 	 		/WEB-INF/config/security-config.xml
 	 		/WEB-INF/config/webflow-config.xml

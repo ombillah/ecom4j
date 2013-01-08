@@ -17,7 +17,7 @@ import com.ombillah.ecom4j.domain.ProductSpecificationMap;
 public interface ProductDAO extends BaseDAO<Product> {
 	
 	public List<Product> searchForProduct(String keyword);
-		
+	
 	public List<Product> getFeaturedProducts();
 	
 	public List<ProductSpecificationMap> getProductSpecifications(Long productId);
@@ -32,6 +32,6 @@ public interface ProductDAO extends BaseDAO<Product> {
 
 	public Integer getProductsCount(Map<String, String[]> catalogFilter);
 	
-	public void createProductReview(ProductRating rating);
+	public void createProductReview(ProductRating rating);	
 
 }

@@ -21,6 +21,7 @@ public class PaginationHandlterImpl implements PaginationHandler {
 	
 	@Autowired
 	private ProductService productService;
+	private static final Long HUNDRED = 100L;
 	
 	public Long getPagesCount(Page currentPage) {
 		Map<String, String[]> catalogFilter = currentPage.getCatalogFilters();
@@ -28,7 +29,8 @@ public class PaginationHandlterImpl implements PaginationHandler {
 		currentPage.setTotalNumberOfProducts(count);
 		Float pagesCountD = count.floatValue() / currentPage.getPageSize();
 		Double pagesCount = Math.ceil(pagesCountD);
-		return 100L;//pagesCount.longValue();
+		pagesCount = HUNDRED.doubleValue();
+		return pagesCount.longValue();
 	}
 
 	

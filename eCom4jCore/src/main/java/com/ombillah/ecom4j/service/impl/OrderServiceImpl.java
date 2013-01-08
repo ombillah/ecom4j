@@ -12,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ombillah.ecom4j.dao.CustomerDAO;
 import com.ombillah.ecom4j.dao.OrderDAO;
 import com.ombillah.ecom4j.dao.OrderItemDAO;
-import com.ombillah.ecom4j.dao.ProductDAO;
 import com.ombillah.ecom4j.domain.CartItem;
 import com.ombillah.ecom4j.domain.Customer;
 import com.ombillah.ecom4j.domain.CustomerOrder;
@@ -37,8 +36,6 @@ public class OrderServiceImpl implements OrderService {
 	private OrderDAO orderDao;
 	@Autowired
 	private  CustomerDAO customerDao;
-	@Autowired
-	private  ProductDAO productDao;
 	@Autowired
 	private OrderItemDAO orderItemDao;
 
@@ -97,9 +94,7 @@ public class OrderServiceImpl implements OrderService {
 		for (CartItem item : list) {
 			long itemId = generateItemId();
 			Product product = item.getProduct();
-			product.setQuantity(product.getQuantity() - item.getQuantity());
 			OrderItem orderItem = new OrderItem(itemId, product, order);
-			productDao.updateObject(product);
 			items.add(orderItem);
 		}
 		orderDao.createDBOrder(order, items);
@@ -140,14 +135,6 @@ public class OrderServiceImpl implements OrderService {
 	 */
 	public void setCustomerDao(CustomerDAO customerDao) {
 		this.customerDao = customerDao;
-	}
-	
-	/**
-	 * setter to be used for Mocking.
-	 * @param productDao
-	 */
-	public void setProductDao(ProductDAO productDao) {
-		this.productDao = productDao;
 	}
 	
 	/**

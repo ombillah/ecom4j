@@ -81,8 +81,8 @@ public abstract class AbstractDaoTest extends AbstractTransactionalJUnit4SpringC
 	{
 		List<Product> result = productDao.getObjects(Product.class);
 		assertEquals(2, result.size());
-		assertEquals(new Long(1111), result.get(0).getProductID());
-		assertEquals(new Long(2222), result.get(1).getProductID());
+		assertEquals(new Long(1111), result.get(0).getProductId());
+		assertEquals(new Long(2222), result.get(1).getProductId());
 	}
 
 
@@ -187,16 +187,8 @@ public abstract class AbstractDaoTest extends AbstractTransactionalJUnit4SpringC
 	public void testSearchForProduct() {
 		List<Product> list = productDao.searchForProduct("DV2000");
 		assertEquals(1, list.size());
-		assertEquals("HP Pavilion DV2000T", list.get(0).getDescription());
+		assertEquals("HP Pavilion DV2000T", list.get(0).getShortDescriptionHtml());
 		assertEquals(0, productDao.searchForProduct("Invalid").size());
-
-	}
-	
-	@Test
-	public void testgetFeaturedPage() {
-		List<Product> list = productDao.getFeaturedProducts();
-		assertEquals(1, list.size());
-		assertEquals(new Long(1111), list.get(0).getProductID());
 
 	}
 	
@@ -230,7 +222,8 @@ public abstract class AbstractDaoTest extends AbstractTransactionalJUnit4SpringC
 	public void testgetProductPriceRange() {
 		Map<String, Integer> map = productDao.getProductPriceRange();
 		assertEquals(2, map.size());
-		assertEquals(1, map.get("$199.99 - $499.99").intValue());
+		assertEquals(1, map.get("$199.99 - $499.99").intValue())
+		;
 		
 	}
 	
@@ -250,7 +243,7 @@ public abstract class AbstractDaoTest extends AbstractTransactionalJUnit4SpringC
 		page.setSortBy("name");
 		List<Product> list = productDao.getProducts(page, 0, 10);
 		assertEquals(1, list.size());
-		assertEquals("Apple iPhone 3G", list.get(0).getDescription());
+		assertEquals("iphone 3G description", list.get(0).getShortDescriptionHtml());
 		
 	}
 	@Test

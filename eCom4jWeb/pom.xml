@@ -1,14 +1,16 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
-	http://maven.apache.org/maven-v4_0_0.xsd">
-
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.ombillah.ecom4j</groupId>
 	<artifactId>eCom4jWeb</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>eCom4jWeb</name>
 	<url>http://maven.apache.org</url>
+	<parent>
+		<artifactId>eCom4jParent</artifactId>
+		<groupId>com.ombillah.ecom4j</groupId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../eCom4jParent/pom.xml</relativePath>
+	</parent>
 	<properties>
 		<springframework.version>3.1.2.RELEASE</springframework.version>
 		<springsecurity.version>3.1.2.RELEASE</springsecurity.version>
@@ -16,11 +18,16 @@
 		<tiles.version>2.1.4</tiles.version>
 		<slf4j.version>1.5.6</slf4j.version>
 	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>eCom4jCore</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>eCom4jWS</artifactId>
 			<version>${project.version}</version>
 			<type>jar</type>
 		</dependency>
@@ -240,7 +247,7 @@
 			<groupId>org.apache.log4j</groupId>
 			<artifactId>com.springsource.org.apache.log4j</artifactId>
 			<version>1.2.15</version>
-			<scope>runtime</scope>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -369,7 +376,7 @@
 							<goal>checkstyle</goal>
 						</goals>
 						<configuration>
-							<configLocation>checkstyle_rules.xml</configLocation>
+							<configLocation>../eCom4jParent/checkstyle_rules.xml</configLocation>
 							<failsOnError>true</failsOnError>
 							<failOnViolation>true</failOnViolation>
 							<consoleOutput>true</consoleOutput>
@@ -396,7 +403,7 @@
 							<!-- Set the priority on which you want to let the build fail! -->
 							<minimumPriority>5</minimumPriority>
 							<rulesets>
-								<ruleset>pmd_rules.xml</ruleset>
+								<ruleset>../eCom4jParent/pmd_rules.xml</ruleset>
 							</rulesets>
 							<excludes>
 								<exclude>**/*Test.java</exclude>
@@ -422,7 +429,7 @@
 				<artifactId>maven-checkstyle-plugin</artifactId>
 				<version>2.9.1</version>
 				<configuration>
-					<configLocation>checkstyle_rules.xml</configLocation>
+					<configLocation>../eCom4jParent/checkstyle_rules.xml</configLocation>
 					<excludes>**/*Test.java</excludes>
 					<failOnViolation>true</failOnViolation>
 				</configuration>

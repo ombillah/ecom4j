@@ -5,7 +5,6 @@ import java.util.List;
 import com.ombillah.ecom4j.dao.CustomerDAO;
 import com.ombillah.ecom4j.dao.OrderDAO;
 import com.ombillah.ecom4j.dao.OrderItemDAO;
-import com.ombillah.ecom4j.dao.ProductDAO;
 import com.ombillah.ecom4j.domain.CustomerOrder;
 import com.ombillah.ecom4j.domain.ShoppingCart;
 
@@ -58,13 +57,7 @@ public interface OrderService {
 	 * @param customerDao
 	 */
 	public void setCustomerDao(CustomerDAO customerDao);
-	
-	/**
-	 * setter to be used for Mocking.
-	 * @param productDao
-	 */
-	public void setProductDao(ProductDAO productDao);
-	
+
 	/**
 	 * setter to be used for Mocking.
 	 * @param orderItemDao
