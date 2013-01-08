@@ -5,20 +5,23 @@
 <hibernate-mapping>
 	<class name="com.ombillah.ecom4j.domain.Product" table="PRODUCT">
 
-		<id name="productID" column="PRODUCT_ID"></id>
+		<id name="productId" column="PRODUCT_ID"></id>
 		<property name="make" column="MAKE" />
 		<property name="model" column="MODEL" />
-		<property name="description" column="DESCRIPTION" />
-		<property name="mainImageUrl" column="MAIN_IMAGE_URL" />
-		<property name="image1Url" column="IMAGE1_URL" />
-		<property name="image2Url" column="IMAGE2_URL" />
-		<property name="image3Url" column="IMAGE3_URL" />
-		<property name="image4Url" column="IMAGE4_URL" />
-		<property name="status" column="STATUS" />
-		<property name="quantity" column="QUANTITY" />
-		<property name="unitPrice" column="UNITPRICE" />
-		<property name="featuredOrder" column="IS_FEATURED" />
+		<property name="sku" column="SKU" />
+		<property name="name" column="DISPLAY_NAME" />
+		<property name="shortDescriptionHtml" column="SHORT_DESCRIPTION_HTML" />
+		<property name="image" column="IMAGE" />
+		<property name="customerReviewCount" column="CUSTOMER_REVIEW_COUNT" />
+		<property name="customerReviewAverage" column="CUSTOMER_REVIEW_AVERAGE" />
+		<property name="regularPrice" column="REGULAR_PRICE" />
+		<property name="salePrice" column="SALE_PRICE" />
+		<property name="inStock" column="IN_STOCK" />
 		<property name="createdDate" column="CREATED_DT" />
+		<property name="createdBy" column="CREATED_BY" />
+		<property name="modifiedDate" column="MODIFIED_DT" />
+		<property name="modifiedBy" column="MODIFIED_BY" />
+		
 		<many-to-one 
 			name="category" 
 			column="CATEGORY_ID"
@@ -38,14 +41,14 @@
 	</class>
 
 	<query name="getProductBrands">
-        <![CDATA[SELECT product.make, COUNT(product.productID) 
+        <![CDATA[SELECT product.make, COUNT(product.productId) 
         				FROM Product product 
         				group by product.make 
         				order by product.make
         ]]>
 	</query>
 	<query name="getProductCategories">
-        <![CDATA[SELECT category.categoryName, COUNT(product.productID) 
+        <![CDATA[SELECT category.categoryName, COUNT(product.productId) 
         				FROM Product as product
         				right join product.category as category 
         				group by category.categoryName 
@@ -55,12 +58,12 @@
 	<query name="getProductPriceRange">
         <![CDATA[SELECT 
 				    CASE 
-				        WHEN UNITPRICE <= 199.99 THEN '$0 - $199.99'
-				        WHEN UNITPRICE <= 499.99 THEN '$199.99 - $499.99'
-				        WHEN UNITPRICE <= 999.99 THEN '$499.99 - $999.99'
-				        WHEN UNITPRICE <= 1999.99 THEN '$999.99 - $1999.99'
+				        WHEN SALE_PRICE <= 199.99 THEN '$0 - $199.99'
+				        WHEN SALE_PRICE <= 499.99 THEN '$199.99 - $499.99'
+				        WHEN SALE_PRICE <= 999.99 THEN '$499.99 - $999.99'
+				        WHEN SALE_PRICE <= 1999.99 THEN '$999.99 - $1999.99'
 				        ELSE '$1999.99 and up'
-				    END AS DESCRIPTION, COUNT(product.productID)
+				    END AS NAME, COUNT(product.productId)
 				FROM
 				    Product product
 				    GROUP BY col_0_0_

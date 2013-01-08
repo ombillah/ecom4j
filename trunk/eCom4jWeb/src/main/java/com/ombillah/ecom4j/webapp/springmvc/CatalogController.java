@@ -35,6 +35,7 @@ public class CatalogController {
 	
 	@Autowired
 	private ProductService productService;
+	
 	@Autowired
 	private PaginationHandler paginationHandler;
 	

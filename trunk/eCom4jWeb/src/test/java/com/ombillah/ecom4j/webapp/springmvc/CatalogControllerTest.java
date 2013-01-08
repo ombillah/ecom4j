@@ -95,7 +95,7 @@ public class CatalogControllerTest extends AbstractControllerTest {
 	}
 	
 	@Test
-	public void addProductFilter() {
+	public void addProductFilter() throws Exception {
 		List<Product> products = new ArrayList<Product>();
 		products.add(new Product());
 		products.add(new Product());

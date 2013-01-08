@@ -43,7 +43,7 @@ public class CartItem extends BaseDomain {
 	}
 
 	public float getTotalPrice() {
-		return product.getUnitPrice() * quantity;
+		return product.getSalePrice() * quantity;
 	}
 
 	/**

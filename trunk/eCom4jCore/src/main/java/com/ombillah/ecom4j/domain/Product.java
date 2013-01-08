@@ -1,9 +1,7 @@
 package com.ombillah.ecom4j.domain;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -17,35 +15,36 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @version 1.0
  */
 public class Product extends BaseDomain {
-	
-	
+
 	private static final long serialVersionUID = 1L;
-	
-	private Long productID;
+
+	private Long productId;
 	private String make;
 	private String model;
-	private String description;
-	private String mainImageUrl;
-	private String image1Url;
-	private String image2Url;
-	private String image3Url;
-	private String image4Url;
+	private String sku;
+	private String name;
+	private String shortDescriptionHtml;
+	private String image;
 	private ProductCategory category;
 	private List<ProductRating> productRatings;
-	private String status;
-	private long quantity;
-	private float unitPrice;
-	private int featuredOrder;
+	private Long customerReviewCount;
+	private Double customerReviewAverage;
+	private Float regularPrice;
+	private Float salePrice;
+	private Boolean inStock;
 	private Date createdDate;
-	
-	public Long getProductID() {
-		return this.productID;
+	private String createdBy;
+	private Date modifiedDate;
+	private String modifiedBy;
+
+	public Long getProductId() {
+		return productId;
 	}
-	
-	public void setProductID(Long productid) {
-		this.productID = productid;
+
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
-	
+
 	public String getMake() {
 		return make;
 	}
@@ -62,76 +61,36 @@ public class Product extends BaseDomain {
 		this.model = model;
 	}
 
-	public String getDescription() {
-		return this.description;
-	}
-	
-	public void setDescription(String description) {
-		this.description = description;
+	public String getSku() {
+		return sku;
 	}
 
-	public String getMainImageUrl() {
-		return mainImageUrl;
+	public void setSku(String sku) {
+		this.sku = sku;
 	}
 
-	public void setMainImageUrl(String mainImageUrl) {
-		this.mainImageUrl = mainImageUrl;
+	public String getName() {
+		return name;
 	}
 
-	public String getImage1Url() {
-		return image1Url;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public void setImage1Url(String image1Url) {
-		this.image1Url = image1Url;
+	public String getShortDescriptionHtml() {
+		return shortDescriptionHtml;
 	}
 
-	public String getImage2Url() {
-		return image2Url;
+	public void setShortDescriptionHtml(String shortDescriptionHtml) {
+		this.shortDescriptionHtml = shortDescriptionHtml;
 	}
 
-	public void setImage2Url(String image2Url) {
-		this.image2Url = image2Url;
+	public String getImage() {
+		return image;
 	}
 
-	public String getImage3Url() {
-		return image3Url;
-	}
-
-	public void setImage3Url(String image3Url) {
-		this.image3Url = image3Url;
-	}
-
-	public String getImage4Url() {
-		return image4Url;
-	}
-
-	public void setImage4Url(String image4Url) {
-		this.image4Url = image4Url;
-	}
-
-	public String getStatus() {
-		return this.status;
-	}
-	
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	
-	public long getQuantity() {
-		return this.quantity;
-	}
-	
-	public void setQuantity(long quantity) {
-		this.quantity = quantity;
-	}
-
-	public float getUnitPrice() {
-		return this.unitPrice;
-	}
-
-	public void setUnitPrice(float unitprice) {
-		this.unitPrice = unitprice;
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	public ProductCategory getCategory() {
@@ -141,7 +100,7 @@ public class Product extends BaseDomain {
 	public void setCategory(ProductCategory category) {
 		this.category = category;
 	}
-	
+
 	public List<ProductRating> getProductRatings() {
 		return productRatings;
 	}
@@ -150,14 +109,46 @@ public class Product extends BaseDomain {
 		this.productRatings = productRatings;
 	}
 
-	public int getFeaturedOrder() {
-		return featuredOrder;
+	public Long getCustomerReviewCount() {
+		return customerReviewCount;
 	}
 
-	public void setFeaturedOrder(int featuredOrder) {
-		this.featuredOrder = featuredOrder;
+	public void setCustomerReviewCount(Long customerReviewCount) {
+		this.customerReviewCount = customerReviewCount;
 	}
-	
+
+	public Double getCustomerReviewAverage() {
+		return customerReviewAverage;
+	}
+
+	public void setCustomerReviewAverage(Double customerReviewAverage) {
+		this.customerReviewAverage = customerReviewAverage;
+	}
+
+	public Float getRegularPrice() {
+		return regularPrice;
+	}
+
+	public void setRegularPrice(Float regularPrice) {
+		this.regularPrice = regularPrice;
+	}
+
+	public Float getSalePrice() {
+		return salePrice;
+	}
+
+	public void setSalePrice(Float salePrice) {
+		this.salePrice = salePrice;
+	}
+
+	public Boolean getInStock() {
+		return inStock;
+	}
+
+	public void setInStock(Boolean inStock) {
+		this.inStock = inStock;
+	}
+
 	public Date getCreatedDate() {
 		return createdDate;
 	}
@@ -165,38 +156,29 @@ public class Product extends BaseDomain {
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
-	
-	public String getName() {
-		String name = String.format("%s %s", make, model);
-		return name;
+
+	public String getCreatedBy() {
+		return createdBy;
 	}
-	
-	public Map<Long, Long> getProductRatingGrouping() {
-		Map<Long, Long> ratingMap = new HashMap<Long, Long>();
-		for(ProductRating rating : this.productRatings) {
-			if(ratingMap.get(rating.getRatingOutOf5()) == null) {
-				ratingMap.put(rating.getRatingOutOf5(), 1L);
-			} else {
-				Long numberOfRatings = ratingMap.get(rating.getRatingOutOf5()) + 1L;
-				ratingMap.put(rating.getRatingOutOf5(), numberOfRatings);
-			}
-		}
-		return ratingMap;
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
 	}
-	
-	public Double getProductRatingAverage() {
-		Map<Long, Long> ratingMap = getProductRatingGrouping();
-		if (ratingMap.isEmpty()) {
-			return 1 + (5 - 1) * new java.util.Random().nextDouble();
-		}
-		Double ratingsSum = 0.0;
-		Long totalRatings = 0L;
-		for(Long rating : ratingMap.keySet()) {
-			ratingsSum += (rating * ratingMap.get(rating));
-			totalRatings += ratingMap.get(rating);
-		}
-		Double weightedAverage = ratingsSum / totalRatings;
-		return weightedAverage;
+
+	public Date getModifiedDate() {
+		return modifiedDate;
+	}
+
+	public void setModifiedDate(Date modifiedDate) {
+		this.modifiedDate = modifiedDate;
+	}
+
+	public String getModifiedBy() {
+		return modifiedBy;
+	}
+
+	public void setModifiedBy(String modifiedBy) {
+		this.modifiedBy = modifiedBy;
 	}
 
 	@Override
@@ -207,13 +189,16 @@ public class Product extends BaseDomain {
 
 		return EqualsBuilder.reflectionEquals(this, object);
 	}
+
 	/**
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this,ToStringStyle.DEFAULT_STYLE);
+		return ToStringBuilder.reflectionToString(this,
+				ToStringStyle.DEFAULT_STYLE);
 	}
+
 	/**
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -222,6 +207,4 @@ public class Product extends BaseDomain {
 		return HashCodeBuilder.reflectionHashCode(this);
 	}
 
-
-	
 }

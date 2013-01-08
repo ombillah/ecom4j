@@ -12,4 +12,12 @@
 	
 	<bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder" />
 	
+	<bean id="mapper" class="org.dozer.DozerBeanMapper">
+	    <property name="mappingFiles">
+	        <list>
+	            <value>com/ombillah/ecom4j/dozer/dozer-mapper.xml</value>			   
+	        </list>
+	    </property>
+	</bean>
+
 </beans>

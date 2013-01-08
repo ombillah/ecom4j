@@ -34,9 +34,9 @@ public class ShoppingCart extends BaseDomain {
 		return items.remove(item);
 	}
 	
-	public CartItem getCartItem(Long productID){
+	public CartItem getCartItem(Long productId){
 		for(CartItem item : items){
-			if (item.getProduct().getProductID().equals(productID)){
+			if (item.getProduct().getProductId().equals(productId)){
 				return item;
 			}
 		}

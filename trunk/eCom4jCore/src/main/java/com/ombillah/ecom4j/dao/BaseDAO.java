@@ -27,6 +27,6 @@ public interface BaseDAO<T> {
 	
 	public void removeObject(Class<T> clazz, Serializable id);
 
-	public int getRowCount(Class<T> clazz);
+	public Integer getRowCount(Class<T> clazz);
 
 }

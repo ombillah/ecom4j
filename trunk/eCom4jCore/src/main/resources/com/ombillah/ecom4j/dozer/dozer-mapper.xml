@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings xmlns="http://dozer.sourceforge.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozer.sourceforge.net http://dozer.sourceforge.net/schema/beanmapping.xsd">
+
+	<mapping>
+		<class-a>com.ombillah.ecom4j.remix.domain.Products.Product</class-a>
+		<class-b>com.ombillah.ecom4j.domain.Product</class-b>
+		<field>
+			<a>manufacturer</a>
+			<b>make</b>
+		</field>
+		<field>
+			<a>modelNumber</a>
+			<b>model</b>
+		</field>
+		<field>
+			<a>onlineAvailability</a>
+			<b>inStock</b>
+		</field>
+		<field custom-converter="com.ombillah.ecom4j.helper.converter.ProductCategoryCustomConverter">
+			<a>categoryPath</a>
+			<b>category</b>
+		</field>
+
+	</mapping>
+
+</mappings>

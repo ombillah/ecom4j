@@ -1,6 +1,7 @@
 
 package com.ombillah.ecom4j.dao.hibernate;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -18,9 +19,9 @@ import org.springframework.stereotype.Repository;
 import com.ombillah.ecom4j.dao.ProductDAO;
 import com.ombillah.ecom4j.domain.Page;
 import com.ombillah.ecom4j.domain.Product;
+
 import com.ombillah.ecom4j.domain.ProductRating;
 import com.ombillah.ecom4j.domain.ProductSpecificationMap;
-import com.ombillah.ecom4j.utils.Constants;
 
 /**
  * DAO for PRODUCT table operations.
@@ -28,8 +29,9 @@ import com.ombillah.ecom4j.utils.Constants;
  * @author Oussama M Billah
  *
  */
-@Repository
+@Repository("productDAO")
 public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements ProductDAO {
+	
 	
 	@SuppressWarnings("unchecked")
 	public List<Product> searchForProduct(String keyword) {
@@ -38,23 +40,19 @@ public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements Pr
 		criteria.add(Restrictions.disjunction()
 				.add(Restrictions.like("make", keyword))
 				.add(Restrictions.like("model", keyword))
-				.add(Restrictions.like("description", keyword))
+				.add(Restrictions.like("name", keyword))
+				.add(Restrictions.like("shortDescriptionHtml", keyword))
 				.add(Restrictions.like("category.categoryName", keyword)));
 		
 		List<Product> productList = criteria.list();
 		return productList;
 	}
-
-	@SuppressWarnings("unchecked")
+	
 	public List<Product> getFeaturedProducts() {
-		Criteria criteria = getSession().createCriteria(Product.class);
-		criteria.add(Restrictions.ne("featuredOrder", Constants.UNFEATURED_PRODUCT))
-				.addOrder(Order.asc("featuredOrder"));
-		
-		List<Product> productList = criteria.list();
+		List<Product> productList = new ArrayList<Product>();
 		return productList;
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	public List<ProductSpecificationMap> getProductSpecifications(Long productId) {
 		Criteria criteria = getSession().createCriteria(ProductSpecificationMap.class);
@@ -186,4 +184,6 @@ public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements Pr
 	public void createProductReview(ProductRating rating) {
 		getSession().save(rating);
 	}
+
+
 }

@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.NonUniqueObjectException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
@@ -21,6 +23,8 @@ import com.ombillah.ecom4j.dao.BaseDAO;
 @Repository
 public abstract class BaseDAOHibernate<T> implements BaseDAO<T> {
 	
+	protected static final Logger LOGGER = Logger.getLogger(BaseDAOHibernate.class);	
+	
 	@Autowired
 	private SessionFactory sessionFactory;
 	
@@ -34,7 +38,12 @@ public abstract class BaseDAOHibernate<T> implements BaseDAO<T> {
 
 	public void saveObjects(Collection<T> collection) {
 		for(T object : collection) {
-			this.saveObject(object);
+			try {
+				this.saveObject(object);
+			} catch(NonUniqueObjectException ex) {
+				LOGGER.error("skipping duplicate entry from entity " + object.getClass());
+			}
+			
 		}
 	}
 	
@@ -58,7 +67,7 @@ public abstract class BaseDAOHibernate<T> implements BaseDAO<T> {
 		getSession().delete(object);
 	}
 
-	public int getRowCount(Class<T> clazz) {
+	public Integer getRowCount(Class<T> clazz) {
 		Criteria criteria = getSession().createCriteria(clazz);
 		criteria.setProjection(Projections.rowCount());
 		Integer rowCount = (Integer) criteria.uniqueResult();

@@ -23,7 +23,7 @@ import com.ombillah.ecom4j.service.ProductService;
  * 
  * @author Oussama M Billah
  */
-@Service
+@Service("productService")
 @Transactional (readOnly = true)
 public class ProductServiceImpl implements ProductService {
 	
@@ -60,6 +60,11 @@ public class ProductServiceImpl implements ProductService {
 		} catch(NonUniqueObjectException ex){
 			throw new ProductExistsException("product already exist");
 		}
+	}
+	
+	@Transactional (readOnly = false)
+	public void createProducts(List<Product> products) {
+		productDao.saveObjects(products);
 	}
 
 	@Transactional
@@ -102,6 +107,11 @@ public class ProductServiceImpl implements ProductService {
 		productDao.createProductReview(rating);
 	}
 	
+	@Transactional
+	public Integer getCount() {
+		return productDao.getRowCount(Product.class);
+	}
+	
 	/**
 	 * setter to be used for Mocking.
 	 * @param productDao
@@ -109,6 +119,8 @@ public class ProductServiceImpl implements ProductService {
 	public void setProductDAO(ProductDAO productDao) {
 		this.productDao = productDao;
 	}
+
+	
 
 
 

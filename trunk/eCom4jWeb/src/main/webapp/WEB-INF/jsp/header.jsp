@@ -17,7 +17,7 @@
 	</sec:authorize>
 	<sec:authorize access="isAuthenticated()">
 	  	<div class="login_header">
-		  <div>Welcome <b>Oussama</b></div>
+		  <div>Welcome <b><sec:authentication property="principal.customer.firstName" /></b></div>
 	      <span class="marginR"><a href="myaccount.do">My Account</a></span> <font color="red">|</font> <span class="marginL"><a href="j_spring_security_logout">Sign out</a></span>
 		</div>
 	</sec:authorize>
