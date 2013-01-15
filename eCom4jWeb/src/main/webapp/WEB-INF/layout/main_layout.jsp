@@ -7,11 +7,7 @@
 <head>
 <title><tiles:getAsString name="htmlTitle"/></title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
-<!--[if IE 6]>
-<link rel="stylesheet" type="text/css" href="iecss.css" />
-<![endif]-->
-<link rel="stylesheet" type="text/css" href="css/navigation.css" />
-<script type="text/javascript" src="js/boxOver.js"></script>
+<link href="css/navigation.css" media="screen" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/scripts.js"></script>
 <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
 <script src="js/jquery-scrollTo.js"></script>
@@ -19,7 +15,7 @@
 <body>
 	<div id="main_container">
 		<tiles:insertAttribute name="header" />
-		<tiles:insertAttribute name="categories" />
+		<tiles:insertAttribute name="leftPanel" />
 		<tiles:insertAttribute name="body" />
 	    <!--<tiles:insertAttribute name="cart" />-->
 		<tiles:insertAttribute name="footer" />

@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
  <div class="center_content" style="height:600px">
- 	<div style="color:#504B4B; font-size:20px; font-weight:bold; margin:10px">Login to My Account</div>
+ 	<div style="font-size:20px; font-weight:bold; margin:10px">Login to My Account</div>
  	<form action="j_spring_security_check" method="post">
  		<div class="login_box" >
  		

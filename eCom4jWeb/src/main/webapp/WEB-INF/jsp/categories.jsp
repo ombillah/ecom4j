@@ -1,32 +1,60 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="/tld/utils.tld" prefix="util" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="/tld/utils.tld" prefix="util"%>
+
+<script type="text/javascript">
+	//Nested Side Bar Menu (Mar 20th, 09)
+	//By Dynamic Drive: http://www.dynamicdrive.com/style/
+
+	var menuids = [ "sidebarmenu1" ] //Enter id(s) of each Side Bar Menu's main UL, separated by commas
+
+	function initsidebarmenu() {
+		for ( var i = 0; i < menuids.length; i++) {
+			var ultags = document.getElementById(menuids[i])
+					.getElementsByTagName("ul")
+			for ( var t = 0; t < ultags.length; t++) {
+				ultags[t].parentNode.getElementsByTagName("a")[0].className += " subfolderstyle"
+				if (ultags[t].parentNode.parentNode.id == menuids[i]) //if this is a first level submenu
+					ultags[t].style.left = ultags[t].parentNode.offsetWidth
+							+ "px" //dynamically position first level submenus to be width of main menu item
+				else
+					//else if this is a sub level submenu (ul)
+					ultags[t].style.left = ultags[t - 1]
+							.getElementsByTagName("a")[0].offsetWidth
+							+ "px" //position menu to the right of menu item that activated it
+				ultags[t].parentNode.onmouseover = function() {
+					this.getElementsByTagName("ul")[0].style.display = "block"
+				}
+				ultags[t].parentNode.onmouseout = function() {
+					this.getElementsByTagName("ul")[0].style.display = "none"
+				}
+			}
+			for ( var t = ultags.length - 1; t > -1; t--) { //loop through all sub menus again, and use "display:none" to hide menus (to prevent possible page scrollbars
+				ultags[t].style.visibility = "visible"
+				ultags[t].style.display = "none"
+			}
+		}
+	}
+
+	if (window.addEventListener)
+		window.addEventListener("load", initsidebarmenu, false)
+	else if (window.attachEvent)
+		window.attachEvent("onload", initsidebarmenu)
+</script>
 
 <div class="left_content">
 	<div class="title_box">Categories</div>
-	<ul class="left_menu">
-		<c:forEach items="${productCategories}" var="category" varStatus="status">
-			<c:choose>
-				<c:when test="${status.count % 2 eq 0}">
-					<li class="even"><a href="catalog.do?category=${util:encode(category.key)}">${category.key}</a></li>
-				</c:when>
-				<c:otherwise>
-					<li class="odd"><a href="catalog.do?category=${util:encode(category.key)}">${category.key}</a></li>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-	</ul>
-	<div style="height:20px">&nbsp</div>
-	<div class="title_box">Brands</div>
-	<ul class="left_menu">
-		<c:forEach items="${brands}" var="brand" varStatus="status">
-			<c:choose>
-				<c:when test="${status.count % 2 eq 0}">
-					<li class="even"><a href="catalog.do?brand=${brand.key}">${brand.key}</a></li>
-				</c:when>
-				<c:otherwise>
-					<li class="odd"><a href="catalog.do?brand=${brand.key}">${brand.key}</a></li>
-				</c:otherwise>
-			</c:choose>
-		</c:forEach>
-	</ul>
+	<div class="sidebarmenu">
+		<ul id="sidebarmenu1">
+			<c:forEach items="${productCategories}" var="category">
+				<li>
+					<a href="catalog.do?category=${util:encode(category.categoryName)}">${category.categoryName}</a>
+					<ul>
+						<c:forEach items="${category.subCategories}" var="subCategory">
+							<li><a href="catalog.do?category=${util:encode(subCategory.categoryName)}">${subCategory.categoryName}</a></li>
+						</c:forEach>
+					</ul>
+				</li>
+			</c:forEach>
+		</ul>
+	</div>
 </div>

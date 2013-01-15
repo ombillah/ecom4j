@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpSession;
-
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -54,15 +52,14 @@ public class CatalogController {
 	
 	@RequestMapping(value = "/catalog.do", method = RequestMethod.GET)
 	public String displayProductCatalog(
-			HttpSession session,
 			@ModelAttribute("catalogViewBean") CatalogViewBean catalogViewBean,
 			@RequestParam(value="category", required=false) final String category,
 			@RequestParam(value="brand", required=false) final String brand) {
 		
 		setInitialPaginationProperties(catalogViewBean, true);
 		retrieveProducts(catalogViewBean, category, brand);
-		retrieveBrands(session, catalogViewBean);
-		retrieveCategories(session, catalogViewBean);
+		retrieveBrands(catalogViewBean);
+		retrieveCategories(catalogViewBean);
 		retrievePriceRanges(catalogViewBean);
 		
 		return "catalog";
@@ -105,21 +102,13 @@ public class CatalogController {
 		catalogViewBean.setPriceRanges(priceRanges);
 	}
 	
-	@SuppressWarnings("unchecked")
-	private void retrieveCategories(HttpSession session, CatalogViewBean catalogViewBean) {
-		Map<String, Integer> categories = (Map<String, Integer>) session.getAttribute("productCategories");
-		if (categories == null) {
-			categories = productService.getProductCategories();
-		}
+	private void retrieveCategories(CatalogViewBean catalogViewBean) {
+		Map<String, Integer> categories = productService.getProductCategories();
 		catalogViewBean.setCategories(categories);
 	}
 	
-	@SuppressWarnings("unchecked")
-	private void retrieveBrands(HttpSession session, CatalogViewBean catalogViewBean) {
-		Map<String, Integer> brands = (Map<String, Integer>) session.getAttribute("brands");
-		if (brands == null) {
-			brands = productService.getManufacturerList();
-		}
+	private void retrieveBrands(CatalogViewBean catalogViewBean) {
+		Map<String, Integer> brands = productService.getManufacturerList();
 		catalogViewBean.setBrands(brands);
 	}
 	

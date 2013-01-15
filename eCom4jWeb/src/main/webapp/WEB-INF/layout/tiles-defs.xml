@@ -9,7 +9,7 @@
 	<definition name="commonLayout" template="/WEB-INF/layout/main_layout.jsp">
 		<put-attribute name="htmlTitle" type="string" value=""/>
 		<put-attribute name="header" value="/WEB-INF/jsp/header.jsp"/>
-		<put-attribute name="categories" value="/WEB-INF/jsp/categories.jsp"/>
+		<put-attribute name="leftPanel" value="/WEB-INF/jsp/categories.jsp"/>
 		<put-attribute name="body" value="/WEB-INF/layout/blank.jsp"/>
 		<put-attribute name="cart" value="/WEB-INF/jsp/cart.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/jsp/footer.jsp"/>
@@ -43,7 +43,7 @@
 	<definition name="catalog" extends="commonLayout">
 		 <put-attribute name="htmlTitle" type="string" value="Product Catalog"/>
 		 <put-attribute name="body" value="catalogContent"/>
-		 <put-attribute name="categories" value="/WEB-INF/jsp/productFilter.jsp"/>
+		 <put-attribute name="leftPanel" value="/WEB-INF/jsp/productFilter.jsp"/>
 	</definition>
 	
 	<definition name="catalogContent" template="/WEB-INF/jsp/catalog.jsp">

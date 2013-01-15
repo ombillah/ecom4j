@@ -5,11 +5,8 @@ body {
 	margin: 0;
 	padding: 0;
 	text-align: center;
-	color: #000;
-	background-color: #fff;
-	background-image: url(../images/bg.jpg);
-	background-repeat: no-repeat;
-	background-position: left top;
+	color: #787878;
+	background:url("../images/bg.jpg") repeat-x scroll 0 0 #DCDCDC
 }
 
 .floatR {
@@ -52,10 +49,16 @@ p {
 #main_container {
 	width: 1002px;
 	height: auto;
-	margin: auto;
+	margin: 30px auto auto;
 	padding: 0px;
 	text-align: left;
-	border: 2px solid #F0F4F5;
+	border: 1px solid #e0ddda;
+	background: white url(../images/1px_350px_gray.jpg) repeat-x scroll 0 0px;
+	behavior: url(css/PIE.htc);
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-khtml-border-radius: 10px;
+	border-radius: 10px;
 }
 
 .top_bar {
@@ -129,6 +132,7 @@ a.lang {
 	height: 100px;
 	background-position: 0px 0px;
 	margin: auto;
+	margin-top:20px;
 }
 
 #logo {
@@ -152,7 +156,7 @@ a.details {
 
 /*-------------left_content------------------*/
 .left_content {
-	width: 180px;
+	width: 210px;
 	float: left;
 	padding: 0 0 0 5px;
 	text-align: center;
@@ -160,15 +164,25 @@ a.details {
 }
 
 .title_box {
-	width: 180px;
+	width: 200px;
 	height: 30px;
 	margin: 5px 0 0 0;
-	background: url(../images/menu_title_bg.gif) no-repeat center;
+	background-color: #eceae7;
 	text-align: center;
-	font-size: 13px;
-	font-weight: bold;
-	color: #159dcc;
+	font: bold 13px Verdana;
 	line-height: 30px;
+	behavior: url('css/border-radius.htc');
+	-moz-border-top-right-radius: 15px;
+	-moz-border-top-left-radius: 15px;
+	-webkit-border-top-radius: 15px;
+	-webkit-border-top-radius: 15px;
+	-khtml-border-top-right-radius: 15px;
+	-khtml-border-top-left-radius: 15px;
+	border-top-right-radius: 15px;
+	border-top-left-radius: 15px;
+	border:1px solid #CCCCCC;
+	border-bottom:0px solid;
+	
 }
 /*--------left menu---------*/
 ul.left_menu {
@@ -257,7 +271,7 @@ span.price {
 /*center content--------------------------*/
 .center_content {
 	position: relative;
-	width: 800px;
+	width: 770px;
 	float: left;
 	padding: 5px 8px 5px 5px;
 	min-height: 800px;
@@ -593,7 +607,7 @@ a.contact {
 
 .register {
 	position: relative;
-	width: 800px;
+	width: 780px;
 	left: 0px;
 	height: 1200px;
 }
@@ -825,7 +839,7 @@ img {
 }
 
 .forgetPassword {
-	height: 800px;
+	height: 780px;
 	width: auto;
 }
 
@@ -833,14 +847,13 @@ img {
 	background: url("../images/navigation/OFF.gif") repeat-x scroll left top
 		transparent;
 	width: 100%;
-	color: #504B4B;
 	font-size: 16px;
 	font-weight: bold;
 	padding: 5px 5px;
 }
 
 .register_table {
-	width: 800px;
+	width: 780px;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 12px;
 }
@@ -859,7 +872,6 @@ img {
 }
 
 .standout_gray {
-	color: #333333;
 	font-family: Arial;
 	font-size: 14px;
 	font-weight: bold;
@@ -877,7 +889,6 @@ img {
 }
 
 .login_header {
-	background-color: #F0F0F0;
 	float: right;
 	width: 200px;
 	text-align: center;
@@ -892,6 +903,25 @@ img {
 }
 
 .login_header a:hover {
+	text-decoration: underline;
+	color: #215CBB;
+}
+
+.cart_header {
+	float: right;
+	width: 200px;
+	text-align: center;
+	padding: 5px 0px 5px 0px;
+	margin: 50px -200px 0px 0px;
+	color: #333333;
+}
+
+.cart_header a {
+	text-decoration: none;
+	color: #215CBB;
+}
+
+.cart_header a:hover {
 	text-decoration: underline;
 	color: #215CBB;
 }
@@ -1116,5 +1146,10 @@ span.stars, span.stars span {
 
 span.stars span {
     background-position: 0 0;
+}
+
+
+.strong {
+	font-weight:bold;
 }
 

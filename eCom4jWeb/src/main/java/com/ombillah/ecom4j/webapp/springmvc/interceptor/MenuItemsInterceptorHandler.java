@@ -1,6 +1,6 @@
 package com.ombillah.ecom4j.webapp.springmvc.interceptor;
 
-import java.util.Map;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,7 +11,8 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.ombillah.ecom4j.service.ProductService;
+import com.ombillah.ecom4j.domain.ProductCategory;
+import com.ombillah.ecom4j.service.ProductCategoryService;
 
 /**
  * Interceptor class to intercept all requests and set the Navigation Bar, menu items...
@@ -23,7 +24,7 @@ import com.ombillah.ecom4j.service.ProductService;
 public class MenuItemsInterceptorHandler extends HandlerInterceptorAdapter {
 	
 	@Autowired
-	private ProductService productService;
+	private ProductCategoryService productCategoryService;
 	
 	@SuppressWarnings("unchecked")
 	public void postHandle(HttpServletRequest request, 
@@ -34,18 +35,14 @@ public class MenuItemsInterceptorHandler extends HandlerInterceptorAdapter {
 		if (modelAndView == null) {
 			return;
 		}
-		Map<String, Integer> productCategories = (Map<String, Integer>) request.getSession().getAttribute("productCategories");
-		Map<String, Integer> brands = (Map<String, Integer>) request.getSession().getAttribute("brands");
+		List<ProductCategory> productCategories = (List<ProductCategory>) request.getSession().getAttribute("productCategories");
 		
 		if (CollectionUtils.isEmpty(productCategories)) {
-			productCategories = productService.getProductCategories();
-			brands = productService.getManufacturerList();
+			productCategories = productCategoryService.getProductCategories();
 			
 			request.getSession().setAttribute("productCategories", productCategories);
-			request.getSession().setAttribute("brands", brands);			
 		}
 		
 		modelAndView.addObject("productCategories", productCategories);
-		modelAndView.addObject("brands", brands);
 	}
 }
