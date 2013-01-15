@@ -1,36 +1,303 @@
-
-.cssmenu ul{
-	margin:0;
-	padding:0;
-	list-style-type:none;
-	width:auto;
-	position:relative;
-	display:block;
-	height:36px;
-	text-transform:uppercase;
-	font-size:12px;
-	font-weight:bold;
-	background:transparent url('../images/navigation/OFF.gif') repeat-x top left;
-	font-family:Helvetica,Arial,Verdana,sans-serif;
-	border-bottom:4px solid #555555;
-	border-top:1px solid #919191;
+.sidebarmenu ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	font: normal 13px Verdana;
+	width: 200px; /* Main Menu Item widths */
+	border: 1px solid #ccc;
+	text-align: left
 }
-.cssmenu li{
-	display:block;
+
+.sidebarmenu ul li {
+	position: relative;
+	padding-top:5px;
+}
+
+/* Top level menu links style */
+.sidebarmenu ul li a {
+	display: block;
+	overflow: auto; /*force hasLayout in IE7 */
+	color: #787878;
+	text-decoration: none;
+	padding: 7px 0 7px 5px;
+	border-bottom: 1px solid #bebdbb;
+}
+
+
+.sidebarmenu ul li a:visited {
+	color: #787878;
+}
+
+.sidebarmenu ul li a:hover {
+	color:#161616
+}
+
+/*Sub level menu items */
+.sidebarmenu ul li ul {
+	position: absolute;
+	width: 200px; /*Sub Menu Items width */
+	top: 0;
+	visibility: hidden;
+	z-index:999;
+	background-color:#fcfbfb
+}
+
+.sidebarmenu a.subfolderstyle {
+	background: url(../images/right_arrow.gif) no-repeat 97% 50%;
+}
+
+/* Holly Hack for IE \*/
+* html .sidebarmenu ul li {
+	float: left;
+	height: 1%;
+}
+
+* html .sidebarmenu ul li a {
+	height: 1%;
+}
+/* End */
+
+/* Horizontal Navigation Start */
+
+#horizontal_nav {
+	list-style:none;
+	width:940px;
+	margin:auto;
+	height:43px;
+	padding:0px 20px 0px 20px;
+
+	/* Rounded Corners */
+	
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	border-radius: 10px;
+
+	/* Background color and gradients */
+	
+	background: #ECEAE7;
+	
+	/* Borders */
+	
+	border:1px solid #CCCCCC;
+	
+	behavior: url('css/border-radius.htc');
+}
+
+#horizontal_nav li {
 	float:left;
-	margin:0;
-	padding:0;
-	}
-.cssmenu li a{
 	display:block;
-	float:left;
-	color:#343432;
+	text-align:center;
+	position:relative;
+	padding: 4px 10px 4px 10px;
+	margin-right:30px;
+	margin-top:7px;
+	border:none;
+}
+
+#horizontal_nav li:hover {
+	border: 1px solid #777777;
+	padding: 4px 9px 4px 9px;
+	
+	/* Background color and gradients */
+	
+	background: #F4F4F4;
+		
+	/* Rounded corners */
+	
+	-moz-border-radius: 5px 5px 0px 0px;
+	-webkit-border-radius: 5px 5px 0px 0px;
+	border-radius: 5px 5px 0px 0px;
+}
+
+#horizontal_nav li a {
+	font:13px Verdana;
+	display:block;
+	outline:0;
 	text-decoration:none;
+	color:#787878;
+}
+
+#horizontal_nav li:hover a {
+	color:#161616;
+}
+#horizontal_nav li .drop {
+	padding-right:21px;
+	background:url("../images/drop.png") no-repeat right 8px;
+}
+#horizontal_nav li:hover .drop {
+	background:url("../images/drop.png") no-repeat right 7px;
+}
+
+.strong {
 	font-weight:bold;
-	padding:12px 20px 0 20px;
-	height:24px;
-	background:transparent url('../images/navigation/DIVIDER.gif') no-repeat top right;
-	}
-.cssmenu li a:hover{
-	background:transparent url('../images/navigation/HOVER.gif') no-repeat top right;	
-	}
+}
+
+.dropdown_4columns {
+	
+	z-index:100;
+	margin:4px auto;
+	float:left;
+	position:absolute;
+	left:-999em; /* Hides the drop down */
+	text-align:left;
+	padding:10px 5px 10px 5px;
+	border:1px solid #777777;
+	border-top:none;
+	
+	background:#ECEAE7;
+
+	/* Rounded Corners */
+	-moz-border-radius: 0px 5px 5px 5px;
+	-webkit-border-radius: 0px 5px 5px 5px;
+	border-radius: 0px 5px 5px 5px;
+}
+
+.dropdown_4columns {width: 1000px;}
+
+#horizontal_nav li:hover .dropdown_4columns {
+	left:-1px;
+	top:auto;
+}
+
+.col_1 {
+	display:inline;
+	float: left;
+	position: relative;
+	margin-left: 15px;
+	height:250px;
+}
+.col_4 {width:700px;}
+
+#horizontal_nav .menu_right {
+	float:right;
+	margin-right:0px;
+}
+#horizontal_nav li .align_right {
+	/* Rounded Corners */
+	-moz-border-radius: 5px 0px 5px 5px;
+    -webkit-border-radius: 5px 0px 5px 5px;
+    border-radius: 5px 0px 5px 5px;
+}
+
+#horizontal_nav li:hover .align_right {
+	left:auto;
+	right:-1px;
+	top:auto;
+}
+
+#horizontal_nav p, #horizontal_nav h2, #horizontal_nav h3, #horizontal_nav ul li {
+	font-family:Arial, Helvetica, sans-serif;
+	line-height:21px;
+	font-size:12px;
+	text-align:left;
+	width:200px;
+}
+#horizontal_nav h2 {
+	font-size:21px;
+	font-weight:400;
+	letter-spacing:-1px;
+	margin:7px 0 14px 0;
+	padding-bottom:14px;
+	border-bottom:1px solid #666666;
+}
+#horizontal_nav h3 {
+	font-size:14px;
+	margin:7px 0 14px 0;
+	padding-bottom:7px;
+	border-bottom:1px solid #888888;
+}
+#horizontal_nav p {
+	line-height:18px;
+	margin:0 0 10px 0;
+}
+
+#horizontal_nav li:hover div a {
+	font-size:12px;
+	color:#787878;
+	margin-top:5px
+}
+#horizontal_nav li:hover div a:hover {
+	color:#029feb;
+}
+
+
+.imgshadow { /* Better style on light background */
+	background:#FFFFFF;
+	padding:4px;
+	border:1px solid #777777;
+	margin-top:5px;
+	-moz-box-shadow:0px 0px 5px #666666;
+	-webkit-box-shadow:0px 0px 5px #666666;
+	box-shadow:0px 0px 5px #666666;
+}
+.img_left { /* Image sticks to the left */
+	width:auto;
+	float:left;
+	margin:5px 15px 5px 5px;
+}
+
+#horizontal_nav li .black_box {
+	background-color:#333333;
+	color: #eeeeee;
+	text-shadow: 1px 1px 1px #000;
+	padding:4px 6px 4px 6px;
+
+	/* Rounded Corners */
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+
+	/* Shadow */
+	-webkit-box-shadow:inset 0 0 3px #000000;
+	-moz-box-shadow:inset 0 0 3px #000000;
+	box-shadow:inset 0 0 3px #000000;
+}
+
+#horizontal_nav li ul {
+	list-style:none;
+	padding:0;
+	margin:0 0 12px 0;
+}
+#horizontal_nav li ul li {
+	font-size:12px;
+	line-height:24px;
+	position:relative;
+	text-shadow: 1px 1px 1px #ffffff;
+	padding:0;
+	margin:0;
+	float:none;
+	text-align:left;
+	width:225px;
+}
+#horizontal_nav li ul li:hover {
+	background:none;
+	border:none;
+	padding:0;
+	margin:0;
+}
+
+#horizontal_nav li .greybox li {
+	background:#F4F4F4;
+	border:1px solid #bbbbbb;
+	margin:0px 0px 4px 0px;
+	padding:4px 6px 4px 6px;
+	width:116px;
+
+	/* Rounded Corners */
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+}
+#horizontal_nav li .greybox li:hover {
+	background:#ffffff;
+	border:1px solid #aaaaaa;
+	padding:4px 6px 4px 6px;
+	margin:0px 0px 4px 0px;
+}
+
+.col_1 ul li a {
+	font-weight:normal;
+}
+
+/* Horizontal Navigation End */

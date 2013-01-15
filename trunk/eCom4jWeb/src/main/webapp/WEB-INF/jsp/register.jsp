@@ -3,7 +3,7 @@
    <div class="center_content" style="height:1300px">
    	<form:form action="register.do" method="post" modelAttribute="customer">
         <div class="register" >
-          <div style="color:#504B4B; font-size:20px; font-weight:bold; margin:10px">Create My Account</div>
+          <div style="font-size:20px; font-weight:bold; margin:10px">Create My Account</div>
           <div style="height:30px">&nbsp</div>
           <div class="register_hdr_block">Account Information</div>
           <div style="height:20px">&nbsp</div>
