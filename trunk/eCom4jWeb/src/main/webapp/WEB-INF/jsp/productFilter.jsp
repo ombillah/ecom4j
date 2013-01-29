@@ -1,21 +1,72 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <div class="round_corner light_gray_box catalog_filters" >
-	<div style="height:20px">&nbsp</div>
-	<b>Categories:</b>
-	<div style="height:10px">&nbsp</div>
-	<input type="checkbox" name="category_all" value="all" checked="checked" />All</br>
-	<c:forEach items="${catalogViewBean.categories}" var="category">
-		<c:if test="${ category.value gt 0 }">
-			<input type="checkbox" name="category_${category.key}" value="${category.key}" />${category.key} (${category.value})</br>
+	<c:if test="${ param.isParent eq 'true' }">
+		<div style="height:20px">&nbsp</div>
+		<b>Categories:</b>
+		<div style="height:10px">&nbsp</div>
+		<input type="checkbox" name="category_all" value="all" checked="checked" />All</br>
+		<c:forEach items="${catalogViewBean.categories}" var="category" varStatus="status">
+			<c:set var="dots" value="...." />
+			<c:choose>
+			<c:when test="${fn:length(category.key) lt 18}">
+				<c:set var="categoryName" value="${category.key}" />
+			</c:when>
+			<c:otherwise>
+				<c:set var="categoryName" value="${fn:substring(category.key, 0, 18)} ${dots}" />		
+			</c:otherwise>
+			</c:choose>
+			<c:choose>
+			<c:when test="${status.count  le 10}">
+				<input type="checkbox" name="category_${category.key}" value="${category.key}" />${categoryName} (${category.value})</br>
+			</c:when>
+			<c:when test="${status.count  eq 11}">
+				<span id="more_categories" style="display:none">
+					<input type="checkbox" name="category_${category.key}" value="${category.key}" />${categoryName} (${category.value})</br>
+			</c:when>
+			<c:otherwise>
+					<input type="checkbox" name="category_${category.key}" value="${category.key}" />${categoryName} (${category.value})</br>		
+			</c:otherwise>
+		</c:choose>
+		<c:if test="${fn:length(catalogViewBean.categories) gt 10 && status.count eq fn:length(catalogViewBean.categories)}">
+				</span>
+				<a id="filter_more_categories" href="javascript:void(0)" style="color:#787878;margin-left:20px" onclick="javascript:viewMoreLessFilters('filter_more_categories', 'more_categories')">view all</a>
 		</c:if>
-	</c:forEach>
+
+		</c:forEach>
+	</c:if>
 	<div style="height:20px">&nbsp</div>
 	<b>Brands:</b>
 	<div style="height:10px">&nbsp</div>
 	<input type="checkbox" name="make_all" value="all" checked="checked" />All</br>
-	<c:forEach items="${catalogViewBean.brands}" var="brand">
-		<input type="checkbox" name="make_${brand.key}" value="${brand.key}" />${brand.key} (${brand.value})</br>
+	<c:forEach items="${catalogViewBean.brands}" var="brand" varStatus="status" >
+		<c:set var="dots" value="...." />
+		<c:choose>
+		<c:when test="${fn:length(brand.key) lt 18}">
+			<c:set var="brandName" value="${brand.key}" />
+		</c:when>
+		<c:otherwise>
+			<c:set var="brandName" value="${fn:substring(brand.key, 0, 18)} ${dots}" />		
+		</c:otherwise>
+		</c:choose>
+		<c:choose>
+			<c:when test="${status.count  le 10}">
+				<input type="checkbox" name="make_${brand.key}" value="${brand.key}" />${brandName} (${brand.value})</br>
+			</c:when>
+			<c:when test="${status.count  eq 11}">
+				<span id="more_brands" style="display:none">
+					<input type="checkbox" name="make_${brand.key}" value="${brand.key}" />${brandName} (${brand.value})</br>
+			</c:when>
+			<c:otherwise>
+					<input type="checkbox" name="make_${brand.key}" value="${brand.key}" />${brandName} (${brand.value})</br>		
+			</c:otherwise>
+		</c:choose>
+		<c:if test="${fn:length(catalogViewBean.brands) gt 10 && status.count eq fn:length(catalogViewBean.brands)}">
+				</span>
+				<a id="filter_more_brands" href="javascript:void(0)" style="color:#787878;margin-left:20px" onclick="javascript:viewMoreLessFilters('filter_more_brands', 'more_brands')">view all</a>
+		</c:if>
+		
 	</c:forEach>
 	<div style="height:20px">&nbsp</div>
 	<b>Price Range:</b>
@@ -87,5 +138,16 @@ function setProductFilter(filterName) {
 	}
 }
 
-
+function viewMoreLessFilters(currentAnchor, divId) {
+	 if($('#' + currentAnchor).text() == 'view all') {
+		 $('#'+ divId).css('display', 'block');
+		 $('#' + currentAnchor).text('view less');
+	 }
+	 else {
+		 $('#' + divId).css('display', 'none');
+		 $('#' + currentAnchor).text('view all');
+	 }
+	 window.scrollTo(0, 0);
+	 return false;
+}
 </script>

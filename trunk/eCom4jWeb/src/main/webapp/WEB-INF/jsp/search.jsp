@@ -30,7 +30,7 @@
           <div class="product_img"> <input  type="image" align="center" src="${product.src}" cssStyle="width:130px; height:130px;"/></div>
 		</form>
      
-          <div class="prod_price"> <span class="price">$ ${product.unitPrice}</span></div>
+          <div class="prod_price"> <span class="price">$ ${product.salePrice}</span></div>
         </div>
         <div class="prod_details_tab">
         	 <a href="details.do?productID=${productID}" class="prod_details">details</a> </div>

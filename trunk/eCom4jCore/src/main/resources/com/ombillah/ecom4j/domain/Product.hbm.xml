@@ -42,15 +42,25 @@
 
 	<query name="getProductBrands">
         <![CDATA[SELECT product.make, COUNT(product.productId) 
-        				FROM Product product 
+        				FROM Product product
+        				where 
+        				( product.category.categoryId = :categoryId 
+        					or 
+        				  product.category.parentCategory.categoryId = :categoryId 
+        				)
         				group by product.make 
-        				order by product.make
+        				order by 2 desc
         ]]>
 	</query>
 	<query name="getProductCategories">
         <![CDATA[SELECT category.categoryName, COUNT(product.productId) 
         				FROM Product as product
-        				right join product.category as category 
+        				right join product.category as category
+        				where
+        				( product.category.categoryId = :categoryId 
+        					or 
+        				  product.category.parentCategory.categoryId = :categoryId 
+        				) 
         				group by category.categoryName 
         				order by category.categoryName
         ]]>
@@ -66,6 +76,11 @@
 				    END AS NAME, COUNT(product.productId)
 				FROM
 				    Product product
+				    where
+				    ( product.category.categoryId = :categoryId 
+       					or 
+       				  product.category.parentCategory.categoryId = :categoryId 
+       				)
 				    GROUP BY col_0_0_
 				    ORDER BY col_0_0_
         ]]>

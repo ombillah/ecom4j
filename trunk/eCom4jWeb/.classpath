@@ -408,5 +408,8 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/eCom4jCore"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/eCom4jRemixDomain"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/eCom4jWS"/>
+	<classpathentry kind="lib" path="/eCom4jCore/src"/>
+	<classpathentry kind="lib" path="/eCom4jRemixDomain/target/generated-sources"/>
+	<classpathentry kind="lib" path="/eCom4jWS/src"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

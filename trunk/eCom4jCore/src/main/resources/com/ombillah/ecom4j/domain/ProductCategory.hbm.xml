@@ -10,9 +10,17 @@
 		<property name="categoryName" column="CATEGORY_NAME"></property>
 		<many-to-one name="parentCategory" column="PARENT_CATEGORY" class="com.ombillah.ecom4j.domain.ProductCategory" />
 			
-		<set name="subCategories" table="PRODUCT_CATEGORY" inverse="true">
+		<bag name="subCategories" table="PRODUCT_CATEGORY" inverse="true" lazy="false" order-by="CATEGORY_NAME">
 			<key column="PARENT_CATEGORY" />
 			<one-to-many class="com.ombillah.ecom4j.domain.ProductCategory" />
-		</set>
+		</bag>
 	</class>
+	
+	<query name="getProductCategoryIds">
+        <![CDATA[SELECT category.categoryId
+        				FROM ProductCategory as category
+        				where category.categoryName in (:categoryList)
+        				order by category.categoryName
+        ]]>
+	</query>
 </hibernate-mapping>

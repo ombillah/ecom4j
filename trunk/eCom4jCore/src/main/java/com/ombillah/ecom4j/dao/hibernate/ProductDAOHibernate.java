@@ -62,9 +62,10 @@ public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements Pr
 	}
 
 	@SuppressWarnings("rawtypes")
-	public Map<String, Integer> getManufacturerList() {
+	public Map<String, Integer> getManufacturerList(String categoryId) {
 		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
 		Query query = getSession().getNamedQuery("getProductBrands");
+		query.setString("categoryId", categoryId);
 		Iterator it = query.iterate();
 		while (it.hasNext()) {  
 			Object[] row = (Object[]) it.next();  
@@ -76,9 +77,10 @@ public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements Pr
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public Map<String, Integer> getProductCategories() {
+	public Map<String, Integer> getProductCategories(String categoryId) {
 		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
 		Query query = getSession().getNamedQuery("getProductCategories");
+		query.setString("categoryId", categoryId);
 		Iterator it = query.iterate();
 		while (it.hasNext()) {  
 			Object[] row = (Object[]) it.next();  
@@ -90,9 +92,10 @@ public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements Pr
 	}
 	
 	@SuppressWarnings("rawtypes")
-	public Map<String, Integer> getProductPriceRange() {
+	public Map<String, Integer> getProductPriceRange(String categoryId) {
 		Map<String, Integer> map = new LinkedHashMap<String, Integer>();
 		Query query = getSession().getNamedQuery("getProductPriceRange");
+		query.setString("categoryId", categoryId);
 		Iterator it = query.iterate();
 		while (it.hasNext()) {  
 			Object[] row = (Object[]) it.next();  
@@ -108,6 +111,16 @@ public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements Pr
 	public List<Product> getProducts(Page currentPage, Integer startIndex, Integer pageSize) {
 		Map<String, String[]> catalogFilters = currentPage.getCatalogFilters();
 		Criteria criteria = getSession().createCriteria(Product.class);
+		setProductFiltersCriteria(catalogFilters, criteria);
+		criteria.setMaxResults(pageSize);
+		criteria.setFirstResult(startIndex);
+		
+		addSortingCriteria(currentPage, criteria);
+		List<Product> productList = criteria.list();
+		return productList;
+	}
+
+	private void setProductFiltersCriteria(Map<String, String[]> catalogFilters, Criteria criteria) {
 		for(String filterName : catalogFilters.keySet()) {
 			String[] filterValues = catalogFilters.get(filterName);
 			if(StringUtils.equals(filterValues[0], "all")) {
@@ -117,30 +130,20 @@ public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements Pr
 				createPricingCriteria(criteria, filterValues);
 			} else if(StringUtils.equals(filterName, "category")){
 				criteria.createAlias("category","category");
-				criteria.add(Restrictions.in("category.categoryName", filterValues));
+				criteria.add(Restrictions.disjunction()
+				        .add(Restrictions.in("category.categoryId", filterValues))
+				        .add(Restrictions.in("category.parentCategory.categoryId", filterValues))
+				    );
 			} else {
 				criteria.add(Restrictions.in(filterName, filterValues));
 			}
 		}
-		criteria.setMaxResults(pageSize);
-		criteria.setFirstResult(startIndex);
-		
-		addSortingCriteria(currentPage, criteria);
-		List<Product> productList = criteria.list();
-		return productList;
 	}
 
 	private void addSortingCriteria(Page currentPage, Criteria criteria) {
 		
 		String sortField = currentPage.getSortBy();
-		
-		if(StringUtils.equals("name", sortField) && currentPage.isSortAsc()) {
-			criteria.addOrder(Order.asc("make"));
-			criteria.addOrder(Order.asc("model"));
-		} else if(StringUtils.equals("name", sortField) && !currentPage.isSortAsc()) {
-			criteria.addOrder(Order.desc("make"));
-			criteria.addOrder(Order.desc("model"));
-		} else if(currentPage.isSortAsc()) {
+		if(currentPage.isSortAsc()) {
 			criteria.addOrder(Order.asc(sortField));
 		} else {
 			criteria.addOrder(Order.desc(sortField));
@@ -154,28 +157,14 @@ public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements Pr
 			String[] priceRangeArray = priceRange.split(" - ");
 			Float lowerLimit = Float.valueOf(priceRangeArray[0]);
 			Float upperLimit = Float.valueOf(priceRangeArray[1]);
-			disj.add(Restrictions.between("unitPrice", lowerLimit , upperLimit));
+			disj.add(Restrictions.between("salePrice", lowerLimit , upperLimit));
 		}
 		criteria.add(disj);
 	}
 	
 	public Integer getProductsCount(Map<String, String[]> catalogFilters) {
 		Criteria criteria = getSession().createCriteria(Product.class);
-		for(String filterName : catalogFilters.keySet()) {
-			String[] filterValues = catalogFilters.get(filterName);
-			if(StringUtils.equals(filterValues[0], "all")) {
-				continue;
-			}
-			if(StringUtils.equals(filterName, "price")) {
-				createPricingCriteria(criteria, filterValues);
-			} else if(StringUtils.equals(filterName, "category")){
-				criteria.createAlias("category","category");
-				criteria.add(Restrictions.in("category.categoryName", filterValues));
-			} else {
-				criteria.add(Restrictions.in(filterName, filterValues));
-			}
-		}
-
+		setProductFiltersCriteria(catalogFilters, criteria);
 		Integer count = (Integer) criteria.setProjection(Projections.rowCount()).uniqueResult();
 		return count;	
 	}

@@ -22,11 +22,11 @@ public interface ProductDAO extends BaseDAO<Product> {
 	
 	public List<ProductSpecificationMap> getProductSpecifications(Long productId);
 	
-	public Map<String, Integer> getManufacturerList();
+	public Map<String, Integer> getManufacturerList(String categoryId);
 	
-	public Map<String, Integer> getProductCategories();
+	public Map<String, Integer> getProductCategories(String categoryId);
 	
-	public Map<String, Integer> getProductPriceRange();
+	public Map<String, Integer> getProductPriceRange(String categoryId);
 
 	public List<Product> getProducts(Page currentPage, Integer startIndex, Integer pageSize);
 

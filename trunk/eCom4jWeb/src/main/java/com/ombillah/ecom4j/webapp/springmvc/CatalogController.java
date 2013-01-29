@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import com.ombillah.ecom4j.domain.Page;
 import com.ombillah.ecom4j.domain.Product;
 import com.ombillah.ecom4j.pagination.PaginationHandler;
+import com.ombillah.ecom4j.service.ProductCategoryService;
 import com.ombillah.ecom4j.service.ProductService;
 import com.ombillah.ecom4j.webapp.springmvc.viewbean.CatalogFilter;
 import com.ombillah.ecom4j.webapp.springmvc.viewbean.CatalogViewBean;
@@ -31,10 +33,13 @@ import com.ombillah.ecom4j.webapp.springmvc.viewbean.CatalogViewBean;
 @SessionAttributes("catalogViewBean")
 public class CatalogController {
 	
-	@Autowired
+	@Resource(name="productService")
 	private ProductService productService;
 	
-	@Autowired
+	@Resource(name="productCategoryService")
+	private ProductCategoryService productCategoryService;
+	
+	@Resource(name="paginationHandler")
 	private PaginationHandler paginationHandler;
 	
 	@Value("${CATALOG_PAGE_SIZE_OPTIONS}")
@@ -54,24 +59,36 @@ public class CatalogController {
 	public String displayProductCatalog(
 			@ModelAttribute("catalogViewBean") CatalogViewBean catalogViewBean,
 			@RequestParam(value="category", required=false) final String category,
-			@RequestParam(value="brand", required=false) final String brand) {
+			@RequestParam(value="isParent", required=false) final boolean isParentCategory) {
 		
-		setInitialPaginationProperties(catalogViewBean, true);
-		retrieveProducts(catalogViewBean, category, brand);
+		setInitialPaginationProperties(catalogViewBean, category);
+		retrieveProducts(catalogViewBean);
 		retrieveBrands(catalogViewBean);
-		retrieveCategories(catalogViewBean);
+		retrieveCategories(catalogViewBean, category, isParentCategory);
 		retrievePriceRanges(catalogViewBean);
 		
 		return "catalog";
 	}
 
-	private void setInitialPaginationProperties(CatalogViewBean catalogViewBean, boolean isNewPage) {
-		Page page;
-		if(isNewPage) {
-			page = new Page();
-		} else {
-			page = catalogViewBean.getCurrentPage();
+	private void setInitialPaginationProperties(CatalogViewBean catalogViewBean,
+			String category) {
+		
+		Map<String, String[]> filters = catalogViewBean.getCurrentPage().getCatalogFilters();
+		
+		setProductFilter(catalogViewBean, filters);
+		
+		if (StringUtils.isNotBlank(category)){
+			String[] filterValues = {category};
+			filters.put("category", filterValues);
+			setProductFilter(catalogViewBean, filters);
 		}
+		
+		Page page = catalogViewBean.getCurrentPage();
+		
+		if(page == null) {
+			page = new Page();
+		}
+		
 		page.setPageSize(defaultPageSize);
 		List<Integer> availablePageSizesArray = createAvailablePageSizes();
 		page.setAvailablePageSizes(availablePageSizesArray);
@@ -98,34 +115,31 @@ public class CatalogController {
 	}
 
 	private void retrievePriceRanges(CatalogViewBean catalogViewBean) {
-		Map<String, Integer> priceRanges = productService.getProductPriceRange();
+		Map<String, String[]> filters = catalogViewBean.getCurrentPage().getCatalogFilters();
+		String[] categoryFilter = filters.get("category");
+		String categoryId = categoryFilter[0];
+		Map<String, Integer> priceRanges = productService.getProductPriceRange(categoryId);
 		catalogViewBean.setPriceRanges(priceRanges);
 	}
 	
-	private void retrieveCategories(CatalogViewBean catalogViewBean) {
-		Map<String, Integer> categories = productService.getProductCategories();
-		catalogViewBean.setCategories(categories);
+	private void retrieveCategories(CatalogViewBean catalogViewBean, String category, boolean isParentCategory) {
+		if(isParentCategory) {
+			Map<String, Integer> categories = productService.getProductCategories(category);
+			catalogViewBean.setCategories(categories);
+		}
+		
 	}
 	
+	
 	private void retrieveBrands(CatalogViewBean catalogViewBean) {
-		Map<String, Integer> brands = productService.getManufacturerList();
+		Map<String, String[]> filters = catalogViewBean.getCurrentPage().getCatalogFilters();
+		String[] categoryFilter = filters.get("category");
+		String categoryId = categoryFilter[0];
+		Map<String, Integer> brands = productService.getManufacturerList(categoryId);
 		catalogViewBean.setBrands(brands);
 	}
 	
-	private void retrieveProducts(CatalogViewBean catalogViewBean, final String category, final String brand) {
-		Map<String, String[]> filters = catalogViewBean.getCurrentPage().getCatalogFilters();
-	
-		setProductFilter(catalogViewBean, filters);
-		
-		if (StringUtils.isNotBlank(category)){
-			String[] filterValues = {category};
-			filters.put("category", filterValues);
-			setProductFilter(catalogViewBean, filters);
-		}else if(StringUtils.isNotBlank(brand)){
-			String[] filterValues = {brand};
-			filters.put("make", filterValues);
-			setProductFilter(catalogViewBean, filters);
-		}
+	private void retrieveProducts(CatalogViewBean catalogViewBean) {
 		
 		retrieveFirstPage(catalogViewBean);
 	}
@@ -146,10 +160,17 @@ public class CatalogController {
 		Map<String, String[]> currentFilters = catalogViewBean.getCurrentPage().getCatalogFilters();
 		for(String filter : catalogViewBean.getCurrentPage().getCatalogFilters().keySet()) {
 			if(StringUtils.equals(filterName, filter)) {
-				currentFilters.put(filterName, filterValues);
+				if(StringUtils.equals(filterName, "category")) {
+					String[] categoryNames = filterValues;
+					String[] categoryIds = productCategoryService.getProductCategoryIds(categoryNames);
+					currentFilters.put(filterName, categoryIds);
+				}else {
+					currentFilters.put(filterName, filterValues);
+				}
+				
 			}
 		}
-		setInitialPaginationProperties(catalogViewBean, false);
+		setInitialPaginationProperties(catalogViewBean, null);
 		setProductFilter(catalogViewBean, currentFilters);
 		retrieveFirstPage(catalogViewBean);
 		
@@ -186,7 +207,27 @@ public class CatalogController {
 		
 		return "catalogContent";
 	}
-
+	
+	@RequestMapping(value = "/sortResults.do", method = RequestMethod.POST)
+	public String sortResults(
+			String sortField,
+			String sortOrder,
+			@ModelAttribute("catalogViewBean") CatalogViewBean catalogViewBean) {
+		
+		Page page = catalogViewBean.getCurrentPage();
+		page.setSortBy(sortField);
+		boolean isAsc = StringUtils.equals(sortOrder, "asc");
+		page.setSortAsc(isAsc);
+		List<Product> products = paginationHandler.getFirstPage(page);
+		page.setProducts(products);
+		Long numberOfPages = paginationHandler.getPagesCount(page);
+		page.setTotalNumberOfPages(numberOfPages.intValue());
+		page.setCurrentPageNumber(FIRST_PAGE);
+		catalogViewBean.setCurrentPage(page);
+		
+		return "catalogContent";
+	}
+	
 	/**
 	 * setter method for Mocking purpose.
 	 * @param productServiceMock the productServiceMock to set

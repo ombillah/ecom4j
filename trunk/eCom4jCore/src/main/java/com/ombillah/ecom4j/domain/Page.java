@@ -29,8 +29,8 @@ public class Page extends BaseDomain {
 	
 	public Page() {
 		currentPageNumber = 1;
-		sortBy = "name";
-		sortAsc = true;
+		sortBy = "customerReviewAverage";
+		sortAsc = false;
 		Map<String, String[]> filters = new HashMap<String, String[]>();
 		String[] all = {"all"};
 		filters.put("category", all);

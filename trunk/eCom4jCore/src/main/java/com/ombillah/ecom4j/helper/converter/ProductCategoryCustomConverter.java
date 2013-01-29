@@ -21,7 +21,12 @@ public class ProductCategoryCustomConverter implements CustomConverter {
 		
 		CategoryPath categoryPath = (CategoryPath) sourceFieldValue;
 		List<Category> categories = categoryPath.getCategory();
-		Category category = categories.get(categories.size() - 1);
+		
+		Category category = categories.get(1);
+		if (categories.size() > 2) {
+			category = categories.get(2);
+		}
+	
 		ProductCategory productCategory = new ProductCategory();
 		productCategory.setCategoryId(category.getId());
 		productCategory.setCategoryName(category.getName());

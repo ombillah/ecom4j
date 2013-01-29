@@ -74,13 +74,18 @@
 
 	/* Background color and gradients */
 	
-	background: #ECEAE7;
-	
+	background: #f3f3f3;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#fcfcfc), to(#f3f3f3));
+	background: -webkit-linear-gradient(#fcfcfc, #f3f3f3);
+	background: -moz-linear-gradient(#fcfcfc, #f3f3f3);
+	background: -ms-linear-gradient(#fcfcfc, #f3f3f3);
+	background: -o-linear-gradient(#fcfcfc, #f3f3f3);
+	background: linear-gradient(#fcfcfc, #f3f3f3);
+	-pie-background: linear-gradient(#fcfcfc, #f3f3f3);
+	behavior: url(css/PIE.htc);
 	/* Borders */
 	
 	border:1px solid #CCCCCC;
-	
-	behavior: url('css/border-radius.htc');
 }
 
 #horizontal_nav li {
@@ -97,10 +102,6 @@
 #horizontal_nav li:hover {
 	border: 1px solid #777777;
 	padding: 4px 9px 4px 9px;
-	
-	/* Background color and gradients */
-	
-	background: #F4F4F4;
 		
 	/* Rounded corners */
 	
@@ -109,6 +110,9 @@
 	border-radius: 5px 5px 0px 0px;
 }
 
+#horizontal_nav:hover .no_hover {
+	border:none;
+}
 #horizontal_nav li a {
 	font:13px Verdana;
 	display:block;
@@ -141,11 +145,18 @@
 	left:-999em; /* Hides the drop down */
 	text-align:left;
 	padding:10px 5px 10px 5px;
-	border:1px solid #777777;
+	border:1px solid #CCCCCC;
 	border-top:none;
 	
-	background:#ECEAE7;
-
+	background: #f3f3f3;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#fcfcfc), to(#f3f3f3));
+	background: -webkit-linear-gradient(#fcfcfc, #f3f3f3);
+	background: -moz-linear-gradient(#fcfcfc, #f3f3f3);
+	background: -ms-linear-gradient(#fcfcfc, #f3f3f3);
+	background: -o-linear-gradient(#fcfcfc, #f3f3f3);
+	background: linear-gradient(#fcfcfc, #f3f3f3);
+	-pie-background: linear-gradient(#fcfcfc, #f3f3f3);
+	behavior: url(css/PIE.htc);
 	/* Rounded Corners */
 	-moz-border-radius: 0px 5px 5px 5px;
 	-webkit-border-radius: 0px 5px 5px 5px;

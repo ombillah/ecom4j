@@ -14,5 +14,9 @@ public interface ProductCategoryService {
 	public void createProductCategories(List<ProductCategory> productCategories);
 
 	public Integer getCount();
+	
+	public List<ProductCategory> getProductCategories();
+	
+	public String[] getProductCategoryIds(String[] categoryNames);
 
 }
