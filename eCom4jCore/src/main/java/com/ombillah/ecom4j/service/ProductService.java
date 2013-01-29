@@ -34,11 +34,11 @@ public interface ProductService {
 	
 	public void setProductDAO(ProductDAO productDao);
 	
-	public Map<String, Integer> getManufacturerList();
+	public Map<String, Integer> getManufacturerList(String categoryId);
 	
-	public Map<String, Integer> getProductCategories();
+	public Map<String, Integer> getProductCategories(String categoryId);
 	
-	public Map<String, Integer> getProductPriceRange();
+	public Map<String, Integer> getProductPriceRange(String categoryId);
 	
 	public List<Product> getProducts(Page currentPage, Integer startIndex, Integer pageSize);
 

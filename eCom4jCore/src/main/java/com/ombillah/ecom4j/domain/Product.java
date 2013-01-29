@@ -82,7 +82,10 @@ public class Product extends BaseDomain {
 	}
 
 	public void setShortDescriptionHtml(String shortDescriptionHtml) {
-		this.shortDescriptionHtml = shortDescriptionHtml;
+		if (shortDescriptionHtml != null) {
+			// remove the anchor <a> tags in case it is referencing external urls
+			this.shortDescriptionHtml = shortDescriptionHtml.replaceAll("</?a[^>]*>", "");
+		}
 	}
 
 	public String getImage() {

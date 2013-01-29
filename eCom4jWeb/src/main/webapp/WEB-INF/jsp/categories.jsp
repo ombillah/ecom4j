@@ -47,10 +47,10 @@
 		<ul id="sidebarmenu1">
 			<c:forEach items="${productCategories}" var="category">
 				<li>
-					<a href="catalog.do?category=${util:encode(category.categoryName)}">${category.categoryName}</a>
+					<a href="catalog.do?category=${util:encode(category.categoryId)}">${category.categoryName}</a>
 					<ul>
 						<c:forEach items="${category.subCategories}" var="subCategory">
-							<li><a href="catalog.do?category=${util:encode(subCategory.categoryName)}">${subCategory.categoryName}</a></li>
+							<li><a href="catalog.do?category=${util:encode(subCategory.categoryId)}">${subCategory.categoryName}</a></li>
 						</c:forEach>
 					</ul>
 				</li>

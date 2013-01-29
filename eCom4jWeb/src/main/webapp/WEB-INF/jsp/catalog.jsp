@@ -1,10 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <script>
 
 $(document).ready(function(){
    setPaginationEvent();
    setPageSizeChangeEvent();
+   setSortingEvent();
  });
  
 $.fn.stars = function() {
@@ -55,6 +58,46 @@ function setPaginationEvent() {
 	});
 }
 
+function setSortingEvent() {
+	$('#sortOption').bind('change', function(ev) {
+
+		var height = $(".center_content").css("height");
+		$("#ajax_box").css("height", height);
+		$("#ajax_box").show();
+		
+		var $listViewDisplay = $("#list_view").css("display");
+		var $gridViewDisplay = $("#grid_view").css("display");
+		var $listaDisplay = $("#list_a").css("text-decoration");
+		var $gridaDisplay = $("#grid_a").css("text-decoration");
+
+		var $seletedOption = $(this).val();
+	    var $sortValue = $seletedOption.split("_");
+	    var $sortField = $sortValue[0];
+	    var $sortOrder = $sortValue[1];
+	    
+	    $.ajax(
+	            {
+	              url:"sortResults.do", 
+	              type: "POST",  
+	              data:  "sortField=" + $sortField + "&sortOrder=" + $sortOrder,
+	              complete: callback, 
+	            } ); 
+		function callback(response) {
+			setTimeout(function() {
+		    	   $("#ajax_box").hide();
+		    	   $('.center_content').replaceWith(response.responseText);
+		    	   $("#grid_view").css("display", $gridViewDisplay);
+					$("#list_view").css("display", $listViewDisplay);
+					$("#list_a").css("text-decoration", $listaDisplay);
+					$("#grid_a").css("text-decoration", $gridaDisplay);
+					$("#sortOption").val($seletedOption);
+		    	}, 500);
+			
+		}
+
+	 });
+}
+
 function setPageSizeChangeEvent() {
 	$('#pageSize').bind('change', function(ev) {
 
@@ -78,6 +121,21 @@ function setPageSizeChangeEvent() {
 		}
 
 	 });
+}
+
+function switchView() {
+	var listViewDisplay = $("#list_view").css("display");
+	if(listViewDisplay == 'none') {
+		$("#grid_view").css("display", 'none');
+		$("#list_view").css("display", 'block');
+		$("#list_a").css("text-decoration", 'none');
+		$("#grid_a").css("text-decoration", 'underline');
+	} else {
+		$("#list_view").css("display", 'none');
+		$("#grid_view").css("display", 'block');
+		$("#list_a").css("text-decoration", 'underline');
+		$("#grid_a").css("text-decoration", 'none');
+	}
 }
 
 
@@ -157,14 +215,14 @@ function setPageSizeChangeEvent() {
 	</div>
 	<div class="pagination_box light_gray_box marginT">
 		<div class="floatL">
-			View as: <span class="marginL">Grid</span>  <span class="marginL">List</span>
+			View as: <span class="marginL"><a id="grid_a" class="simple_anchor" href="javascript:switchView()" style="text-decoration:none">Grid</a></span>  <span class="marginL"><a id="list_a" class="simple_anchor" href="javascript:switchView()">List</a></span>
 		</div>
 		<div class="floatR">
 			Sort By <select id="sortOption" name="sortOption" style="background:#F0F0F0;border:1px solid #e8e8e8">
-				  <option value="">Highest Rated</option>
-				  <option value="">Most Reviewed</option>
-				  <option value="price_asc">Lowest Price</option>
-				  <option value="price_desc">Highest Price</option>
+				  <option value="customerReviewAverage_desc">Highest Rated</option>
+				  <option value="customerReviewCount_desc">Most Reviewed</option>
+				  <option value="salePrice_asc">Lowest Price</option>
+				  <option value="salePrice_desc">Highest Price</option>
 				  <option value="createdDate_desc">Recently Added</option>
 			    </select>
 		</div>
@@ -174,18 +232,66 @@ function setPageSizeChangeEvent() {
 			<div class="prod_box">
 				<div class="center_prod_box">
 					<div style="text-align: center;padding-left:45px">
-						<span class="stars">${product.productRatingAverage}</span>
+						<span class="stars">${product.customerReviewAverage}</span>
 					</div>
 					<div class="product_img">
-						<input type="image" align="center" src="${product.mainImageUrl}" style="width:130px; height:130px;" />
+						<input type="image" align="center" src="${product.image}" style="max-height: 150px"/>
 					</div>
-					<div class="product_title">${product.name}</div>
+					<div class="product_title">
+						<c:set var="dots" value="...." />
+						<c:choose>
+							<c:when test="${fn:length(product.name) lt 50}">
+								<c:set var="productName" value="${product.name}" />
+							</c:when>
+							<c:otherwise>
+								<c:set var="productName" value="${fn:substring(product.name, 0, 50)} ${dots}" />		
+							</c:otherwise>
+						</c:choose>
+						${productName}
+					</div>
 					
 					<div class="prod_price">
-						<span class="price">$ ${product.unitPrice}</span>
+						<span class="price">$ ${product.salePrice}</span>
 					</div>
 				</div>
 				<a href="catalog.do"><img alt="" src="images/addtocart.png" onmouseover="this.src='images/addtocart_hover.png'" onmouseout="this.src='images/addtocart.png'"></a>
+			</div>
+		</c:forEach>
+	</div>
+	<div id="list_view" style="display:none">
+	    <c:forEach items="${catalogViewBean.currentPage.products}" var="product" >
+			<div class="prod_box_list" style="position:width:500px; margin: 25px;border:1px solid;overflow:hidden;">
+				<div class="prod_image_list" style="float:left;width:100px; margin:25px 10px 0px 25px; text-align:center">
+					<input type="image" align="center" src="${product.image}" style="max-height: 150px"/>
+				</div>
+				<div class="prod_description_list" style="float:left;width:350px; margin:25px 10px 10px 25px;">
+					<div class="strong">${product.name}</div>
+					<div class="">SKU: ${product.sku}</div>
+					<div>
+						<span class="stars">${product.customerReviewAverage}</span>
+						<span>
+							<fmt:formatNumber var="averageReview" value="${product.customerReviewAverage}" maxFractionDigits="2" />
+								${averageReview} / 5
+						</span> 
+						<span>(${product.customerReviewCount} reviews)</span> 
+					</div>
+					<div style="margin-top:15px">
+						${product.shortDescriptionHtml}
+					</div>
+				</div>
+				<div class="add_to_cart_list" style="float:right; width:150px;height:50px; margin-top:50px;text-align: center">
+					<div class="strong price" style="padding:5px;font-size:15px;color:rgb(158, 79, 79)">
+						<c:choose>
+							<c:when test="${ product.regularPrice ne product.salePrice }">
+								<span class="text_crossed">$${product.regularPrice}</span> $${product.salePrice}
+							</c:when>
+							<c:otherwise>
+								$${product.salePrice}
+							</c:otherwise>
+						</c:choose>
+					</div>
+					<a href="catalog.do"><img alt="" src="images/addtocart.png" onmouseover="this.src='images/addtocart_hover.png'" onmouseout="this.src='images/addtocart.png'"></a>
+				</div>
 			</div>
 		</c:forEach>
 	</div>

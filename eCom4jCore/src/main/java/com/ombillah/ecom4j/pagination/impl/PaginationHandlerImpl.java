@@ -16,12 +16,11 @@ import com.ombillah.ecom4j.service.ProductService;
  * @author Oussama M Billah
  *
  */
-@Component
-public class PaginationHandlterImpl implements PaginationHandler {
+@Component("paginationHandler")
+public class PaginationHandlerImpl implements PaginationHandler {
 	
 	@Autowired
 	private ProductService productService;
-	private static final Long HUNDRED = 100L;
 	
 	public Long getPagesCount(Page currentPage) {
 		Map<String, String[]> catalogFilter = currentPage.getCatalogFilters();
@@ -29,7 +28,6 @@ public class PaginationHandlterImpl implements PaginationHandler {
 		currentPage.setTotalNumberOfProducts(count);
 		Float pagesCountD = count.floatValue() / currentPage.getPageSize();
 		Double pagesCount = Math.ceil(pagesCountD);
-		pagesCount = HUNDRED.doubleValue();
 		return pagesCount.longValue();
 	}
 

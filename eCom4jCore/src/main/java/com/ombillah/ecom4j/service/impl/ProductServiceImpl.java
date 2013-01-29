@@ -68,13 +68,13 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Transactional
-	public Map<String, Integer> getManufacturerList() {
-		return productDao.getManufacturerList();
+	public Map<String, Integer> getManufacturerList(String categoryId) {
+		return productDao.getManufacturerList(categoryId);
 	}
 	
 	@Transactional
-	public Map<String, Integer> getProductCategories() {
-		return productDao.getProductCategories();
+	public Map<String, Integer> getProductCategories(String categoryId) {
+		return productDao.getProductCategories(categoryId);
 	}
 	
 	@Transactional
@@ -88,8 +88,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Transactional
-	public Map<String, Integer> getProductPriceRange() {
-		return productDao.getProductPriceRange();
+	public Map<String, Integer> getProductPriceRange(String categoryId) {
+		return productDao.getProductPriceRange(categoryId);
 	}
 
 	@Transactional

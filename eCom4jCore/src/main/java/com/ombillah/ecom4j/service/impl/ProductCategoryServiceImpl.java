@@ -33,4 +33,13 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
 		return productCategoryDao.getRowCount(ProductCategory.class);
 	}
 	
+	@Transactional
+	public List<ProductCategory> getProductCategories() {
+		return productCategoryDao.getParentCategories();
+	}
+
+	@Transactional
+	public String[] getProductCategoryIds(String[] categoryNames) {
+		return productCategoryDao.getProductCategoryIds(categoryNames);
+	}
 }

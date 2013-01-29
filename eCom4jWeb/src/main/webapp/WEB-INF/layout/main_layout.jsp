@@ -8,9 +8,11 @@
 <title><tiles:getAsString name="htmlTitle"/></title>
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link href="css/navigation.css" media="screen" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="css/slides.css" />
 <script type="text/javascript" src="js/scripts.js"></script>
 <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
 <script src="js/jquery-scrollTo.js"></script>
+<script src="js/slides.min.jquery.js"></script>
 </head>
 <body>
 	<div id="main_container">
