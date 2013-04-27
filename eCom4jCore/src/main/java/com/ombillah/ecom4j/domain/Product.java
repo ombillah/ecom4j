@@ -32,6 +32,7 @@ public class Product extends BaseDomain {
 	private Float regularPrice;
 	private Float salePrice;
 	private Boolean inStock;
+	private Boolean homePageDisplay;
 	private Date createdDate;
 	private String createdBy;
 	private Date modifiedDate;
@@ -150,6 +151,14 @@ public class Product extends BaseDomain {
 
 	public void setInStock(Boolean inStock) {
 		this.inStock = inStock;
+	}
+
+	public Boolean getHomePageDisplay() {
+		return homePageDisplay;
+	}
+
+	public void setHomePageDisplay(Boolean homePageDisplay) {
+		this.homePageDisplay = homePageDisplay;
 	}
 
 	public Date getCreatedDate() {

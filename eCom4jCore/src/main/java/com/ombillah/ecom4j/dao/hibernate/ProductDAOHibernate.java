@@ -1,7 +1,6 @@
 
 package com.ombillah.ecom4j.dao.hibernate;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -48,8 +47,12 @@ public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements Pr
 		return productList;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Product> getFeaturedProducts() {
-		List<Product> productList = new ArrayList<Product>();
+		Criteria criteria = getSession().createCriteria(Product.class);
+		criteria.add(Restrictions.eq("homePageDisplay", true));
+		criteria.addOrder(Order.desc("customerReviewCount"));
+		List<Product> productList = criteria.list();
 		return productList;
 	}
 	

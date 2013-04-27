@@ -15,7 +15,7 @@
 		<level value="error" />
 	</logger>
 	
-	<logger name="org.hibernate.SQL">
+	<logger name="org.hibernate.sql">
 		<level value="debug" />
 	</logger>
 	

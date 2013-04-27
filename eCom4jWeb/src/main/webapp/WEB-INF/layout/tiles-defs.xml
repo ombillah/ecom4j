@@ -55,6 +55,12 @@
 		 <put-attribute name="body" value="/WEB-INF/jsp/login.jsp"/>
 	</definition>
 	
+	<definition name="productDetails" extends="commonLayout">
+		 <put-attribute name="htmlTitle" type="string" value="Product Details"/>
+		 <put-attribute name="leftPanel" value="/WEB-INF/layout/blank.jsp"/>
+		 <put-attribute name="body" value="/WEB-INF/jsp/productDetails.jsp"/>
+	</definition>
+	
 	<definition name="insertProduct" extends="commonLayout">
 		 <put-attribute name="htmlTitle" type="string" value="Insert Product"/>
 		 <put-attribute name="body" value="/WEB-INF/jsp/insertProduct.jsp"/>

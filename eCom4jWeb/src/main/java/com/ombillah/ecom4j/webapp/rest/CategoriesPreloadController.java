@@ -7,7 +7,6 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.dozer.Mapper;
-import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,7 +25,7 @@ import com.ombillah.ecom4j.service.ProductService;
  * @author Oussama.
  *
  */
-@Controller
+//@Controller
 @RequestMapping(value="/rest/admin")
 public class CategoriesPreloadController {
 	

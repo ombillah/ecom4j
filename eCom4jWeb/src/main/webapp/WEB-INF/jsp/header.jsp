@@ -52,7 +52,7 @@
 </div>
 <ul id="horizontal_nav">
 
-	<li><a href="#"><b>Home Page</b></a></li>
+	<li><a href="home.do"><b>Home Page</b></a></li>
 
 	<li><a href="#" class="drop"><b>Products</b></a>
 	<!-- Begin Products Dropdown -->

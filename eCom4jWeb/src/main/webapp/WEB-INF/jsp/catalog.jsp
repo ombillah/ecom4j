@@ -33,6 +33,16 @@ function setPaginationEvent() {
 		$("#ajax_box").css("position", 'absolute');
 		$("#ajax_box").show();
 		
+		var $listViewDisplay = $("#list_view").css("display");
+		var $gridViewDisplay = $("#grid_view").css("display");
+		var $listaDisplay = $("#list_a").css("text-decoration");
+		var $gridaDisplay = $("#grid_a").css("text-decoration");
+
+		var $seletedOption = $('#sortOption').val();
+		var $sortValue = $seletedOption.split("_");
+		var $sortField = $sortValue[0];
+		var $sortOrder = $sortValue[1];
+		
 		var $pageNumber = this.text;
 		if (this.id == "previous" ) {
 			$pageNumber = parseInt($("#currentPageNumber").val()) - 1;
@@ -52,6 +62,11 @@ function setPaginationEvent() {
 			setTimeout(function() {
 		    	   $("#ajax_box").hide();
 		    	   $('.center_content').replaceWith(response.responseText);
+		    	   $("#grid_view").css("display", $gridViewDisplay);
+					$("#list_view").css("display", $listViewDisplay);
+					$("#list_a").css("text-decoration", $listaDisplay);
+					$("#grid_a").css("text-decoration", $gridaDisplay);
+					$("#sortOption").val($seletedOption);
 		    	}, 500);
 			
 		}
@@ -104,6 +119,17 @@ function setPageSizeChangeEvent() {
 		var height = $(".center_content").css("height");
 		$("#ajax_box").css("height", height);
 		$("#ajax_box").show();
+		
+		var $listViewDisplay = $("#list_view").css("display");
+		var $gridViewDisplay = $("#grid_view").css("display");
+		var $listaDisplay = $("#list_a").css("text-decoration");
+		var $gridaDisplay = $("#grid_a").css("text-decoration");
+
+		var $seletedOption = $('#sortOption').val();
+		var $sortValue = $seletedOption.split("_");
+		var $sortField = $sortValue[0];
+		var $sortOrder = $sortValue[1];
+		
 	    var $pageSize = $(this).val();
 	    $.ajax(
 	            {
@@ -116,6 +142,11 @@ function setPageSizeChangeEvent() {
 			setTimeout(function() {
 		    	   $("#ajax_box").hide();
 		    	   $('.center_content').replaceWith(response.responseText);
+		    	   $("#grid_view").css("display", $gridViewDisplay);
+					$("#list_view").css("display", $listViewDisplay);
+					$("#list_a").css("text-decoration", $listaDisplay);
+					$("#grid_a").css("text-decoration", $gridaDisplay);
+					$("#sortOption").val($seletedOption);
 		    	}, 500);
 			
 		}
@@ -235,7 +266,9 @@ function switchView() {
 						<span class="stars">${product.customerReviewAverage}</span>
 					</div>
 					<div class="product_img">
-						<input type="image" align="center" src="${product.image}" style="max-height: 150px"/>
+						<a href="productDetails.do?productId=${product.productId }">
+							<img align="center" src="${product.image}" style="max-height: 150px"/>
+						</a>
 					</div>
 					<div class="product_title">
 						<c:set var="dots" value="...." />
@@ -247,7 +280,7 @@ function switchView() {
 								<c:set var="productName" value="${fn:substring(product.name, 0, 50)} ${dots}" />		
 							</c:otherwise>
 						</c:choose>
-						${productName}
+						<a href="productDetails.do?productId=${product.productId }" style="color:#787878">${productName}</a>
 					</div>
 					
 					<div class="prod_price">
@@ -262,7 +295,9 @@ function switchView() {
 	    <c:forEach items="${catalogViewBean.currentPage.products}" var="product" >
 			<div class="prod_box_list" style="position:width:500px; margin: 25px;border:1px solid;overflow:hidden;">
 				<div class="prod_image_list" style="float:left;width:100px; margin:25px 10px 0px 25px; text-align:center">
-					<input type="image" align="center" src="${product.image}" style="max-height: 150px"/>
+					<a href="productDetails.do?productId=${product.productId }">
+						<img align="center" src="${product.image}" style="max-height: 150px"/>
+					</a>
 				</div>
 				<div class="prod_description_list" style="float:left;width:350px; margin:25px 10px 10px 25px;">
 					<div class="strong">${product.name}</div>

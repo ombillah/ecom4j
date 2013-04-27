@@ -274,7 +274,7 @@ span.price {
 	position: relative;
 	width: 770px;
 	float: left;
-	padding: 5px 8px 5px 5px;
+	padding: 5px 8px 50px 5px;
 	min-height: 800px;
 }
 
@@ -846,12 +846,24 @@ img {
 }
 
 .register_hdr_block {
-	background: url("../images/navigation/OFF.gif") repeat-x scroll left top
-		transparent;
-	width: 100%;
+	width: 99%;
 	font-size: 16px;
 	font-weight: bold;
-	padding: 5px 5px;
+	padding: 5px 0px 5px 5px;
+	border:1px solid #CCCCCC;
+	
+	/* Background color and gradients */
+	
+	background: #f3f3f3;
+	background: -webkit-gradient(linear, 0 0, 0 bottom, from(#fcfcfc), to(#f3f3f3));
+	background: -webkit-linear-gradient(#fcfcfc, #f3f3f3);
+	background: -moz-linear-gradient(#fcfcfc, #f3f3f3);
+	background: -ms-linear-gradient(#fcfcfc, #f3f3f3);
+	background: -o-linear-gradient(#fcfcfc, #f3f3f3);
+	background: linear-gradient(#fcfcfc, #f3f3f3);
+	-pie-background: linear-gradient(#fcfcfc, #f3f3f3);
+	behavior: url(css/PIE.htc);
+	
 }
 
 .register_table {

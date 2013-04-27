@@ -1,4 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <script>
 	$(function(){
@@ -10,36 +12,68 @@
 			hoverPause: true
 		});
 	});
+	$.fn.stars = function() {
+	    return $(this).each(function() {
+	        
+	        var val = parseFloat($(this).html());
+	        val = Math.round(val * 2) / 2; // round to nearest half
+	        // Make sure that the value is in 0 - 5 range, multiply to get width
+	        var size = Math.max(0, (Math.min(5, val))) * 16;
+	        // Create stars holder
+	        var $span = $('<span />').width(size);
+	        // Replace the numerical value with stars
+	        $(this).html($span);
+	    });
+	}
+
+	$(function() {
+	    $('span.stars').stars();
+	});
 </script>
 <div class="center_content">
 	<div id="slides">
 		<div class="slides_container">
-			<a href="http://www.flickr.com/photos/jliba/4665625073/" title="145.365 - Happy Bokeh Thursday! | Flickr - Photo Sharing!" target="_blank"><img src="images/slides/desktops.jpg" width="570" height="270" alt="Slide 1"></a>
-			<a href="http://www.flickr.com/photos/stephangeyer/3020487807/" title="Taxi | Flickr - Photo Sharing!" target="_blank"><img src="images/slides/slide-2.jpg" width="570" height="270" alt="Slide 2"></a>
-			<a href="http://www.flickr.com/photos/childofwar/2984345060/" title="Happy Bokeh raining Day | Flickr - Photo Sharing!" target="_blank"><img src="images/slides/slide-3.jpg" width="570" height="270" alt="Slide 3"></a>
-			<a href="http://www.flickr.com/photos/b-tal/117037943/" title="We Eat Light | Flickr - Photo Sharing!" target="_blank"><img src="images/slides/slide-4.jpg" width="570" height="270" alt="Slide 4"></a>
-			<a href="http://www.flickr.com/photos/bu7amd/3447416780/" title="I must go down to the sea again, to the lonely sea and the sky; and all I ask is a tall ship and a star to steer her by. | Flickr - Photo Sharing!" target="_blank"><img src="images/slides/slide-5.jpg" width="570" height="270" alt="Slide 5"></a>
-			<a href="http://www.flickr.com/photos/streetpreacher/2078765853/" title="twelve.inch | Flickr - Photo Sharing!" target="_blank"><img src="images/slides/slide-6.jpg" width="570" height="270" alt="Slide 6"></a>
-			<a href="http://www.flickr.com/photos/aftab/3152515428/" title="Save my love for loneliness | Flickr - Photo Sharing!" target="_blank"><img src="images/slides/slide-7.jpg" width="570" height="270" alt="Slide 7"></a>
+			<a href="catalog.do?category=abcat0502000&manufacturer=Apple®" title="" ><img src="images/slides/macbook.jpg" width="570" height="270" alt="Slide 1"></a>
+			<a href="catalog.do?category=abcat0501000&manufacturer=Apple®" title="" ><img src="images/slides/macpro.jpg" width="570" height="270" alt="Slide 2"></a>
+			<a href="catalog.do?category=abcat0502000&manufacturer=Lenovo" title="" ><img src="images/slides/lenovo.jpg" width="570" height="270" alt="Slide 3"></a>
+			<a href="catalog.do?category=pcmcat209400050001&manufacturer=Apple®" title="" ><img src="images/slides/iphone.jpg" width="570" height="270" alt="Slide 4"></a>
 		</div>
 		<a href="#" class="prev"><img src="images/slides/arrow-prev.png" width="24" height="43" alt="Arrow Prev"></a>
 		<a href="#" class="next"><img src="images/slides/arrow-next.png" width="24" height="43" alt="Arrow Next"></a>
 	</div>
-		
-	<c:forEach items="${featuredProducts}" var="product">
-		<div class="prod_box">
-			<div class="center_prod_box">
-				<div class="product_img">
-					<input type="image" align="center" src="${product.mainImageUrl}" style="width:130px; height:130px;" />
+	
+	<div style="margin:75px 0px 0px -10px">
+	<div class="register_hdr_block">Featured Products</div>
+	 <div style="height:20px">&nbsp</div>
+	    <c:forEach items="${featuredProducts}" var="product" >
+			<div class="prod_box">
+				<div class="center_prod_box">
+					<div style="text-align: center;padding-left:45px">
+						<span class="stars">${product.customerReviewAverage}</span>
+					</div>
+					<div class="product_img">
+						<a href="productDetails.do?productId=${product.productId }">
+							<img align="center" src="${product.image}" style="max-height: 150px"/>
+						</a>
+					</div>
+					<div class="product_title">
+						<c:set var="dots" value="...." />
+						<c:choose>
+							<c:when test="${fn:length(product.name) lt 50}">
+								<c:set var="productName" value="${product.name}" />
+							</c:when>
+							<c:otherwise>
+								<c:set var="productName" value="${fn:substring(product.name, 0, 50)} ${dots}" />		
+							</c:otherwise>
+						</c:choose>
+						<a href="productDetails.do?productId=${product.productId }" style="color:#787878">${productName}</a>
+					</div>
+					<div class="prod_price">
+						<span class="price">$ ${product.salePrice}</span>
+					</div>
 				</div>
-				<div class="product_title">${product.name}</div>
-				
-				<div class="prod_price">
-					<span class="price">$ ${product.salePrice}</span>
-				</div>
+				<a href="catalog.do"><img alt="" src="images/addtocart.png" onmouseover="this.src='images/addtocart_hover.png'" onmouseout="this.src='images/addtocart.png'"></a>
 			</div>
-			<a href="catalog.do"><img alt="" src="images/addtocart.png" onmouseover="this.src='images/addtocart_hover.png'" onmouseout="this.src='images/addtocart.png'"></a>
-			
-		</div>
-	</c:forEach>
+		</c:forEach>
+	</div>
 </div>

@@ -390,7 +390,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="target/eCom4jWeb-1.0.0-SNAPSHOT/WEB-INF/lib/eCom4jWS-1.0.0-SNAPSHOT.jar">
+	<classpathentry kind="lib" path="target/eCom4jWeb-1.0.0-SNAPSHOT/WEB-INF/lib/eCom4jWS-1.0.0-SNAPSHOT.jar" sourcepath="/eCom4jWS">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
