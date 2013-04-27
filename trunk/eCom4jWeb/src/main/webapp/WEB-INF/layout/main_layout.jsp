@@ -9,6 +9,8 @@
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <link href="css/navigation.css" media="screen" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="css/slides.css" />
+<link rel="stylesheet" href="css/tabs.css" type="text/css">
+
 <script type="text/javascript" src="js/scripts.js"></script>
 <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
 <script src="js/jquery-scrollTo.js"></script>

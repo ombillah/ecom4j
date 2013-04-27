@@ -55,13 +55,13 @@ public class CatalogController {
 		return new CatalogViewBean();
 	}
 	
-	@RequestMapping(value = "/catalog.do", method = RequestMethod.GET)
-	public String displayProductCatalog(
+	@RequestMapping(value = "/catalogsearch.do", method = RequestMethod.GET)
+	public String searchForProduct(
 			@ModelAttribute("catalogViewBean") CatalogViewBean catalogViewBean,
-			@RequestParam(value="category", required=false) final String category,
+			@RequestParam(value="keyword", required=false) final String category,
 			@RequestParam(value="isParent", required=false) final boolean isParentCategory) {
 		
-		setInitialPaginationProperties(catalogViewBean, category);
+		setInitialPaginationProperties(catalogViewBean, category, null);
 		retrieveProducts(catalogViewBean);
 		retrieveBrands(catalogViewBean);
 		retrieveCategories(catalogViewBean, category, isParentCategory);
@@ -69,9 +69,25 @@ public class CatalogController {
 		
 		return "catalog";
 	}
-
+	
+	@RequestMapping(value = "/catalog.do", method = RequestMethod.GET)
+	public String displayProductCatalog(
+			@ModelAttribute("catalogViewBean") CatalogViewBean catalogViewBean,
+			@RequestParam(value="category", required=false) final String category,
+			@RequestParam(value="manufacturer", required=false) final String manufacturer,
+			@RequestParam(value="isParent", required=false) final boolean isParentCategory) {
+		
+		setInitialPaginationProperties(catalogViewBean, category, manufacturer);
+		retrieveProducts(catalogViewBean);
+		retrieveBrands(catalogViewBean);
+		retrieveCategories(catalogViewBean, category, isParentCategory);
+		retrievePriceRanges(catalogViewBean);
+		
+		return "catalog";
+	}
+	
 	private void setInitialPaginationProperties(CatalogViewBean catalogViewBean,
-			String category) {
+			String category, String manufacturer) {
 		
 		Map<String, String[]> filters = catalogViewBean.getCurrentPage().getCatalogFilters();
 		
@@ -80,6 +96,12 @@ public class CatalogController {
 		if (StringUtils.isNotBlank(category)){
 			String[] filterValues = {category};
 			filters.put("category", filterValues);
+			setProductFilter(catalogViewBean, filters);
+		}
+		
+		if (StringUtils.isNotBlank(manufacturer)){
+			String[] filterValues = {manufacturer};
+			filters.put("make", filterValues);
 			setProductFilter(catalogViewBean, filters);
 		}
 		
@@ -170,7 +192,7 @@ public class CatalogController {
 				
 			}
 		}
-		setInitialPaginationProperties(catalogViewBean, null);
+		setInitialPaginationProperties(catalogViewBean, null, null);
 		setProductFilter(catalogViewBean, currentFilters);
 		retrieveFirstPage(catalogViewBean);
 		

@@ -17,6 +17,7 @@
 		<property name="regularPrice" column="REGULAR_PRICE" />
 		<property name="salePrice" column="SALE_PRICE" />
 		<property name="inStock" column="IN_STOCK" />
+		<property name="homePageDisplay" column="HOME_PAGE_DISPLAY" />		
 		<property name="createdDate" column="CREATED_DT" />
 		<property name="createdBy" column="CREATED_BY" />
 		<property name="modifiedDate" column="MODIFIED_DT" />
