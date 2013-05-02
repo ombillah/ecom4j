@@ -10,51 +10,75 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 /**
  * Domain object for Shopping Cart
+ * 
  * @author Oussama M Billah
- *
+ * 
  */
 public class ShoppingCart extends BaseDomain {
-	
-	private static final long serialVersionUID = 1L;
-	
-	private List<CartItem> items;
 
-	public ShoppingCart(){
+	private static final long serialVersionUID = 1L;
+
+	private List<CartItem> items;
+	private float shippingCost;
+	private String shippingOption;
+
+	public ShoppingCart() {
 		items = new ArrayList<CartItem>();
 	}
-	public List<CartItem> getItems(){
+
+	public List<CartItem> getItems() {
 		return this.items;
 	}
-	
-	public boolean addToCart(CartItem item){
+
+	public boolean addToCart(CartItem item) {
 		return items.add(item);
 	}
-	
-	public boolean removeFromCart(CartItem item){
+
+	public boolean removeFromCart(CartItem item) {
 		return items.remove(item);
 	}
-	
-	public CartItem getCartItem(Long productId){
-		for(CartItem item : items){
-			if (item.getProduct().getProductId().equals(productId)){
+
+	public CartItem getCartItem(Long productId) {
+		for (CartItem item : items) {
+			if (item.getProduct().getProductId().equals(productId)) {
 				return item;
 			}
 		}
 		return null;
 	}
-	
-	public float getTotal() {
+
+	public float getProductSubtotal() {
 		float total = 0;
-		for(CartItem item : items){
+		for (CartItem item : items) {
 			total += item.getTotalPrice();
 		}
 		return total;
 	}
-	
-	public int getSize(){
+
+	public float getTotal() {
+		float total = getProductSubtotal() + shippingCost;
+		return total;
+	}
+	public int getSize() {
 		return items.size();
 	}
-	
+
+	public float getShippingCost() {
+		return shippingCost;
+	}
+
+	public void setShippingCost(float shippingCost) {
+		this.shippingCost = shippingCost;
+	}
+
+	public String getShippingOption() {
+		return shippingOption;
+	}
+
+	public void setShippingOption(String shippingOption) {
+		this.shippingOption = shippingOption;
+	}
+
 	/**
 	 * @see java.lang.Object#equals(Object)
 	 */
@@ -66,13 +90,16 @@ public class ShoppingCart extends BaseDomain {
 
 		return EqualsBuilder.reflectionEquals(this, object);
 	}
+
 	/**
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this,ToStringStyle.DEFAULT_STYLE);
+		return ToStringBuilder.reflectionToString(this,
+				ToStringStyle.DEFAULT_STYLE);
 	}
+
 	/**
 	 * @see java.lang.Object#hashCode()
 	 */

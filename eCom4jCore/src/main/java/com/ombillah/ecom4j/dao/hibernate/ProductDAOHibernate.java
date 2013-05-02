@@ -114,7 +114,10 @@ public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements Pr
 	public List<Product> getProducts(Page currentPage, Integer startIndex, Integer pageSize) {
 		Map<String, String[]> catalogFilters = currentPage.getCatalogFilters();
 		Criteria criteria = getSession().createCriteria(Product.class);
-		setProductFiltersCriteria(catalogFilters, criteria);
+		setProductFiltersCriteria(catalogFilters, criteria, currentPage.isParentCategory());
+		if(StringUtils.isNotBlank(currentPage.getSearchKeyword())) {
+			createSearchCriteria(currentPage, criteria);
+		}
 		criteria.setMaxResults(pageSize);
 		criteria.setFirstResult(startIndex);
 		
@@ -123,7 +126,17 @@ public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements Pr
 		return productList;
 	}
 
-	private void setProductFiltersCriteria(Map<String, String[]> catalogFilters, Criteria criteria) {
+	private void createSearchCriteria(Page currentPage, Criteria criteria) {
+		String keyword = currentPage.getSearchKeyword();
+		criteria.add(Restrictions.disjunction()
+				.add(Restrictions.like("make", keyword))
+				.add(Restrictions.like("model", keyword))
+				.add(Restrictions.like("name", keyword))
+				.add(Restrictions.like("shortDescriptionHtml", keyword))
+				.add(Restrictions.like("category.categoryName", keyword)));
+	}
+
+	private void setProductFiltersCriteria(Map<String, String[]> catalogFilters, Criteria criteria, boolean isParentCategory) {
 		for(String filterName : catalogFilters.keySet()) {
 			String[] filterValues = catalogFilters.get(filterName);
 			if(StringUtils.equals(filterValues[0], "all")) {
@@ -133,10 +146,14 @@ public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements Pr
 				createPricingCriteria(criteria, filterValues);
 			} else if(StringUtils.equals(filterName, "category")){
 				criteria.createAlias("category","category");
-				criteria.add(Restrictions.disjunction()
-				        .add(Restrictions.in("category.categoryId", filterValues))
-				        .add(Restrictions.in("category.parentCategory.categoryId", filterValues))
-				    );
+				if(isParentCategory) {
+					criteria.add(Restrictions.disjunction()
+					        .add(Restrictions.in("category.categoryId", filterValues))
+					        .add(Restrictions.in("category.parentCategory.categoryId", filterValues)));
+				} else {
+					criteria.add(Restrictions.in("category.categoryId", filterValues));
+				}
+				      
 			} else {
 				criteria.add(Restrictions.in(filterName, filterValues));
 			}
@@ -165,9 +182,14 @@ public class ProductDAOHibernate extends BaseDAOHibernate<Product> implements Pr
 		criteria.add(disj);
 	}
 	
-	public Integer getProductsCount(Map<String, String[]> catalogFilters) {
+	public Integer getProductsCount(Page currentPage) {
 		Criteria criteria = getSession().createCriteria(Product.class);
-		setProductFiltersCriteria(catalogFilters, criteria);
+		Map<String, String[]> catalogFilters = currentPage.getCatalogFilters();
+		boolean isParentCategory = currentPage.isParentCategory();
+		setProductFiltersCriteria(catalogFilters, criteria, isParentCategory);
+		if(StringUtils.isNotBlank(currentPage.getSearchKeyword())) {
+			createSearchCriteria(currentPage, criteria);
+		}
 		Integer count = (Integer) criteria.setProjection(Projections.rowCount()).uniqueResult();
 		return count;	
 	}

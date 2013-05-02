@@ -1,5 +1,6 @@
 package com.ombillah.ecom4j.webapp.springmvc.viewbean;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.commons.lang.builder.EqualsBuilder;
@@ -22,7 +23,9 @@ public class CatalogViewBean extends BaseDomain {
 	private Map<String, Integer> brands;
 	private Map<String, Integer> categories;
 	private Map<String, Integer> priceRanges;
-
+	private String searchKeyword;
+	private boolean isParentCategory;
+	
 	public Page getCurrentPage() {
 		return currentPage;
 	}
@@ -56,6 +59,22 @@ public class CatalogViewBean extends BaseDomain {
 	}
 
 
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
+	}
+
+	public boolean isParentCategory() {
+		return isParentCategory;
+	}
+
+	public void setParentCategory(boolean isParentCategory) {
+		this.isParentCategory = isParentCategory;
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		if (!(object instanceof CatalogViewBean)) {
@@ -79,6 +98,16 @@ public class CatalogViewBean extends BaseDomain {
 	@Override
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this);
+	}
+
+	public void resetFilters() {
+		Map<String, String[]> filters = new HashMap<String, String[]>();
+		String[] all = {"all"};
+		filters.put("category", all);
+		filters.put("make", all);
+		filters.put("price", all);
+		this.currentPage.setCatalogFilters(filters);
+		
 	}
 
 }

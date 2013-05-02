@@ -14,8 +14,16 @@
 			})
 		}
 	});
+	
+	function addToCart($productId){
+		$('#productId').val($productId);
+		$('#cartform').submit();
+	}
 </script>
 
+<form id="cartform" action="addtocart.do" method="post">
+	<input type="hidden" name="productId" id="productId" />
+</form>
 <div id="header">
 	<div id="logo">
 		<a href="home.do"><img border="0" src="images/logo.png" alt=""></a>
@@ -70,7 +78,7 @@
 								<li><a class="normal_weight" href="catalog.do?category=${util:encode(subCategory.categoryId)}">${subCategory.categoryName}</a></li>
 							</c:if>
 							<c:if test="${status.count  eq 9}">
-								<li><a class="normal_weight" href="catalog.do?category=${util:encode(category.categoryId)}"><b>View All</b></a></li>
+								<li><a class="normal_weight" href="catalog.do?category=${util:encode(category.categoryId)}&isParent=true"><b>View All</b></a></li>
 							</c:if>
 						</c:forEach>
 					</ul>
@@ -80,12 +88,24 @@
 		<!-- End 4 columns container -->
 	</li>
 	<!-- End 4 columns Item -->
-	<li><a href="#"><b>About Us</b></a></li>
 	<li><a href="#"><b>Contact Us</b></a></li>
-	<li class="no_hover">
-		<div class="search_box round_corner">
-	      <input name="search_keyword" style="border: none;"/>
-	      <input type="image" alt="" src="images/search-action.jpg" />
-		</div>
+	<form action="catalogsearch.do" >
+	<li class="no_hover" style="margin-right:1px">
+			<div class="search_box round_corner">
+		      <input name="keyword" style="border: none;"/>
+			</div>
 	</li>
+	<li>
+		<select name="category" style="background:#F0F0F0;border:1px solid #e8e8e8;color:#666666" >
+			  <option  value="">Select a Category</option>
+			  <c:forEach items="${productCategories}" var="category">
+			  	<option  value="${util:encode(category.categoryId)}">${category.categoryName}</option>
+			   </c:forEach>
+		</select>
+	    <input type="image" alt="" src="images/search-action.jpg" />
+		
+	</li>
+	</form>
+	
+	
 </ul>

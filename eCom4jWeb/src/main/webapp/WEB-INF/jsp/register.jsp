@@ -135,10 +135,8 @@
           	</tr>
           	<tr>
           		<td width="250" align="center"></td>
-          		<td width="400" align="center" colspan="2">
-          			<button type="submit" class="gray">
-                    	<span><span><span ><br/>Create My Account</span></span></span>
-                	</button>
+          		<td width="400" align="left" colspan="2">
+          			<input type="submit"  class="gradient_button" value="Create My Account" />
           		</td>
           	</tr>
           </table>

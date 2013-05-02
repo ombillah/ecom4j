@@ -58,13 +58,15 @@ public class CatalogController {
 	@RequestMapping(value = "/catalogsearch.do", method = RequestMethod.GET)
 	public String searchForProduct(
 			@ModelAttribute("catalogViewBean") CatalogViewBean catalogViewBean,
-			@RequestParam(value="keyword", required=false) final String category,
-			@RequestParam(value="isParent", required=false) final boolean isParentCategory) {
+			@RequestParam(value="keyword", required=false) final String keyword,
+			@RequestParam(value="category", required=false) final String category) {
 		
+		catalogViewBean.setSearchKeyword(keyword);
+		catalogViewBean.setParentCategory(true);
 		setInitialPaginationProperties(catalogViewBean, category, null);
 		retrieveProducts(catalogViewBean);
 		retrieveBrands(catalogViewBean);
-		retrieveCategories(catalogViewBean, category, isParentCategory);
+		retrieveCategories(catalogViewBean, category, true);
 		retrievePriceRanges(catalogViewBean);
 		
 		return "catalog";
@@ -77,6 +79,9 @@ public class CatalogController {
 			@RequestParam(value="manufacturer", required=false) final String manufacturer,
 			@RequestParam(value="isParent", required=false) final boolean isParentCategory) {
 		
+		catalogViewBean.resetFilters();
+		
+		catalogViewBean.setParentCategory(isParentCategory);
 		setInitialPaginationProperties(catalogViewBean, category, manufacturer);
 		retrieveProducts(catalogViewBean);
 		retrieveBrands(catalogViewBean);
@@ -98,7 +103,7 @@ public class CatalogController {
 			filters.put("category", filterValues);
 			setProductFilter(catalogViewBean, filters);
 		}
-		
+
 		if (StringUtils.isNotBlank(manufacturer)){
 			String[] filterValues = {manufacturer};
 			filters.put("make", filterValues);
@@ -111,6 +116,8 @@ public class CatalogController {
 			page = new Page();
 		}
 		
+		page.setSearchKeyword(catalogViewBean.getSearchKeyword());
+		page.setParentCategory(catalogViewBean.isParentCategory());
 		page.setPageSize(defaultPageSize);
 		List<Integer> availablePageSizesArray = createAvailablePageSizes();
 		page.setAvailablePageSizes(availablePageSizesArray);

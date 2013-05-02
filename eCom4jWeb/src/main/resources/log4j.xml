@@ -15,17 +15,14 @@
 		<level value="error" />
 	</logger>
 	
-	<logger name="org.hibernate.sql">
+	<logger name="org.hibernate.SQL">
 		<level value="debug" />
 	</logger>
 	
 	<logger name="com.ombillah.ecom4j">
 		<level value="debug" />
 	</logger>
-	
-	<logger name="org">
-		<level value="ERROR" />
-	</logger>
+
 	<!-- Root Logger -->
 	<root>
 		<priority value="warn" />

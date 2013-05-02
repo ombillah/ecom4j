@@ -258,7 +258,7 @@ function switchView() {
 			    </select>
 		</div>
 	</div>
-	<div id="grid_view">
+	<div id="grid_view">`
 	    <c:forEach items="${catalogViewBean.currentPage.products}" var="product" >
 			<div class="prod_box">
 				<div class="center_prod_box">
@@ -287,7 +287,7 @@ function switchView() {
 						<span class="price">$ ${product.salePrice}</span>
 					</div>
 				</div>
-				<a href="catalog.do"><img alt="" src="images/addtocart.png" onmouseover="this.src='images/addtocart_hover.png'" onmouseout="this.src='images/addtocart.png'"></a>
+				<img alt="" src="images/addtocart.png" onmouseover="this.src='images/addtocart_hover.png'" onmouseout="this.src='images/addtocart.png'" onclick="addToCart('${product.productId }')">
 			</div>
 		</c:forEach>
 	</div>
