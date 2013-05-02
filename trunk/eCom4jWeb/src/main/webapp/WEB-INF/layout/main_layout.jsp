@@ -16,12 +16,12 @@
 <script src="js/jquery-scrollTo.js"></script>
 <script src="js/slides.min.jquery.js"></script>
 </head>
+
 <body>
 	<div id="main_container">
 		<tiles:insertAttribute name="header" />
 		<tiles:insertAttribute name="leftPanel" />
 		<tiles:insertAttribute name="body" />
-	    <!--<tiles:insertAttribute name="cart" />-->
 		<tiles:insertAttribute name="footer" />
 	</div>
 </body>

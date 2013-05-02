@@ -11,7 +11,6 @@
 		<put-attribute name="header" value="/WEB-INF/jsp/header.jsp"/>
 		<put-attribute name="leftPanel" value="/WEB-INF/jsp/categories.jsp"/>
 		<put-attribute name="body" value="/WEB-INF/layout/blank.jsp"/>
-		<put-attribute name="cart" value="/WEB-INF/jsp/cart.jsp"/>
 		<put-attribute name="footer" value="/WEB-INF/jsp/footer.jsp"/>
 	</definition>
 	
@@ -27,13 +26,10 @@
 	
 	<definition name="shoppingCart" extends="commonLayout">
 		 <put-attribute name="htmlTitle" type="string" value="Shopping Cart"/>
-		 <put-attribute name="body" value="/WEB-INF/jsp/shoppingCart.jsp"/>
+ 		 <put-attribute name="leftPanel" value="/WEB-INF/layout/blank.jsp"/>		 
+		 <put-attribute name="body" value="/WEB-INF/jsp/cart.jsp"/>
 	</definition>
-	
-	<definition name="emptyCart" extends="commonLayout">
-		 <put-attribute name="htmlTitle" type="string" value="Shopping Cart"/>
-		 <put-attribute name="body" value="/WEB-INF/jsp/emptyCart.jsp"/>
-	</definition>
+
 	
 	<definition name="register" extends="commonLayout">
 		 <put-attribute name="htmlTitle" type="string" value="ecom4j Account Registration"/>

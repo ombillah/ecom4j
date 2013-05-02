@@ -42,7 +42,7 @@ public interface ProductService {
 	
 	public List<Product> getProducts(Page currentPage, Integer startIndex, Integer pageSize);
 
-	public Integer getproductsCount(Map<String, String[]> catalogFilter);
+	public Integer getproductsCount(Page currentPage);
 	
 	public Integer getCount();
 	

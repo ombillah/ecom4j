@@ -30,7 +30,7 @@ public interface ProductDAO extends BaseDAO<Product> {
 
 	public List<Product> getProducts(Page currentPage, Integer startIndex, Integer pageSize);
 
-	public Integer getProductsCount(Map<String, String[]> catalogFilter);
+	public Integer getProductsCount(Page currentPage);
 	
 	public void createProductReview(ProductRating rating);	
 

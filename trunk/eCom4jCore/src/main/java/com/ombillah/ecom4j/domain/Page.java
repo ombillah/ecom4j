@@ -26,6 +26,9 @@ public class Page extends BaseDomain {
 	private String sortBy;
 	private boolean sortAsc;
 	private int pageSize;
+	private String searchKeyword;
+	private boolean isParentCategory;
+	
 	
 	public Page() {
 		currentPageNumber = 1;
@@ -121,6 +124,22 @@ public class Page extends BaseDomain {
 		return getfistItemsIndex() + products.size() - 1;
 	}
 	
+	public String getSearchKeyword() {
+		return searchKeyword;
+	}
+
+	public void setSearchKeyword(String searchKeyword) {
+		this.searchKeyword = searchKeyword;
+	}
+
+	public boolean isParentCategory() {
+		return isParentCategory;
+	}
+
+	public void setParentCategory(boolean isParentCategory) {
+		this.isParentCategory = isParentCategory;
+	}
+
 	@Override
 	public boolean equals(Object object) {
 		if (!(object instanceof Page)) {

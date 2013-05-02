@@ -98,8 +98,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Transactional
-	public Integer getproductsCount(Map<String, String[]> catalogFilter) {
-		return productDao.getProductsCount(catalogFilter);
+	public Integer getproductsCount(Page currentPage) {
+		return productDao.getProductsCount(currentPage);
 	}
 	
 	@Transactional (readOnly = false)

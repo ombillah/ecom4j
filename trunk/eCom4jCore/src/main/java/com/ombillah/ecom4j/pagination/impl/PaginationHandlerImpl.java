@@ -1,7 +1,6 @@
 package com.ombillah.ecom4j.pagination.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,8 +22,7 @@ public class PaginationHandlerImpl implements PaginationHandler {
 	private ProductService productService;
 	
 	public Long getPagesCount(Page currentPage) {
-		Map<String, String[]> catalogFilter = currentPage.getCatalogFilters();
-		Integer count = productService.getproductsCount(catalogFilter);
+		Integer count = productService.getproductsCount(currentPage);
 		currentPage.setTotalNumberOfProducts(count);
 		Float pagesCountD = count.floatValue() / currentPage.getPageSize();
 		Double pagesCount = Math.ceil(pagesCountD);

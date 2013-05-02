@@ -23,18 +23,10 @@ function changeFormAction(action){
 </style>
 
 <div class="center_content style3">
-  <p>
-    <c:choose>
-        <c:when test="${session.customer == null}" >
-          <c:set var="action" value="${'preCheckout.do'}"/>
-          </c:when>
-        <c:otherwise>
-          <c:set var="action" value="${'showCheckout.do'}"/>
-          </c:otherwise>
-    </c:choose>
-          </p>
+
     
-    <form id="shoppingCart" action= "${action}">
+    
+    <form id="shoppingCart" action= "checkout.do">
 	  <table class="cartTable" width="89%" border="1" cellspacing="1">
 	    <tr bgcolor="#02779D">
 	      <th width="19%">Remove</th>
@@ -46,7 +38,7 @@ function changeFormAction(action){
 	    <c:forEach items="${items}" var="item">
 	      <tr>
 	        <td align="center"><input name="remove" type="checkbox" value="${item.product.productID}"/></td>
-	        <td><img src="${item.product.src}" alt="ProductID" width="75" height="75" /></td>
+	        <td><img src="${item.product.image}" alt="ProductID" width="75" height="75" /></td>
 	        <td><c:out value="${item.product.productID}" /></td>
 	        <td><input name="quantity" size="5" /></td>
 	        <td align="center">
