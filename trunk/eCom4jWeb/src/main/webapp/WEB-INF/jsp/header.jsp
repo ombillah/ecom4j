@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="sec"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="/tld/utils.tld" prefix="util"%>
 
 <script type="text/javascript">
@@ -30,24 +30,48 @@
 	</div>
 	<div class="header_box_right">
 		<div class="cart_button round_corner">
-	      <a href="#">Shopping Cart</a>
+	      <a href="viewcart.do">Shopping Cart</a>
 		</div>
-		<div class="login_header">
-				<span class="marginR"><a href="login.do">6 items</a></span> 
-				<font color="gray">|</font> 
-				<span class="marginL">$6000.00</span>
-		</div>
-		<sec:authorize access="isAnonymous()">
+		<c:choose>
+			<c:when test="${fn:length(sessionScope.shoppingCart.items) eq 0}">
+				<div class="login_header">
+					<span class="marginR"><a href="viewcart.do">0 items</a></span> 
+					<font color="gray">|</font> 
+					<span class="marginL">$0.00</span>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<div class="login_header">
+					<span class="marginR"><a href="viewcart.do">${fn:length(sessionScope.shoppingCart.items)} items</a></span> 
+					<font color="gray">|</font> 
+					<span class="marginL" id="cart_total_hdr">
+						$ <fmt:formatNumber type="number" maxFractionDigits="3" value="${sessionScope.shoppingCart.total}" />
+					 </span>
+				</div>
+			</c:otherwise>
+		</c:choose>
+		<sec:authorize access="!hasRole('ROLE_USER')">
 			<div class="login_header">
 				<span class="marginR"><a href="login.do">Sign in</a></span> <font
 					color="gray">|</font> <span class="marginL"><a
 					href="register.do">Create account</a></span>
 			</div>
 		</sec:authorize>
-		<sec:authorize access="isAuthenticated()">
+		<sec:authorize access="hasRole('ROLE_USER')">
 			<div class="login_header">
 				<div>
-					Welcome <b><sec:authentication property="principal.customer.firstName" /></b>
+					<sec:authentication var="firstName" property="principal.customer.firstName" />
+					Welcome
+					<c:choose>
+						<c:when test="${ not empty firstName }">
+							<b>${firstName}</b>
+						</c:when>
+						<c:otherwise>
+							<b>Logged-in User</b>
+						</c:otherwise>
+					</c:choose> 
+					
+						
 				</div>
 				<span class="marginR"><a href="myaccount.do">My Account</a></span> 
 				<font color="gray">|</font> 

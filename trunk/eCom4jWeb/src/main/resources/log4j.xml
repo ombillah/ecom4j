@@ -11,8 +11,8 @@
 		</layout>
 	</appender>
 
-	<logger name="org.springframework.binding">
-		<level value="error" />
+	<logger name="org.springframework">
+		<level value="debug" />
 	</logger>
 	
 	<logger name="org.hibernate.SQL">

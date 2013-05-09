@@ -4,16 +4,32 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:p="http://www.springframework.org/schema/p" 
 	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:security="http://www.springframework.org/schema/security"
+	
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
 						http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
 						http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd">
 
 	<http pattern="/resources" security="none" />
+	
+	<security:global-method-security secured-annotations="enabled" />
+	
+		
+	<http auto-config="true" use-expressions="true" pattern="/checkout-*.do" >
+	    <intercept-url pattern="/checkout-login.do" access="permitAll"/>
+	    <intercept-url pattern="/checkout-guest.do" access="permitAll"/>
+	    <intercept-url pattern="/checkout-register.do" access="permitAll"/>
+		<intercept-url pattern="/checkout-*.do" access="hasAnyRole('ROLE_USER', 'ROLE_GUEST')" />		
+		<form-login login-page="/checkout-login.do" authentication-failure-url="/checkout-login.do?invalidLogin=true"
+			default-target-url="/" />
 
-	<http auto-config="true" use-expressions="true">
-		<intercept-url pattern="/myaccount.do" access="hasRole('ROLE_USER')" />
-		<intercept-url pattern="/home" access="permitAll" />
+		<access-denied-handler error-page="/denied" />
 
+		<logout invalidate-session="true" logout-success-url="/home.do" />
+	</http>
+	
+	 <http auto-config="true" use-expressions="true" >
+		<intercept-url pattern="/myaccount.do" access="hasRole('ROLE_USER')" />		
 		<form-login login-page="/login.do" authentication-failure-url="/login.do?invalidLogin=true"
 			default-target-url="/" />
 
@@ -21,6 +37,7 @@
 
 		<logout invalidate-session="true" logout-success-url="/home.do" />
 	</http>
+	
 	
 	<authentication-manager  alias="authenticationManager">
 		<authentication-provider user-service-ref="customUserDetailsService">

@@ -192,7 +192,7 @@ public class MyAccountController {
 		String invalidCaptcha = "customer.captcha.invalid";
 		
 		SpringValidatorUtils.rejectIfInvalidPassword(errors, "password", invalidPasswordError);
-		SpringValidatorUtils.rejectIfPasswordNotMatch(errors, "password", "confirmPassword", passwordMatchError);
+		SpringValidatorUtils.rejectIfConfirmFieldNotMatch(errors, "password", "confirmPassword", passwordMatchError);
 		SpringValidatorUtils.rejectIfFieldTooShort(errors, "password", Constants.PASSWORD_MIN_LENGTH, shortPasswordError);
 		
 		String oldPassword = errors.getFieldValue("oldPassword").toString();

@@ -8,6 +8,8 @@ import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
 
+import com.ombillah.ecom4j.utils.Constants;
+
 /**
  * Domain object for Shopping Cart
  * 
@@ -24,6 +26,7 @@ public class ShoppingCart extends BaseDomain {
 
 	public ShoppingCart() {
 		items = new ArrayList<CartItem>();
+		shippingOption = Constants.STANDARD_SHIPPING;
 	}
 
 	public List<CartItem> getItems() {

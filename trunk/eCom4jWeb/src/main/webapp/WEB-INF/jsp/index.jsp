@@ -72,7 +72,7 @@
 						<span class="price">$ ${product.salePrice}</span>
 					</div>
 				</div>
-				<a href="catalog.do"><img alt="" src="images/addtocart.png" onmouseover="this.src='images/addtocart_hover.png'" onmouseout="this.src='images/addtocart.png'"></a>
+				<img alt="" src="images/addtocart.png" onmouseover="this.src='images/addtocart_hover.png'" onmouseout="this.src='images/addtocart.png'" onclick="addToCart('${product.productId }')">
 			</div>
 		</c:forEach>
 	</div>
