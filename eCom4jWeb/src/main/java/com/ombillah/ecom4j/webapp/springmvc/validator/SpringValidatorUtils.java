@@ -18,12 +18,12 @@ import com.ombillah.ecom4j.utils.Constants;
 @Component
 public class SpringValidatorUtils extends ValidationUtils {
 
-	public static void rejectIfPasswordNotMatch(Errors errors, String password, String confirmPassword, String errorCode) {
-		String passwordField = errors.getFieldValue(password).toString();
-		String confirmPasswordField = errors.getFieldValue(confirmPassword).toString();
+	public static void rejectIfConfirmFieldNotMatch(Errors errors, String first, String confirm, String errorCode) {
+		String firstField = errors.getFieldValue(first).toString();
+		String confirmField = errors.getFieldValue(confirm).toString();
 
-		if (!StringUtils.equals(passwordField, confirmPasswordField)) {
-			errors.rejectValue(password, errorCode);
+		if (!StringUtils.equals(firstField, confirmField)) {
+			errors.rejectValue(first, errorCode);
 		}
 	}
 	

@@ -29,8 +29,8 @@
 	<context:property-placeholder location="classpath:applicationConfig.properties,classpath:database.properties,classpath:securityConfig.properties"/>
 		
 	
-	<!--  redirect login url to view directly, no need for controller. -->
-	<mvc:view-controller path="/login.do" view-name="login" />
+	<!--  redirect login url to view directly, no need for controller. 
+	<mvc:view-controller path="/login.do" view-name="login" />-->
 	
 	<!-- Handles GET requests for /resources/** by efficiently serving static content 
     in the ${webappRoot}/resources dir --> 
@@ -66,17 +66,6 @@
 		<property name="basename" value="classpath:messages" />
 	</bean>  
     
-    <!-- Maps request paths to flows in the flowRegistry; e.g. a path of /cart/checkout looks for a flow with id "/cart/checkout". 
-	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
-		<property name="order" value="-1"/>
-		<property name="flowRegistry" ref="flowRegistry" />
-	</bean>
-	-->
-		<!-- Dispatches requests mapped to flows to FlowHandler implementations
-	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
-		<property name="flowExecutor" ref="flowExecutor"/>
-	</bean>
-	 -->
 	<util:list id="states" value-type="java.lang.String">
 	    <value>Alabama</value>
 	    <value>Alaska</value>

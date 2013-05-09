@@ -31,19 +31,19 @@
 		</property>
 		
 		<property name="address" type="string">
-			<column name="ADDRESS" length="100" not-null="true" />
+			<column name="ADDRESS" length="100" />
 		</property>
 
 		<property name="address2" type="string">
-			<column name="ADDRESS2" length="100" not-null="false" />
+			<column name="ADDRESS2" length="100" />
 		</property>
 		
 		<property name="city" type="string">
-			<column name="CITY" length="50" not-null="true" />
+			<column name="CITY" length="50" />
 		</property>
 		
 		<property name="state" type="string">
-			<column name="STATE" length="20" not-null="true" />
+			<column name="STATE" length="20" />
 		</property>
 		
 		<property name="zipCode" type="string">
@@ -51,7 +51,7 @@
 		</property>
 		
 		<property name="phoneNumber" type="string">
-			<column name="PHONE_NUMBER" length="20" not-null="true" />
+			<column name="PHONE_NUMBER" length="20" />
 		</property>
 	</class>
 </hibernate-mapping>

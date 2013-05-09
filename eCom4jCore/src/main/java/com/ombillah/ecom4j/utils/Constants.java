@@ -1,3 +1,4 @@
+
 package com.ombillah.ecom4j.utils;
 
 /**
@@ -20,5 +21,9 @@ public final class Constants {
 	public static final String PASSWORD_PATTERN = "^(?=.*[A-Za-z])(?=.*\\d).+$";
 	public static final int PASSWORD_MIN_LENGTH = 8;
 	public static final int UNFEATURED_PRODUCT = 0;
+	public static final String STANDARD_SHIPPING = "standard";
+	public static final String EXPRESS_SHIPPING = "express";
+	public static final Float EXPRESS_SHIPPING_COST = 19.95f;
+	public static final String GUEST_ROLE = "ROLE_GUEST";
 	
 }

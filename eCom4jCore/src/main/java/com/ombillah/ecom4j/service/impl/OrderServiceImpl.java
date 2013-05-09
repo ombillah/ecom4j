@@ -28,7 +28,7 @@ import com.ombillah.ecom4j.utils.Constants;
  * @author Oussama M Billah
  * @version 1.0
  */
-@Service
+@Service("orderService")
 @Transactional(readOnly = true)
 public class OrderServiceImpl implements OrderService {
 	

@@ -15,44 +15,22 @@ import org.apache.commons.lang.builder.ToStringStyle;
  */
 public class CustomerOrder extends BaseDomain {
 	
-	/** This attribute represents the serial Version UID. */
 	private static final long serialVersionUID = 1L;
 	
-	/** unique ID representing a customer order. */
 	private long orderID;
 	
-	/** Name of the user who placed the order. */
 	private Customer customer;
-	
-	/**
-	 * Order status. Valid values are: "New", "Cancelled", "In Process",
-	 * "Shipped".
-	 */
+	private Address shippingAddress;
+	private Address billingAddress;
 	private String status;
-	
-	/** Total cost of the order including shipping cost. */
 	private float totalCost;
-	
-	/** Date when order was placed. - DB persistance form will be in date format. */
 	private Date orderDate;
 
-	/**
-	 * Default Constructor method.
-	 */
+	
 	public CustomerOrder() {
-		// default constructor
+		//default Constructor.
 	}
 
-	/**
-	 * Explicit Constructor method. Creates a CustomerOrder with an orderID,
-	 * a customer, a status, total cost, and order date.
-	 * 
-	 * @param orderid
-	 * @param customer
-	 * @param status
-	 * @param totalcost
-	 * @param date
-	 */
 	public CustomerOrder(long orderid, Customer customer, String status,
 			float totalcost, Date date) {
 		this.orderID = orderid;
@@ -61,95 +39,59 @@ public class CustomerOrder extends BaseDomain {
 		this.totalCost = totalcost;
 		this.orderDate = date;
 	}
-
-	/**
-	 * Gets the order ID.
-	 * 
-	 * @return orderID
-	 */
+	
 	public long getOrderID() {
 		return this.orderID;
 	}
 
-	/**
-	 * Sets the order ID.
-	 * 
-	 * @param orderid
-	 */
 	public void setOrderID(long orderid) {
 		this.orderID = orderid;
 	}
 
-	/**
-	 * Gets the customer for which this order is created
-	 * 
-	 * @return customer
-	 */
 	public Customer getCustomer() {
 		return this.customer;
 	}
 
-	/**
-	 * Sets the customer for which this order is created.
-	 * 
-	 * @param customer
-	 */
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}
 
-	/**
-	 * Gets the order status.
-	 * 
-	 * @return status
-	 */
+	public Address getShippingAddress() {
+		return shippingAddress;
+	}
+
+	public void setShippingAddress(Address shippingAddress) {
+		this.shippingAddress = shippingAddress;
+	}
+
+	public Address getBillingAddress() {
+		return billingAddress;
+	}
+
+	public void setBillingAddress(Address billingAddress) {
+		this.billingAddress = billingAddress;
+	}
+
 	public String getStatus() {
 		return this.status;
 	}
 
-	/**
-	 * Sets the order status.
-	 * 
-	 * @param status
-	 */
 	public void setStatus(String status) {
 		this.status = status;
 	}
 
-	/**
-	 * Gets the total cost for the order.
-	 * 
-	 * @return totalCost
-	 */
 	public float getTotalCost() {
 		return this.totalCost;
 	}
 
-	/**
-	 * Sets the total cost for the order.
-	 * 
-	 * @param totalcost
-	 */
 	public void setTotalCost(float totalcost) {
 		this.totalCost = totalcost;
 	}
 
-	/**
-	 * Returns the order date instance variable. This method is not used
-	 * for this project.
-	 * 
-	 * @return orderDate
-	 */
 	public Date getOrderDate() {
 		return this.orderDate;
 	}
 
-	/**
-	 * Sets the order date instance variable. This method is not 
-	 * used for this project.
-	 * 
-	 * @param orderdate
-	 */
 	public void setOrderDate(Date orderdate) {
 		this.orderDate = orderdate;
 	}
@@ -179,4 +121,5 @@ public class CustomerOrder extends BaseDomain {
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this);
 	}
+	
 }

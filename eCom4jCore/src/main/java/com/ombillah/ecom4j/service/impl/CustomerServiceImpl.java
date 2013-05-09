@@ -18,7 +18,7 @@ import com.ombillah.ecom4j.service.CustomerService;
  * @author Oussama M Billah
  * @version 1.0
  */
-@Service
+@Service("customerService")
 @Transactional (readOnly = true)
 public class CustomerServiceImpl implements CustomerService {
 	

@@ -26,10 +26,11 @@
 	
 	<definition name="shoppingCart" extends="commonLayout">
 		 <put-attribute name="htmlTitle" type="string" value="Shopping Cart"/>
- 		 <put-attribute name="leftPanel" value="/WEB-INF/layout/blank.jsp"/>		 
-		 <put-attribute name="body" value="/WEB-INF/jsp/cart.jsp"/>
+ 		 <put-attribute name="leftPanel" value="/WEB-INF/layout/blank.jsp"/>
+		 <put-attribute name="body" value="cartContent"/>
 	</definition>
-
+	<definition name="cartContent" template="/WEB-INF/jsp/cart.jsp">
+	</definition>
 	
 	<definition name="register" extends="commonLayout">
 		 <put-attribute name="htmlTitle" type="string" value="ecom4j Account Registration"/>
@@ -43,7 +44,6 @@
 	</definition>
 	
 	<definition name="catalogContent" template="/WEB-INF/jsp/catalog.jsp">
-    	
 	</definition>
 
 	<definition name="login" extends="commonLayout">
@@ -62,8 +62,9 @@
 		 <put-attribute name="body" value="/WEB-INF/jsp/insertProduct.jsp"/>
 	</definition>
 
-	<definition name="showCheckout" extends="commonLayout">
+	<definition name="checkout-payment" extends="commonLayout">
 		 <put-attribute name="htmlTitle" type="string" value="Checkout"/>
+		 <put-attribute name="leftPanel" value="/WEB-INF/layout/blank.jsp"/>
 		 <put-attribute name="body" value="/WEB-INF/jsp/checkout.jsp"/>
 	</definition>
 
@@ -72,14 +73,10 @@
 		 <put-attribute name="body" value="/WEB-INF/jsp/contact.jsp"/>
 	</definition>
 	
-	<definition name="preCheckout" extends="commonLayout">
+	<definition name="checkout-login" extends="commonLayout">
 		 <put-attribute name="htmlTitle" type="string" value="Checkout Authentication"/>
 		 <put-attribute name="body" value="/WEB-INF/jsp/authentication.jsp"/>
-	</definition>
-	
-	<definition name="checkout" extends="commonLayout">
-		 <put-attribute name="htmlTitle" type="string" value="Order Confirmation"/>
-		 <put-attribute name="body" value="/WEB-INF/jsp/history.jsp"/>
+		 <put-attribute name="leftPanel" value="/WEB-INF/layout/blank.jsp"/>
 	</definition>
 	
 	<definition name="myaccount" extends="commonLayout">
