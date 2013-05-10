@@ -1229,3 +1229,6 @@ tr.spaceabove > td, tr.spaceabove > th
 		startColorstr=#FFCC00, endColorstr=#FFCC00 );
 }
 
+.gray_dropdown {
+	background:#F0F0F0;border:1px solid #e8e8e8;color:#666666
+}
