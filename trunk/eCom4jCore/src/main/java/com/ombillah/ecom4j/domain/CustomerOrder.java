@@ -14,21 +14,21 @@ import org.apache.commons.lang.builder.ToStringStyle;
  * @version 1.0
  */
 public class CustomerOrder extends BaseDomain {
-	
+
 	private static final long serialVersionUID = 1L;
-	
+
 	private long orderID;
-	
+
 	private Customer customer;
 	private Address shippingAddress;
 	private Address billingAddress;
+	private CreditCard paymentCard;
 	private String status;
 	private float totalCost;
 	private Date orderDate;
 
-	
 	public CustomerOrder() {
-		//default Constructor.
+		// default Constructor.
 	}
 
 	public CustomerOrder(long orderid, Customer customer, String status,
@@ -39,7 +39,7 @@ public class CustomerOrder extends BaseDomain {
 		this.totalCost = totalcost;
 		this.orderDate = date;
 	}
-	
+
 	public long getOrderID() {
 		return this.orderID;
 	}
@@ -72,6 +72,14 @@ public class CustomerOrder extends BaseDomain {
 		this.billingAddress = billingAddress;
 	}
 
+	public CreditCard getPaymentCard() {
+		return paymentCard;
+	}
+
+	public void setPaymentCard(CreditCard paymentCard) {
+		this.paymentCard = paymentCard;
+	}
+
 	public String getStatus() {
 		return this.status;
 	}
@@ -95,7 +103,7 @@ public class CustomerOrder extends BaseDomain {
 	public void setOrderDate(Date orderdate) {
 		this.orderDate = orderdate;
 	}
-	
+
 	/**
 	 * @see java.lang.Object#equals(Object)
 	 */
@@ -107,13 +115,16 @@ public class CustomerOrder extends BaseDomain {
 
 		return EqualsBuilder.reflectionEquals(this, object);
 	}
+
 	/**
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return ToStringBuilder.reflectionToString(this,ToStringStyle.DEFAULT_STYLE);
+		return ToStringBuilder.reflectionToString(this,
+				ToStringStyle.DEFAULT_STYLE);
 	}
+
 	/**
 	 * @see java.lang.Object#hashCode()
 	 */
@@ -121,5 +132,5 @@ public class CustomerOrder extends BaseDomain {
 	public int hashCode() {
 		return HashCodeBuilder.reflectionHashCode(this);
 	}
-	
+
 }

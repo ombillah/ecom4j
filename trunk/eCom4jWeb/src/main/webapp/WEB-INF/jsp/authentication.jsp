@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <script>
 
@@ -36,7 +37,10 @@ $(document).ready(function() {
    			<a class="simple_anchor" href="viewcart.do" style="margin-left:10px">Modify your Cart</a> 
    		</div>
  		<div class="floatR">
-   			<b>Order Total = </b><span class="price">$ ${ sessionScope.shoppingCart.total }</span> 
+   			<b>Order Total = </b>
+   			<span class="price"> 
+   				$ <fmt:formatNumber type="number" maxFractionDigits="3" value="${sessionScope.shoppingCart.total }" /> 
+			</span> 
    		</div>
    	</div>
    	
