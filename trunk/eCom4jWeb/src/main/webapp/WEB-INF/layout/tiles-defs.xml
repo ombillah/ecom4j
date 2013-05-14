@@ -79,6 +79,11 @@
 		 <put-attribute name="leftPanel" value="/WEB-INF/layout/blank.jsp"/>
 	</definition>
 	
+	<definition name="checkout-confirm" extends="commonLayout">
+		 <put-attribute name="htmlTitle" type="string" value="Order Confirmation"/>
+		 <put-attribute name="body" value="/WEB-INF/jsp/checkout-confirm.jsp"/>
+		 <put-attribute name="leftPanel" value="/WEB-INF/layout/blank.jsp"/>
+	</definition>
 	<definition name="myaccount" extends="commonLayout">
 		 <put-attribute name="htmlTitle" type="string" value="My Account"/>
 		 <put-attribute name="body" value="/WEB-INF/jsp/myaccount.jsp"/>

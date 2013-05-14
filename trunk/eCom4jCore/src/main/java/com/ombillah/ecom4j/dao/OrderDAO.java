@@ -28,5 +28,7 @@ public interface OrderDAO extends BaseDAO<CustomerOrder> {
 	 * @return the list of orders associated with a given Customer
 	 */
 	public List<CustomerOrder> getOrderByUserName(String email);
+	
+	public Long getMaxId();
 
 }

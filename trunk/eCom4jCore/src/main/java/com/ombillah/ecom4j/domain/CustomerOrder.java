@@ -18,7 +18,7 @@ public class CustomerOrder extends BaseDomain {
 	private static final long serialVersionUID = 1L;
 
 	private long orderID;
-
+	private ShoppingCart cart;
 	private Customer customer;
 	private Address shippingAddress;
 	private Address billingAddress;
@@ -46,6 +46,14 @@ public class CustomerOrder extends BaseDomain {
 
 	public void setOrderID(long orderid) {
 		this.orderID = orderid;
+	}
+
+	public ShoppingCart getCart() {
+		return cart;
+	}
+
+	public void setCart(ShoppingCart cart) {
+		this.cart = cart;
 	}
 
 	public Customer getCustomer() {

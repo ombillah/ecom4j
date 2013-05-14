@@ -28,5 +28,7 @@ public interface BaseDAO<T> {
 	public void removeObject(Class<T> clazz, Serializable id);
 
 	public Integer getRowCount(Class<T> clazz);
+	
+	public Long getMaxId(Class<T> clazz, String id);
 
 }

@@ -3,7 +3,6 @@ package com.ombillah.ecom4j.service.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.ombillah.ecom4j.dao.CustomerDAO;
 import com.ombillah.ecom4j.dao.OrderDAO;
-import com.ombillah.ecom4j.dao.OrderItemDAO;
 import com.ombillah.ecom4j.domain.CartItem;
 import com.ombillah.ecom4j.domain.Customer;
 import com.ombillah.ecom4j.domain.CustomerOrder;
@@ -20,7 +18,6 @@ import com.ombillah.ecom4j.domain.Product;
 import com.ombillah.ecom4j.domain.ShoppingCart;
 import com.ombillah.ecom4j.exception.OrderNotFoundException;
 import com.ombillah.ecom4j.service.OrderService;
-import com.ombillah.ecom4j.utils.Constants;
 
 /**
  * Order BO Class that provides all the services related to an Order.
@@ -36,8 +33,6 @@ public class OrderServiceImpl implements OrderService {
 	private OrderDAO orderDao;
 	@Autowired
 	private  CustomerDAO customerDao;
-	@Autowired
-	private OrderItemDAO orderItemDao;
 
 	/**
 	 * Returns all the orders that the customer has placed based on the given
@@ -85,39 +80,24 @@ public class OrderServiceImpl implements OrderService {
 	 * Check Out function.
 	 */
 	@Transactional (readOnly = false)
-	public void checkout(ShoppingCart cart, String email) throws Exception {
+	public Long checkout(ShoppingCart cart, String email) throws Exception {
 		List<CartItem> list = cart.getItems();
 		List<OrderItem> items = new ArrayList<OrderItem>();
 		long orderId = generateOrderId();
 		CustomerOrder order = new CustomerOrder(orderId, customerDao.getObject(Customer.class, email), "IN PROCESS",
 				cart.getTotal(), new Date());
 		for (CartItem item : list) {
-			long itemId = generateItemId();
 			Product product = item.getProduct();
-			OrderItem orderItem = new OrderItem(itemId, product, order);
+			OrderItem orderItem = new OrderItem(null, product, order);
 			items.add(orderItem);
 		}
 		orderDao.createDBOrder(order, items);
+		return orderId;
 	}
 
-	private long generateOrderId() throws Exception {
-		Random random = new Random();
-		long orderId = random.nextInt(Constants.ORDER_NBR_LIMIT);
-		if (orderDao.getObject(CustomerOrder.class, orderId) == null) {
-			return orderId;
-		} else {
-			return generateOrderId();
-		}
-	}
-
-	private long generateItemId() throws Exception {
-		Random random = new Random();
-		long itemId = random.nextInt(Constants.ORDER_NBR_LIMIT);
-		if (orderItemDao.getObject(OrderItem.class, itemId) == null) {
-			return itemId;
-		} else {
-			return generateItemId();
-		}
+	private Long generateOrderId() throws Exception {
+		Long maxOrderId = orderDao.getMaxId(CustomerOrder.class, "orderID");
+		return maxOrderId + 1;
 	}
 	
 	
@@ -137,11 +117,4 @@ public class OrderServiceImpl implements OrderService {
 		this.customerDao = customerDao;
 	}
 	
-	/**
-	 * setter to be used for Mocking.
-	 * @param orderItemDao
-	 */
-	public void setOrderItemDao(OrderItemDAO orderItemDao) {
-		this.orderItemDao = orderItemDao;
-	}
 }

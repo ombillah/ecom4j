@@ -3,10 +3,13 @@ package com.ombillah.ecom4j.dao.hibernate;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ombillah.ecom4j.dao.OrderDAO;
+import com.ombillah.ecom4j.dao.OrderItemDAO;
 import com.ombillah.ecom4j.domain.CustomerOrder;
 import com.ombillah.ecom4j.domain.OrderItem;
 
@@ -18,6 +21,8 @@ import com.ombillah.ecom4j.domain.OrderItem;
 @Repository
 public class OrderDAOHibernate extends BaseDAOHibernate<CustomerOrder> implements OrderDAO {
 
+	@Autowired
+	private OrderItemDAO orderItemDao;
 	
 	/**
 	 * Creates a new Customer order in Database.
@@ -28,6 +33,8 @@ public class OrderDAOHibernate extends BaseDAOHibernate<CustomerOrder> implement
 	public void createDBOrder(CustomerOrder order, List<OrderItem> orderItems) {
 		getSession().save(order);
 		for (OrderItem item : orderItems) {
+			Long id = orderItemDao.getMaxId(OrderItem.class, "itemID");
+			item.setItemID(id + 1);
 			getSession().save(item);
 		}
 		getSession().flush();
@@ -45,6 +52,17 @@ public class OrderDAOHibernate extends BaseDAOHibernate<CustomerOrder> implement
 		criteria.add(Restrictions.eq("customer.emailAddress", email));
 		List<CustomerOrder> list = criteria.list();
 		return list;
+	}
+
+	public Long getMaxId() {
+		
+		Criteria criteria = getSession()
+			    .createCriteria(CustomerOrder.class)
+			    .setProjection(Projections.max("age"));
+		
+		Long maxId = (Long) criteria.uniqueResult();
+		
+		return maxId;
 	}
 
 }
