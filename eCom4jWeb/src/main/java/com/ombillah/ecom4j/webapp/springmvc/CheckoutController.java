@@ -1,7 +1,9 @@
 package com.ombillah.ecom4j.webapp.springmvc;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -23,12 +25,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 
 import com.ombillah.ecom4j.domain.Customer;
 import com.ombillah.ecom4j.domain.CustomerOrder;
 import com.ombillah.ecom4j.domain.ShoppingCart;
 import com.ombillah.ecom4j.service.CustomerService;
+import com.ombillah.ecom4j.service.OrderService;
 import com.ombillah.ecom4j.utils.Constants;
+import com.ombillah.ecom4j.webapp.security.SpringSecurityUtils;
 import com.ombillah.ecom4j.webapp.springmvc.validator.SpringValidatorUtils;
 
 /**
@@ -45,6 +50,12 @@ public class CheckoutController {
 	
 	@Resource(name="customerService")
 	private CustomerService customerService;
+	
+	@Resource(name="states")
+	private List<String> states;
+	
+	@Resource(name="orderService")
+	private OrderService orderService;
 	
 	@RequestMapping(value = "checkout-login.do",  method = RequestMethod.GET)
 	public String checkout(@ModelAttribute("customer") Customer customer) {
@@ -143,8 +154,11 @@ public class CheckoutController {
 
 	
 	@RequestMapping(value = "checkout-payment.do",  method = RequestMethod.GET)
-	public String checkout(@ModelAttribute("shoppingCart") ShoppingCart cart,
+	public String checkout(
+			@ModelAttribute("states") ArrayList<String> states,
 			@ModelAttribute("order") CustomerOrder order) {
+		
+		states.addAll(this.states);
 		
 		return "checkout-payment";
 	}
@@ -166,5 +180,67 @@ public class CheckoutController {
 		SecurityContextHolder.getContext().setAuthentication(guestUser);
 	    request.getSession().setAttribute(HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY,
 	            SecurityContextHolder.getContext());
+	}
+	
+	@RequestMapping(value = "checkout-confirm.do",  method = RequestMethod.POST)
+	public String confirmCheckout(
+			@ModelAttribute("order") CustomerOrder order,
+			Errors errors,
+			@ModelAttribute("shoppingCart") ShoppingCart cart,
+			@ModelAttribute("states") ArrayList<String> states,
+			Principal principal,
+			SessionStatus status) throws Exception {
+		
+		order.setCart(cart);
+		states.addAll(this.states);
+		validateCheckoutConfirmationForm(errors);
+		
+		if (errors.hasErrors()) {
+		    return "checkout-payment";
+		}
+		
+	    String userName = principal.getName();
+	    Customer customer = SpringSecurityUtils.getAuthenticatedUser();
+	    updateCustomerInfoIfNewRegistration(order, customer);
+		Long orderId = orderService.checkout(cart, userName);
+		order.setOrderID(orderId);
+		status.setComplete();
+		
+		return "checkout-confirm";
+	}
+
+	private void updateCustomerInfoIfNewRegistration(CustomerOrder order, Customer customer) {
+		if(customer.getFirstName() == null) {
+	    	customer.setFirstName(order.getBillingAddress().getFirstName());
+	    	customer.setLastName(order.getBillingAddress().getLastName());
+	    	customer.setAddress(order.getBillingAddress().getStreetAddress());
+	    	customer.setAddress2(order.getBillingAddress().getAddressLine2());
+	    	customer.setCity(order.getBillingAddress().getCity());
+	    	customer.setState(order.getBillingAddress().getState());
+	    	customer.setZipCode(order.getBillingAddress().getZipCode());
+	    	customer.setPhoneNumber(order.getBillingAddress().getTelephone());
+	    	customerService.updateCustomer(customer);
+	    }
+	}
+
+	private void validateCheckoutConfirmationForm(Errors errors) {
+	    
+		SpringValidatorUtils.rejectIfEmptyOrWhitespace(errors, "billingAddress.firstName", "NotEmpty.customer.firstName");
+		SpringValidatorUtils.rejectIfEmptyOrWhitespace(errors, "billingAddress.lastName", "NotEmpty.customer.lastName");
+		SpringValidatorUtils.rejectIfEmptyOrWhitespace(errors, "billingAddress.streetAddress", "NotEmpty.customer.address");
+		SpringValidatorUtils.rejectIfEmptyOrWhitespace(errors, "billingAddress.city", "NotEmpty.customer.city");
+		SpringValidatorUtils.rejectIfEmptyOrWhitespace(errors, "billingAddress.state", "NotEmpty.customer.state");
+		SpringValidatorUtils.rejectIfEmptyOrWhitespace(errors, "billingAddress.zipCode", "NotEmpty.customer.zipCode");
+		SpringValidatorUtils.rejectIfEmptyOrWhitespace(errors, "billingAddress.emailAddress", "NotEmpty.customer.emailAddress");
+
+		SpringValidatorUtils.rejectIfEmptyOrWhitespace(errors, "shippingAddress.firstName", "NotEmpty.customer.firstName");
+		SpringValidatorUtils.rejectIfEmptyOrWhitespace(errors, "shippingAddress.lastName", "NotEmpty.customer.lastName");
+		SpringValidatorUtils.rejectIfEmptyOrWhitespace(errors, "shippingAddress.streetAddress", "NotEmpty.customer.address");
+		SpringValidatorUtils.rejectIfEmptyOrWhitespace(errors, "shippingAddress.city", "NotEmpty.customer.city");
+		SpringValidatorUtils.rejectIfEmptyOrWhitespace(errors, "shippingAddress.state", "NotEmpty.customer.state");
+		SpringValidatorUtils.rejectIfEmptyOrWhitespace(errors, "shippingAddress.zipCode", "NotEmpty.customer.zipCode");
+		SpringValidatorUtils.rejectIfEmptyOrWhitespace(errors, "shippingAddress.emailAddress", "NotEmpty.customer.emailAddress");
+		
+		
 	}
 }

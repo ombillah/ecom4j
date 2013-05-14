@@ -73,5 +73,16 @@ public abstract class BaseDAOHibernate<T> implements BaseDAO<T> {
 		Integer rowCount = (Integer) criteria.uniqueResult();
 		return rowCount;
 	}
+	
+	public Long getMaxId(Class<T> clazz, String id) {
+		
+		Criteria criteria = getSession()
+			    .createCriteria(clazz)
+			    .setProjection(Projections.max(id));
+		
+		Long maxId = (Long) criteria.uniqueResult();
+		
+		return maxId;
+	}
 
 }

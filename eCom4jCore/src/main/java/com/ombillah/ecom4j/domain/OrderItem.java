@@ -16,16 +16,9 @@ public class OrderItem extends  BaseDomain {
 	/** This attribute represents the serial Version UID. */
 	private static final long serialVersionUID = 1L;
 	
-	/** unique ID representing order item. */
-	private long itemID;
-	
-	/** Product which is ordered for this order item. */
+	private Long itemID;
 	private Product product;
-	
-	/** Order of which this order item is part of. */
 	private CustomerOrder customerOrder;
-	
-	/** quantity ordered for the item. */
 	private long quantity;
 	
 	/**
@@ -43,7 +36,7 @@ public class OrderItem extends  BaseDomain {
 	 * @param product
 	 * @param customerorder
 	 */
-	public OrderItem(long itemid, Product product, CustomerOrder customerorder) {
+	public OrderItem(Long itemid, Product product, CustomerOrder customerorder) {
 		this.itemID = itemid;
 		this.product = product;
 		this.customerOrder = customerorder;
@@ -58,7 +51,7 @@ public class OrderItem extends  BaseDomain {
 	 * @param customerorder
 	 * @param quantity
 	 */
-	public OrderItem(long itemid, Product product,
+	public OrderItem(Long itemid, Product product,
 			CustomerOrder customerorder, long quantity) {
 		this.itemID = itemid;
 		this.product = product;
@@ -66,78 +59,34 @@ public class OrderItem extends  BaseDomain {
 		this.quantity = quantity;
 	}
 	
-	/**
-	 * Gets Order Item ID.
-	 *  
-	 * @return itemID
-	 */
-	public long getItemID() {
+	public Long getItemID() {
 		return this.itemID;
 	}
 	
-	/**
-	 * Sets Order Item ID. This method is not used for this project.
-	 * 
-	 * @param itemid
-	 */
-	@SuppressWarnings("unused")
-	private void setItemID(long itemid) {
+	public void setItemID(Long itemid) {
 		this.itemID = itemid;
 	}
 
-	/**
-	 * Gets the Product associated with the order Item.
-	 * 
-	 * @return product
-	 */
 	public Product getProduct() {
 		return this.product;
 	}
 	
-	/**
-	 * Sets the Product associated with the order Item. This method
-	 * is not used for this project.
-	 * 
-	 * @param product
-	 */
-	@SuppressWarnings("unused")
-	private void setProduct(Product product) {
+	public void setProduct(Product product) {
 		this.product = product;
 	}
 	
-	/**
-	 * Gets the Order of which this order item is part of.
-	 * 
-	 * @return customerOrder
-	 */
 	public CustomerOrder getCustomerOrder() {
 		return this.customerOrder;
 	}
 	
-	/**
-	 * Sets the Order of which this order item is part of. This method is 
-	 * not used for this project.
-	 * 
-	 * @param customerorder
-	 */
-	@SuppressWarnings("unused")
-	private void setCustomerOrder(CustomerOrder customerorder) {
+	public void setCustomerOrder(CustomerOrder customerorder) {
 		this.customerOrder = customerorder;
 	}
 	
-	/**
-	 * Gets the quantity order for an order item.
-	 * 
-	 * @return quantity
-	 */
 	public long getQuantity() {
 		return this.quantity;
 	}
 	
-	/**
-	 * Sets the Quantity for order item 
-	 * @param quantity
-	 */
 	public void setQuantity(long quantity) {
 		this.quantity = quantity;
 	}

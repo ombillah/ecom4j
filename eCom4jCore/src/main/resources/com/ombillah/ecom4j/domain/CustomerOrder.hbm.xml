@@ -5,7 +5,7 @@
 <hibernate-mapping>
     <class name="com.ombillah.ecom4j.domain.CustomerOrder" table="CUSTOMERORDER">
         <id name="orderID" type="long">
-            <column name="ORDERID" length="50" />
+            <column name="ORDER_ID" length="50" />
         </id>
         <many-to-one name="customer" class="com.ombillah.ecom4j.domain.Customer" fetch="select">
             <column name="EMAIL_ADDRESS" length="100" not-null="true" />
