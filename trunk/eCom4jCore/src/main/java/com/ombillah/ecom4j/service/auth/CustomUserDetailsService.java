@@ -54,7 +54,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 			return userDetails;
 			
 		} catch (Exception e) {
-			throw new RuntimeException(e);
+			throw new UsernameNotFoundException(e.getMessage());
 		}
 	}
 	

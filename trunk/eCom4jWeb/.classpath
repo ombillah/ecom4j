@@ -74,7 +74,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="target/eCom4jWeb-1.0.0-SNAPSHOT/WEB-INF/lib/com.springsource.org.aspectj.weaver-1.6.8.RELEASE.jar">
+	<classpathentry kind="lib" path="target/eCom4jWeb-1.0.0-SNAPSHOT/WEB-INF/lib/com.springsource.org.aspectj.weaver-1.6.8.RELEASE.jar" sourcepath="/aspectjweaver">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
@@ -84,7 +84,7 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="target/eCom4jWeb-1.0.0-SNAPSHOT/WEB-INF/lib/com.springsource.org.hibernate-3.3.2.GA.jar">
+	<classpathentry kind="lib" path="target/eCom4jWeb-1.0.0-SNAPSHOT/WEB-INF/lib/com.springsource.org.hibernate-3.3.2.GA.jar" sourcepath="C:/Users/user/Downloads/Compressed/hibernate-3.2.6.ga-sources.jar/hibernate-3.2.6.ga-sources.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>

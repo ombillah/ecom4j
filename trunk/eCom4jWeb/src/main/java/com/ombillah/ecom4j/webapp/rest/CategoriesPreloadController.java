@@ -6,7 +6,10 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.dozer.Mapper;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -25,7 +28,7 @@ import com.ombillah.ecom4j.service.ProductService;
  * @author Oussama.
  *
  */
-//@Controller
+@Controller
 @RequestMapping(value="/rest/admin")
 public class CategoriesPreloadController {
 	
@@ -40,6 +43,8 @@ public class CategoriesPreloadController {
 	
 	@Resource(name="mapper")
 	private Mapper mapper;
+	
+	private static final Log LOG = LogFactory.getLog(CategoriesPreloadController.class);
 	
 	private static final Integer BATCH_SIZE = 100;
 	private static final Integer BATCH_WAIT_TIME = 250;
@@ -106,7 +111,7 @@ public class CategoriesPreloadController {
 		try {
 			Thread.sleep(BATCH_WAIT_TIME);
 		} catch (InterruptedException e) {
-			e.printStackTrace();
+			LOG.error("Exception in Thread sleep", e);
 		}
 	}
 }

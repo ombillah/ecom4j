@@ -83,8 +83,7 @@ public class OrderServiceImpl implements OrderService {
 	public Long checkout(ShoppingCart cart, String email) throws Exception {
 		List<CartItem> list = cart.getItems();
 		List<OrderItem> items = new ArrayList<OrderItem>();
-		long orderId = generateOrderId();
-		CustomerOrder order = new CustomerOrder(orderId, customerDao.getObject(Customer.class, email), "IN PROCESS",
+		CustomerOrder order = new CustomerOrder(customerDao.getObject(Customer.class, email), "IN PROCESS",
 				cart.getTotal(), new Date());
 		for (CartItem item : list) {
 			Product product = item.getProduct();
@@ -92,13 +91,9 @@ public class OrderServiceImpl implements OrderService {
 			items.add(orderItem);
 		}
 		orderDao.createDBOrder(order, items);
-		return orderId;
+		return order.getOrderID();
 	}
 
-	private Long generateOrderId() throws Exception {
-		Long maxOrderId = orderDao.getMaxId(CustomerOrder.class, "orderID");
-		return maxOrderId + 1;
-	}
 	
 	
 	/**

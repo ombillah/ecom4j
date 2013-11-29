@@ -9,12 +9,15 @@
 function switchToRegister() {
 	$("#guest_checkout").css("display", "none");
 	$("#register_box").css("display", "block");
+	$(".center_content").css("height", "1300px");
+	
 
 }
 
 function switchToGuest() {
 	$("#register_box").css("display", "none");
 	$("#guest_checkout").css("display", "block");
+	$(".center_content").css("height", "600px");
 
 }
 
@@ -23,6 +26,7 @@ $(document).ready(function() {
 	  if ($pathname.indexOf("checkout-register") > 0) {
 		  $("#guest_checkout").css("display", "none");
 		  $("#register_box").css("display", "block");
+		  $(".center_content").css("height", "1300px");
 	  }
 });
 </script>
@@ -100,6 +104,12 @@ $(document).ready(function() {
 				    <form:errors path="confirmEmailAddress" element="li" />
 				    <form:errors path="password" element="li"/>
 				    <form:errors path="confirmPassword" element="li"/>
+				    <form:errors path="firstName" element="li"/>
+				    <form:errors path="lastName" element="li" />
+				    <form:errors path="address" element="li"/>
+				    <form:errors path="city" element="li"/>
+				    <form:errors path="state" element="li"/>
+				    <form:errors path="zipCode" element="li"/>
 				    <form:errors path="secretQuestion" element="li"/>
 				    <form:errors path="secretAnswer" element="li"/>
 				    <form:errors  path="" element="li" />
@@ -133,32 +143,80 @@ $(document).ready(function() {
 		          	<tr>
 		          		<td style="padding:5px"></td>
 		          	</tr>
-		          	<tr>
-		          		<td width="150" align="right">Security Question *</td>
-		          		<td  align="left">
-		          			<form:select path="secretQuestion" cssStyle="background:#F0F0F0" >
-							  <form:option  value="What was your childhood nickname?">What was your childhood nickname?</form:option>
-							  <form:option value="What street did you live on in third grade?">What street did you live on in third grade?</form:option>
-							  <form:option value="In what city or town was your first job?">In what city or town was your first job?</form:option>
-							  <form:option value="What school did you attend for sixth grade?">What school did you attend for sixth grade?</form:option>
-							  <form:option value="In what city or town did your mother and father meet? ">In what city or town did your mother and father meet? </form:option>
-							</form:select> 
-						</td>
-		          	</tr>
-		          	<tr>
-		          		<td colspan="2" width="350" align="left" style="padding-right:0px;"><span style="color:red;font-weight:bold">Note:</span> Security Question is used to reset password.</td>
-		          	</tr>
-		          	<tr>
-		          		<td width="150" align="right">Security Answer *</td>
-		          		<td  align="left"><form:input path="secretAnswer" size="50" cssStyle="background:#F0F0F0" /></td>
-		          	</tr>
-		          	<tr>
-	          		<td align="center" colspan=2 >
-	          			<input type="submit"  class="gradient_button" value="Create account" />
-	          			<input type="button"  class="gradient_button" value="Checkout as guest" onClick="switchToGuest()" />
-	          		</td>
-	          		
-	          	</tr>
+		          	
+			          	<tr>
+			          		<td width="200" align="right">First Name *</td>
+			          		<td width="250" align="left"><form:input path="firstName" size="50" cssStyle="background:#F0F0F0"  /></td>
+			          		<td width="350" align="left"></td>
+			          	</tr>
+			          	<tr>
+			          		<td width="200" align="right">Last Name *</td>
+			          		<td width="250" align="left"><form:input path="lastName" size="50" cssStyle="background:#F0F0F0"  /></td>
+			          		<td width="350" align="left"></td>
+			          	</tr>
+			          	<tr>
+			          		<td width="200" align="right">Street Address *</td>
+			          		<td width="250" align="left"><form:input path="address" size="50" cssStyle="background:#F0F0F0"  /></td>
+			          		<td width="350" align="left"></td>
+			          	</tr>
+			          	<tr>
+			          		<td width="200" align="right">Address 2</td>
+			          		<td width="250" align="left"><form:input path="address2" size="50" cssStyle="background:#F0F0F0"  /></td>
+			          		<td width="350" align="left"></td>
+			          	</tr>
+			          	<tr>
+			          		<td width="200" align="right">City *</td>
+			          		<td width="250" align="left"><form:input path="city" size="50" cssStyle="background:#F0F0F0"  /></td>
+			          		<td width="350" align="left"></td>
+			          	</tr>
+			          	<tr>
+			          		<td width="200" align="right">State *</td>
+			          		<td width="250" align="left">
+								<form:select path="state" cssStyle="background:#F0F0F0" >
+								  <form:option  value="">Select a State</form:option>
+								  <form:options items="${states }"/>
+								</form:select> 
+							</td>
+			          		<td width="350" align="left"></td>
+			          	</tr>
+			          	<tr>
+			          		<td width="200" align="right">Zip Code *</td>
+			          		<td width="250" align="left"><form:input path="zipCode" size="10"  cssStyle="background:#F0F0F0"  /></td>
+			          		<td width="350" align="left"></td>
+			          	</tr>
+			          	<tr>
+			          		<td width="200" align="right">Phone Number</td>
+			          		<td width="250" align="left"><form:input path="phoneNumber" size="20" cssStyle="background:#F0F0F0"  /></td>
+			          		<td width="350" align="left"></td>
+			          	</tr>
+			          	<tr>
+			          		<td style="padding:5px"></td>
+			          	</tr>
+			          	<tr>
+			          		<td width="150" align="right">Security Question *</td>
+			          		<td  align="left">
+			          			<form:select path="secretQuestion" cssStyle="background:#F0F0F0" >
+								  <form:option  value="What was your childhood nickname?">What was your childhood nickname?</form:option>
+								  <form:option value="What street did you live on in third grade?">What street did you live on in third grade?</form:option>
+								  <form:option value="In what city or town was your first job?">In what city or town was your first job?</form:option>
+								  <form:option value="What school did you attend for sixth grade?">What school did you attend for sixth grade?</form:option>
+								  <form:option value="In what city or town did your mother and father meet? ">In what city or town did your mother and father meet? </form:option>
+								</form:select> 
+							</td>
+			          	</tr>
+			          	<tr>
+			          		<td colspan="2" width="350" align="left" style="padding-right:0px;"><span style="color:red;font-weight:bold">Note:</span> Security Question is used to reset password.</td>
+			          	</tr>
+			          	<tr>
+			          		<td width="150" align="right">Security Answer *</td>
+			          		<td  align="left"><form:input path="secretAnswer" size="50" cssStyle="background:#F0F0F0" /></td>
+			          	</tr>
+			          	<tr>
+		          		<td align="center" colspan=2 >
+		          			<input type="submit"  class="gradient_button" value="Create account" />
+		          			<input type="button"  class="gradient_button" value="Checkout as guest" onClick="switchToGuest()" />
+		          		</td>
+	          			</tr>
 		          </table>
 		          
 		        </form:form>

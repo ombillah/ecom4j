@@ -79,7 +79,7 @@ $(document).ready(function() {
 				</c:otherwise>
 			</c:choose>
 		</div>
-		<img alt="" src="images/addtocart.png" onmouseover="this.src='images/addtocart_hover.png'" onmouseout="this.src='images/addtocart.png'" onclick="addToCart('${remixProduct.productId }')">
+		<img alt="" src="images/addtocart.png" onmouseover="this.src='images/addtocart_hover.png'" onmouseout="this.src='images/addtocart.png'" onclick="addToCart('${param.productId}')">
 	</div>
 </div>
 

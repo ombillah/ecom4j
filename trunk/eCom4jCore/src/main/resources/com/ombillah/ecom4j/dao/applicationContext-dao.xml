@@ -25,5 +25,6 @@
 		p:url="${jdbc.url}" 
 		p:username="${jdbc.username}" 
 		p:password="${jdbc.password}" 
+		p:validationQuery="SELECT 1"
 	/>
 </beans>
