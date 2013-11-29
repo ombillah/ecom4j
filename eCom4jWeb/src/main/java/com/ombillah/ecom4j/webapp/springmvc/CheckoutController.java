@@ -58,8 +58,9 @@ public class CheckoutController {
 	private OrderService orderService;
 	
 	@RequestMapping(value = "checkout-login.do",  method = RequestMethod.GET)
-	public String checkout(@ModelAttribute("customer") Customer customer) {
-		
+	public String checkout(@ModelAttribute("customer") Customer customer,
+			@ModelAttribute("states") ArrayList<String> states) {
+		states.addAll(this.states);
 		return "checkout-login";
 	}
 	
@@ -84,8 +85,10 @@ public class CheckoutController {
 	public String checkoutRegister(
 			@ModelAttribute("customer") Customer customer,
 			Errors errors,
+			@ModelAttribute("states") ArrayList<String> states,
 			HttpServletRequest request) {
 		
+		states.addAll(this.states);
 		validateCheckoutRegistrationForm(errors);
 		
 		if (errors.hasErrors()) {
@@ -121,6 +124,13 @@ public class CheckoutController {
 		String invalidPasswordError = "Pattern.customer.password";
 		String shortPasswordError = "Length.customer.password";
 		String emptySecurityAnswerField = "NotEmpty.customer.secretAnswer";
+		String emptyFirstNameField = "NotEmpty.customer.firstName";
+		String emptyLastNameField = "NotEmpty.customer.lastName";
+		String emptyAddressField = "NotEmpty.customer.address";
+		String emptyCityField = "NotEmpty.customer.city";
+		String emptyStateField = "NotEmpty.customer.state";
+		String emptyZipField = "NotEmpty.customer.zipCode";
+		
 	    
 		SpringValidatorUtils.rejectIfEmptyOrWhitespace(errors, "emailAddress", invalidEmailAddressError);
 		SpringValidatorUtils.rejectIfEmptyOrWhitespace(errors, "confirmEmailAddress", invalidConfirmEmailAddressError);
@@ -129,6 +139,12 @@ public class CheckoutController {
 		SpringValidatorUtils.rejectIfConfirmFieldNotMatch(errors, "password", "confirmPassword", passwordMatchError);
 		SpringValidatorUtils.rejectIfFieldTooShort(errors, "password", Constants.PASSWORD_MIN_LENGTH, shortPasswordError);
 	    SpringValidatorUtils.rejectIfEmpty(errors, "secretAnswer", emptySecurityAnswerField);
+	    SpringValidatorUtils.rejectIfEmpty(errors, "firstName", emptyFirstNameField);
+	    SpringValidatorUtils.rejectIfEmpty(errors, "lastName", emptyLastNameField);
+	    SpringValidatorUtils.rejectIfEmpty(errors, "address", emptyAddressField);
+	    SpringValidatorUtils.rejectIfEmpty(errors, "city", emptyCityField);
+	    SpringValidatorUtils.rejectIfEmpty(errors, "state", emptyStateField);
+	    SpringValidatorUtils.rejectIfEmpty(errors, "zipCode", emptyZipField);
 		
 		String emailAddress = errors.getFieldValue("emailAddress").toString();
 		Customer customer = customerService.getCustomer(emailAddress);

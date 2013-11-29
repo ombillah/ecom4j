@@ -31,9 +31,8 @@ public class CustomerOrder extends BaseDomain {
 		// default Constructor.
 	}
 
-	public CustomerOrder(long orderid, Customer customer, String status,
+	public CustomerOrder(Customer customer, String status,
 			float totalcost, Date date) {
-		this.orderID = orderid;
 		this.customer = customer;
 		this.status = status;
 		this.totalCost = totalcost;

@@ -48,10 +48,22 @@
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<inherited>true</inherited>
 				<artifactId>maven-pmd-plugin</artifactId>
+				<version>3.0.1</version>
 				<configuration>
-					<targetJdk>1.5</targetJdk>
+					<targetJdk>1.6</targetJdk>
+					<linkXref>false</linkXref>
+					<failOnViolation>true</failOnViolation>
+					<minimumPriority>5</minimumPriority>
+					<verbose>true</verbose>
+					<aggregate>true</aggregate>
+					<consoleOutput>true</consoleOutput>
+					<rulesets>
+						<ruleset>../eCom4jParent/pmd_rules.xml</ruleset>
+					</rulesets>
+					<excludes>
+						<exclude>**/*Test.java</exclude>
+					</excludes>
 				</configuration>
 				<executions>
 					<execution>
@@ -60,19 +72,6 @@
 						<goals>
 							<goal>check</goal>
 						</goals>
-						<configuration>
-							<!-- Set the priority on which you want to let the build fail! -->
-							<minimumPriority>5</minimumPriority>
-							<rulesets>
-								<ruleset>../eCom4jParent/pmd_rules.xml</ruleset>
-							</rulesets>
-							<excludes>
-								<exclude>**/*Test.java</exclude>
-							</excludes>
-							<verbose>true</verbose>
-							<aggregate>true</aggregate>
-							<consoleOutput>true</consoleOutput>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>

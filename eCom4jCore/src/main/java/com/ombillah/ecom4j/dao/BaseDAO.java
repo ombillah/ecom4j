@@ -29,6 +29,4 @@ public interface BaseDAO<T> {
 
 	public Integer getRowCount(Class<T> clazz);
 	
-	public Long getMaxId(Class<T> clazz, String id);
-
 }

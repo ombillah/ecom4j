@@ -6,7 +6,7 @@
     <class name="com.ombillah.ecom4j.domain.OrderItem" table="ORDERITEM">
         <id name="itemID" type="long">
             <column name="ITEM_ID" length="50" />
-            <generator class="assigned" />
+            <generator class="identity"/>
         </id>
         
         <many-to-one name="product" class="com.ombillah.ecom4j.domain.Product" fetch="select">
